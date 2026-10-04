@@ -1,0 +1,41 @@
+node_modules
+# dependencies
+/node_modules
+/.pnpm
+/.yarn
+/pnpm-lock.yaml
+/yarn.lock
+
+# Next.js build output
+/.next/
+/out/
+
+# Production / Build files
+/build
+/dist
+
+# Environment variables (এগুলো সিক্রেট তথ্য ধারণ করে)
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Vercel deployment metadata
+.vercel
+
+# TypeScript output
+*.tsbuildinfo
+next-env.d.ts
+
+# IDE and OS junk files
+.DS_Store
+*.pem
+.vscode/
+.idea/
