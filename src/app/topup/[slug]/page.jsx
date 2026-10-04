@@ -29,6 +29,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import Footer from "@/components/ui/Footer";
 const productData = {
   "free-fire-topup-bd": {
     name: "Free Fire TopUp (BD)",
@@ -83,39 +84,19 @@ const productData = {
     ],
   },
   "unipin-voucher-bd": {
-    name: "Unipin Voucher (BD)",
+    name: "UNIPIN VOUCHER",
     image: "/unipin.webp",
-    category: "Game / Top up",
+    category: "GAME / VOUCHER",
     rechargeOptions: [
-      { id: "weekly-voucher", name: "Weekly Voucher", price: "155 TK" },
-      { id: "monthly-voucher", name: "Monthly Voucher", price: "770 TK" },
-      { id: "25-diamond-voucher", name: "25 Diamond Voucher", price: "22 TK" },
-      { id: "50-diamond-voucher", name: "50 Diamond Voucher", price: "38 TK" },
-      {
-        id: "115-diamond-voucher",
-        name: "115 Diamond Voucher",
-        price: "80 TK",
-      },
-      {
-        id: "240-diamond-voucher",
-        name: "240 Diamond Voucher",
-        price: "160 TK",
-      },
-      {
-        id: "610-diamond-voucher",
-        name: "610 Diamond Voucher",
-        price: "400 TK",
-      },
-      {
-        id: "1240-diamond-voucher",
-        name: "1240 Diamond Voucher",
-        price: "800 TK",
-      },
-      {
-        id: "2530-diamond-voucher",
-        name: "2530 Diamond Voucher",
-        price: "1620 TK",
-      },
+      { id: "25-diamond-code", name: "25 Diamond Code", price: "23 TK" },
+      { id: "50-diamond-code", name: "50 Diamond Code", price: "36 TK" },
+      { id: "115-diamond-code", name: "115 Diamond Code", price: "76 TK" },
+      { id: "240-diamond-code", name: "240 Diamond Code", price: "152 TK" },
+      { id: "610-diamond-code", name: "610 Diamond Code", price: "382 TK" },
+      { id: "1240-diamond-code", name: "1240 Diamond Code", price: "756 TK" },
+      { id: "2530-diamond-code", name: "2530 Diamond Code", price: "1540 TK" },
+      { id: "weekly-code", name: "Weekly Code", price: "151 TK" },
+      { id: "monthly-code", name: "Monthly Code", price: "753 TK" },
     ],
   },
   "airdrop-id-code": {
@@ -205,10 +186,20 @@ export default function TopUpPage({ params }) {
     category: "Game / Top up",
     rechargeOptions: [],
   };
-  const selectedPrice =
-    product.rechargeOptions
-      .find((opt) => opt.id === selectedOption)
-      ?.price.split(" ")[0] || 0;
+  const formatPriceDisplay = (priceStr) => {
+    if (!priceStr) return "";
+    const num = priceStr.replace(/[^0-9.]/g, "");
+    return `৳${num}`;
+  };
+
+  const getNumericPrice = (priceStr) => {
+    if (!priceStr) return "0";
+    return priceStr.replace(/[^0-9.]/g, "") || "0";
+  };
+
+  const selectedPrice = getNumericPrice(
+    product.rechargeOptions.find((opt) => opt.id === selectedOption)?.price,
+  );
   return (
     <div className="flex flex-col min-h-screen text-foreground">
       <header className="bg-background/90 backdrop-blur-sm shadow-sm sticky top-0 z-50">
@@ -219,8 +210,8 @@ export default function TopUpPage({ params }) {
             </Link>
             <div className="flex items-center space-x-2">
               <h1 className="text-xl font-bold text-foreground">
-                <span className="text-blue-600">TOPUP</span>
-                <span className="text-red-600">BUZZ</span>
+                <span className="text-blue-600">VTM</span>
+                <span className="text-red-600">TopUp</span>
               </h1>
             </div>
             <div className="flex items-center gap-2">
@@ -240,75 +231,93 @@ export default function TopUpPage({ params }) {
         </div>
       </header>
 
-      <main className="flex-grow container mx-auto p-4 space-y-4 pb-32">
-        <Card className="overflow-hidden bg-card">
-          <CardContent className="p-4 flex items-center gap-4">
-            <Image
-              src={product.image}
-              alt={product.name}
-              width={80}
-              height={80}
-              className="rounded-lg"
-            />
+      <main className="flex-grow container mx-auto p-2 space-y-4 pb-32">
+        <Card className="overflow-hidden bg-white dark:bg-card rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
+          <CardContent className="p-2 flex items-center gap-4">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden bg-slate-900 shrink-0 flex items-center justify-center border border-slate-200 dark:border-slate-800">
+              <Image
+                src={product.image}
+                alt={product.name}
+                width={80}
+                height={80}
+                className="w-full h-full object-cover"
+              />
+            </div>
             <div>
-              <h2 className="text-lg font-bold text-card-foreground">
+              <h2 className="text-base sm:text-lg font-black tracking-wide text-slate-900 dark:text-white uppercase">
                 {product.name}
               </h2>
-              <p className="text-sm text-muted-foreground">
+              <span className="inline-block mt-1.5 px-3 py-0.5 rounded-full bg-[#7132c7] text-white text-[11px] font-bold uppercase tracking-wider shadow-sm">
                 {product.category}
-              </p>
+              </span>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-card">
-          <CardHeader>
+        <Card className="bg-white dark:bg-card rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 overflow-hidden">
+          <CardHeader className="pb-3 pt-4 sm:pt-5 px-4 sm:px-5">
             <CardTitle className="flex items-center">
-              <span className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">
+              <span className="bg-[#7132c7] text-white rounded-full h-7 w-7 flex items-center justify-center font-bold text-sm mr-2.5 shadow-sm shrink-0">
                 1
               </span>
-              <span className="text-card-foreground">Select Recharge</span>
+              <span className="text-slate-900 dark:text-slate-100 text-base sm:text-lg font-bold">
+                Select Recharge
+              </span>
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-2 sm:px-2 pb-5 pt-0">
             <RadioGroup
               value={selectedOption}
               onValueChange={setSelectedOption}
-              className="grid grid-cols-2 gap-3"
+              className="grid grid-cols-2 gap-2.5 sm:gap-3"
             >
-              {product.rechargeOptions.map((option) => (
-                <Label
-                  key={option.id}
-                  htmlFor={option.id}
-                  className={`relative flex justify-between items-center p-3 rounded-lg border cursor-pointer transition-colors ${
-                    selectedOption === option.id
-                      ? "border-red-500 bg-red-50 dark:bg-red-900/20"
-                      : "border-border hover:bg-muted"
-                  }`}
-                >
-                  <span className="text-sm text-card-foreground">
-                    {option.name}
-                  </span>
-                  <span className="font-semibold text-red-600">
-                    {option.price}
-                  </span>
-                  <RadioGroupItem
-                    value={option.id}
-                    id={option.id}
-                    className="sr-only"
-                  />
-                  {selectedOption === option.id && (
-                    <div className="absolute top-1 right-1 w-4 h-4 flex items-center justify-center rounded-full bg-red-500 text-white">
-                      <Check className="w-3 h-3" />
+              {product.rechargeOptions.map((option) => {
+                const isSelected = selectedOption === option.id;
+                return (
+                  <Label
+                    key={option.id}
+                    htmlFor={option.id}
+                    className={`relative flex items-center justify-between py-2.5 px-2.5 sm:px-3.5 rounded-xl border cursor-pointer transition-all duration-150 ${
+                      isSelected
+                        ? "border-[#7132c7] ring-1 ring-[#7132c7] bg-purple-50/30 dark:bg-purple-950/20 shadow-sm"
+                        : "border-slate-200/90 dark:border-slate-800 bg-white dark:bg-card hover:border-slate-300"
+                    }`}
+                  >
+                    <div className="flex items-center gap-2 min-w-0 flex-1">
+                      {/* Left circular radio indicator */}
+                      <span
+                        className={`w-2 h-2 rounded-full shrink-0 transition-colors ${
+                          isSelected
+                            ? "bg-[#7132c7] ring-2 ring-purple-200 dark:ring-purple-900"
+                            : "bg-slate-300 dark:bg-slate-700"
+                        }`}
+                      />
+                      {/* Middle Option name */}
+                      <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 leading-tight">
+                        {option.name}
+                      </span>
                     </div>
-                  )}
-                </Label>
-              ))}
+
+                    {/* Right Purple Price */}
+                    <span className="font-bold text-[#7132c7] dark:text-purple-400 text-xs sm:text-sm shrink-0 ml-1.5">
+                      {formatPriceDisplay(option.price)}
+                    </span>
+
+                    <RadioGroupItem
+                      value={option.id}
+                      id={option.id}
+                      className="sr-only"
+                    />
+                  </Label>
+                );
+              })}
             </RadioGroup>
             <div className="text-left mt-4">
               <a
-                href="#"
-                className="text-sm text-red-600 font-bangla hover:underline"
+                href="https://www.facebook.com/SayedHasanDipto25"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs sm:text-sm text-red-500 font-bangla hover:underline inline-flex items-center"
               >
                 কিভাবে টপআপ করবেন ?
               </a>
@@ -316,28 +325,36 @@ export default function TopUpPage({ params }) {
           </CardContent>
         </Card>
 
-        <Card className="bg-card">
-          <CardHeader>
+        <Card className="bg-white dark:bg-card rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
+          <CardHeader className="pb-3 pt-4 sm:pt-5 px-4 sm:px-5">
             <CardTitle className="flex items-center">
-              <span className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">
+              <span className="bg-[#7132c7] text-white rounded-full h-7 w-7 flex items-center justify-center font-bold text-sm mr-2.5 shadow-sm shrink-0">
                 2
               </span>
-              <span className="text-card-foreground">Account Info</span>
+              <span className="text-slate-900 dark:text-slate-100 text-base sm:text-lg font-bold">
+                Account Info
+              </span>
             </CardTitle>
           </CardHeader>
-          <CardContent className="font-bangla space-y-4">
+          <CardContent className="font-bangla space-y-4 px-4 sm:px-5 pb-5 pt-0">
             <div>
-              <Label htmlFor="game-id" className="text-card-foreground">
+              <Label
+                htmlFor="game-id"
+                className="text-slate-700 dark:text-slate-300 font-medium"
+              >
                 এখানে গেমের আইডি কোড দিন
               </Label>
-              <div className="flex flex-col gap-2 mt-1">
+              <div className="flex flex-col gap-2 mt-1.5">
                 <Input
                   type="text"
                   id="game-id"
                   placeholder="Player ID (UID)"
-                  className="border-border focus:bg-background"
+                  className="border-slate-200 dark:border-slate-800 focus:border-[#adacad] rounded-xl"
                 />
-                <Button variant="outline" className="shrink-0">
+                <Button
+                  // variant="outline"
+                  className="shrink-0 rounded-xl border-pink-500 hover:border-[#c732c7] hover:text-[#afaeaf]"
+                >
                   আপনার গেম আইডির নাম চেক করুন
                 </Button>
               </div>
@@ -345,24 +362,30 @@ export default function TopUpPage({ params }) {
           </CardContent>
         </Card>
 
-        <Card className="bg-card">
-          <CardHeader>
+        <Card className="bg-white dark:bg-card rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800">
+          <CardHeader className="pb-3 pt-4 sm:pt-5 px-4 sm:px-5">
             <CardTitle className="flex items-center">
-              <span className="bg-primary text-primary-foreground rounded-full h-6 w-6 flex items-center justify-center text-sm mr-2">
+              <span className="bg-[#7132c7] text-white rounded-full h-7 w-7 flex items-center justify-center font-bold text-sm mr-2.5 shadow-sm shrink-0">
                 3
               </span>
-              <span className="text-card-foreground">Select one option</span>
+              <span className="text-slate-900 dark:text-slate-100 text-base sm:text-lg font-bold">
+                Select one option
+              </span>
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-4 sm:px-5 pb-5 pt-0">
             <RadioGroup
               value={selectedPayment}
               onValueChange={setSelectedPayment}
-              className="grid grid-cols-2 gap-4"
+              className="grid grid-cols-2 gap-3"
             >
               <Label
                 htmlFor="wallet"
-                className={`flex flex-col items-center justify-center rounded-md border-2 p-4 cursor-pointer relative transition-colors ${selectedPayment === "wallet" ? "border-red-500" : "border-muted"}`}
+                className={`flex flex-col items-center justify-center rounded-xl border-2 p-3 sm:p-4 cursor-pointer relative transition-all ${
+                  selectedPayment === "wallet"
+                    ? "border-[#7132c7] bg-purple-50/20 dark:bg-purple-950/20"
+                    : "border-slate-200 dark:border-slate-800 hover:border-slate-300"
+                }`}
               >
                 <RadioGroupItem
                   value="wallet"
@@ -370,7 +393,7 @@ export default function TopUpPage({ params }) {
                   className="peer sr-only"
                 />
                 {selectedPayment === "wallet" && (
-                  <div className="absolute top-2 right-2 w-5 h-5 flex items-center justify-center rounded-full bg-red-500">
+                  <div className="absolute top-2 right-2 w-5 h-5 flex items-center justify-center rounded-full bg-[#7132c7]">
                     <Check className="w-3 h-3 text-white" />
                   </div>
                 )}
@@ -381,14 +404,18 @@ export default function TopUpPage({ params }) {
                   alt="Wallet"
                   data-ai-hint="topupbuzz wallet logo"
                 />
-                <span className="block w-full p-2 text-center bg-muted mt-2 rounded-b-md text-sm">
+                <span className="block w-full p-1.5 text-center bg-slate-100 dark:bg-slate-800 mt-2 rounded-lg text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">
                   Wallet Pay
                 </span>
               </Label>
 
               <Label
                 htmlFor="instant"
-                className={`flex flex-col items-center justify-center rounded-md border-2 p-4 cursor-pointer relative transition-colors ${selectedPayment === "instant" ? "border-red-500" : "border-muted"}`}
+                className={`flex flex-col items-center justify-center rounded-xl border-2 p-3 sm:p-4 cursor-pointer relative transition-all ${
+                  selectedPayment === "instant"
+                    ? "border-[#7132c7] bg-purple-50/20 dark:bg-purple-950/20"
+                    : "border-slate-200 dark:border-slate-800 hover:border-slate-300"
+                }`}
               >
                 <RadioGroupItem
                   value="instant"
@@ -396,7 +423,7 @@ export default function TopUpPage({ params }) {
                   className="peer sr-only"
                 />
                 {selectedPayment === "instant" && (
-                  <div className="absolute top-2 right-2 w-5 h-5 flex items-center justify-center rounded-full bg-red-500">
+                  <div className="absolute top-2 right-2 w-5 h-5 flex items-center justify-center rounded-full bg-[#7132c7]">
                     <Check className="w-3 h-3 text-white" />
                   </div>
                 )}
@@ -408,35 +435,35 @@ export default function TopUpPage({ params }) {
                   data-ai-hint="instant payment methods"
                 />
 
-                <span className="block w-full p-2 text-center bg-muted mt-2 rounded-b-md text-sm">
+                <span className="block w-full p-1.5 text-center bg-slate-100 dark:bg-slate-800 mt-2 rounded-lg text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">
                   Instant Pay
                 </span>
               </Label>
             </RadioGroup>
-            <div className="font-bangla space-y-2 mt-4 text-sm text-card-foreground">
+            <div className="font-bangla space-y-2 mt-4 text-sm text-slate-700 dark:text-slate-300">
               <div className="flex items-center gap-2">
-                <Info className="w-4 h-4" />
+                <Info className="w-4 h-4 text-[#7132c7]" />
                 <span>আপনার অ্যাকাউন্ট ব্যালেন্স ৳ 0.00</span>
-                <RefreshCw className="w-4 h-4 cursor-pointer" />
+                <RefreshCw className="w-4 h-4 cursor-pointer text-slate-500 hover:rotate-180 transition-transform" />
               </div>
               <div className="flex items-center gap-2">
-                <Info className="w-4 h-4" />
+                <Info className="w-4 h-4 text-[#7132c7]" />
                 <span>প্রোডাক্ট কিনতে আপনার প্রয়োজন ৳ {selectedPrice}</span>
               </div>
             </div>
-            <Button className="w-full mt-4 bg-primary text-primary-foreground hover:bg-primary/90">
+            <Button className="w-full mt-4 bg-[#7132c7] hover:bg-[#5f2ab0] text-white font-bold py-3 text-base shadow-sm rounded-xl">
               Buy Now
             </Button>
           </CardContent>
         </Card>
 
-        <Card className="bg-card font-bangla">
-          <CardHeader>
-            <CardTitle className="text-card-foreground">
+        <Card className="bg-white dark:bg-card rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 font-bangla">
+          <CardHeader className="pb-2 pt-4 px-4 sm:px-5">
+            <CardTitle className="text-slate-900 dark:text-slate-100 text-base sm:text-lg font-bold">
               Rules & Conditions
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2 text-sm text-card-foreground">
+          <CardContent className="space-y-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 px-4 sm:px-5 pb-5">
             <p>⦿ শুধুমাত্র Bangladesh সার্ভারে ID Code দিয়ে টপ আপ হবে</p>
             <p>
               ⦿ Player ID ভুল দিয়ে Diamond না পেলে TopUp Buzz কর্তৃপক্ষ দায়ী
@@ -473,58 +500,10 @@ export default function TopUpPage({ params }) {
         </TooltipProvider>
       </div>
 
-      <footer
-        style={{ background: "#1c2538", color: "white" }}
-        className="pt-12 pb-24"
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-lg font-bold mb-4">SUPPORT</h3>
-              <a
-                href="#"
-                className="flex items-center gap-4 p-3 border border-white/20 rounded-lg hover:bg-white/10 transition-colors"
-              >
-                <Send className="w-6 h-6" />
-                <div>
-                  <p className="text-sm">8AM - 12.00PM</p>
-                  <p className="font-semibold">Telegram HelpLine</p>
-                </div>
-              </a>
-            </div>
-            <div>
-              <h3 className="text-lg font-bold mb-4">STAY CONNECTED</h3>
-              <p className="font-bold">TopUp Buzz</p>
-              <p className="text-sm">
-                House #80 (13rd Floor) Road # 17, Nikanjia-5 Dhaka
-              </p>
-              <div className="flex gap-4 mt-4">
-                <a
-                  href="#"
-                  className="p-2 border border-white/20 rounded-md hover:bg-white/10 transition-colors"
-                >
-                  <Facebook className="w-6 h-6" />
-                </a>
-                <a
-                  href="#"
-                  className="p-2 border border-white/20 rounded-md hover:bg-white/10 transition-colors"
-                >
-                  <Youtube className="w-6 h-6" />
-                </a>
-              </div>
-            </div>
-          </div>
-          <div className="border-t border-white/20 mt-8 pt-6 text-center text-sm">
-            <p>
-              &copy; Copyright 2022. All Rights Reserved. Developed by Shozon
-              Roy
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
 
       <div className="fixed bottom-0 left-0 right-0 bg-background/90 backdrop-blur-sm border-t border-border z-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4 sm:px-4 lg:px-8">
           <div className="flex justify-around items-center h-16">
             <Link
               href="/"
