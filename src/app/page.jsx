@@ -33,6 +33,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Footer from "@/components/ui/Footer";
+import SpeedDial from "@/components/SpeedDial";
 const specialOffers = [
   {
     id: "so-1",
@@ -326,23 +327,7 @@ export default function Home() {
           </a>
         </div> */}
       </main>
-      <div className="fixed bottom-24 right-4 z-50">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                size="icon"
-                className="rounded-full bg-red-600 hover:bg-red-700 w-14 h-14 relative animate-pulse"
-              >
-                <Phone className="w-6 h-6" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="left">
-              <p>সাহায্য লাগবে ?</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      </div>
+      <SpeedDial />
       <Footer />
       <div className="fixed bottom-0 left-0 right-0 bg-background/90 backdrop-blur-sm border-t border-border z-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">

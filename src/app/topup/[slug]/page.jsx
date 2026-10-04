@@ -30,6 +30,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Footer from "@/components/ui/Footer";
+import SpeedDial from "@/components/SpeedDial";
 const productData = {
   "free-fire-topup-bd": {
     name: "Free Fire TopUp (BD)",
@@ -466,7 +467,7 @@ export default function TopUpPage({ params }) {
           <CardContent className="space-y-2 text-md sm:text-md text-slate-600 dark:text-slate-300 px-4 sm:px-5 pb-5">
             <p>⦿ শুধুমাত্র Bangladesh সার্ভারে ID Code দিয়ে টপ আপ হবে</p>
             <p>
-              ⦿ Player ID ভুল দিয়ে Diamond না পেলে TopUp Buzz কর্তৃপক্ষ দায়ী
+              ⦿ Player ID ভুল দিয়ে Diamond না পেলে VTM TopUp কর্তৃপক্ষ দায়ী
               নয়
             </p>
             <p>
@@ -482,23 +483,7 @@ export default function TopUpPage({ params }) {
         </Card>
       </main>
 
-      <div className="fixed bottom-24 right-4 z-50">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                size="icon"
-                className="rounded-full bg-red-600 hover:bg-red-700 w-14 h-14 relative animate-pulse"
-              >
-                <Phone className="w-6 h-6" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="left">
-              <p>সাহায্য লাগবে ?</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      </div>
+      <SpeedDial />
 
       <Footer />
 

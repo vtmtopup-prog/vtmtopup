@@ -21,6 +21,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import SpeedDial from "@/components/SpeedDial";
 const topUpOptions = [
   {
     id: 1,
@@ -139,23 +140,7 @@ export default function TopUpOnlyPage() {
         </div>
       </main>
 
-      <div className="fixed bottom-24 right-4 z-50">
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                size="icon"
-                className="rounded-full bg-red-600 hover:bg-red-700 w-14 h-14 relative animate-pulse"
-              >
-                <Phone className="w-6 h-6" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="left">
-              <p>সাহায্য লাগবে ?</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      </div>
+      <SpeedDial />
 
       <footer
         style={{ background: "#1c2538", color: "white" }}
