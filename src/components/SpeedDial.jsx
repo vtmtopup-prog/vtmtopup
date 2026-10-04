@@ -96,9 +96,7 @@ export default function SpeedDial({
       href: `tel:${phoneNumber}`,
       delay: "0ms",
       bgColor: "hover:bg-purple-50 dark:hover:bg-purple-950/40",
-      icon: (
-        <Phone className="w-5 h-5 text-[#7132c7] dark:text-purple-400" />
-      ),
+      icon: <Phone className="w-5 h-5 text-[#7132c7] dark:text-purple-400" />,
     },
   ];
 
@@ -107,19 +105,6 @@ export default function SpeedDial({
       ref={containerRef}
       className="fixed bottom-24 right-4 z-50 flex items-center select-none"
     >
-      {/* "সাহায্য লাগবে ?" Text Pill (Visible when closed) */}
-      <div
-        onClick={() => setIsOpen((prev) => !prev)}
-        className={`mr-3 px-3 py-1.5 rounded-full bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 text-xs font-semibold shadow-md border border-slate-200 dark:border-slate-700 flex items-center gap-1.5 cursor-pointer transition-all duration-300 hover:scale-105 active:scale-95 ${
-          isOpen
-            ? "opacity-0 pointer-events-none translate-x-3 scale-90"
-            : "opacity-100 animate-pulse hover:animate-none"
-        }`}
-      >
-        <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-        <p>সাহায্য লাগবে ?</p>
-      </div>
-
       {/* Relative container holding FAB and Radial Buttons */}
       <div className="relative w-14 h-14 flex items-center justify-center">
         {/* Arc Action Buttons (A, B, C, D) */}
@@ -154,24 +139,16 @@ export default function SpeedDial({
           );
         })}
 
-        {/* Animated Radar Blink / Ping Wave when closed */}
-        {!isOpen && (
-          <>
-            <span className="absolute w-full h-full rounded-full bg-[#7132c7] opacity-50 animate-ping pointer-events-none" />
-            <span className="absolute -inset-1 rounded-full bg-purple-400/40 opacity-40 animate-pulse pointer-events-none" />
-          </>
-        )}
-
         {/* Main Trigger Button "F" */}
         <button
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
           aria-label="Customer Support Speed Dial"
           aria-expanded={isOpen}
-          className={`w-14 h-14 rounded-full bg-[#7132c7] hover:bg-[#5f2ab0] text-white flex items-center justify-center shadow-xl transition-all duration-300 ring-2 ring-[#7132c7] ring-offset-2 ring-offset-white dark:ring-offset-slate-900 active:scale-95 z-10 ${
+          className={`w-14 h-14 rounded-full bg-[#73e08e] hover:bg-[#2ab04c] text-white flex items-center justify-center shadow-xl transition-all duration-300 ring-2 ring-[#32c789] ring-offset-2 ring-offset-white dark:ring-offset-slate-900 active:scale-95 z-10 ${
             isOpen
               ? "rotate-90 bg-slate-800 hover:bg-slate-900 ring-slate-800"
-              : "animate-pulse"
+              : "smooth-fab-blink"
           }`}
         >
           {isOpen ? (
