@@ -463,7 +463,7 @@ export default function TopUpPage({ params }) {
               Rules & Conditions
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-2 text-xs sm:text-sm text-slate-600 dark:text-slate-300 px-4 sm:px-5 pb-5">
+          <CardContent className="space-y-2 text-md sm:text-md text-slate-600 dark:text-slate-300 px-4 sm:px-5 pb-5">
             <p>⦿ শুধুমাত্র Bangladesh সার্ভারে ID Code দিয়ে টপ আপ হবে</p>
             <p>
               ⦿ Player ID ভুল দিয়ে Diamond না পেলে TopUp Buzz কর্তৃপক্ষ দায়ী
