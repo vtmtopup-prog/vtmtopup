@@ -17,13 +17,13 @@ export function DismissibleAlert() {
       {/* Keyframe animation for marquee text */}
       <style>{`
         @keyframes alertMarquee {
-          0% { transform: translateX(100%); }
+          0% { transform: translateX(20%); }
           100% { transform: translateX(-100%); }
         }
         .animate-alert-marquee {
           display: inline-block;
           white-space: nowrap;
-          animation: alertMarquee 30s linear infinite;
+          animation: alertMarquee 35s linear infinite;
         }
         .animate-alert-marquee:hover {
           animation-play-state: paused;
@@ -45,7 +45,7 @@ export function DismissibleAlert() {
           {/* Marquee Text Content */}
           <div className="flex-1 overflow-hidden whitespace-nowrap">
             <div className="animate-alert-marquee text-xs md:text-sm font-medium text-slate-800">
-              নোটিস : Notice : VTM TOP UP ০৫ সেকেন্ডে টপআপ কমপ্লিট করা হয় AI বট
+              Notice : VTM TOP UP ০৫ সেকেন্ডে টপআপ কমপ্লিট করা হয় AI বট
               দিয়ে...!! আমাদের সাইট দিন রাত ২৪ ঘন্টা চালু থাকে..! টপ আপ করতে
               সমস্যা হলে Website এর নিচে WhatsApp নাম্বারে ম্যাসেজ করুন ! ⚠
               সতর্কবার্তা - ১৮ বছরের নিচে কেউ বাবা মার পকেট মেরে টপ আপ করলে
