@@ -145,7 +145,7 @@ export default function SpeedDial({
           onClick={() => setIsOpen((prev) => !prev)}
           aria-label="Customer Support Speed Dial"
           aria-expanded={isOpen}
-          className={`w-14 h-14 rounded-full bg-[#73e08e] hover:bg-[#2ab04c] text-white flex items-center justify-center shadow-xl transition-all duration-300 ring-2 ring-[#32c789] ring-offset-2 ring-offset-white dark:ring-offset-slate-900 active:scale-95 z-10 ${
+          className={`w-14 h-14 rounded-full bg-[#5ef183] hover:bg-[#2ab04c] text-white flex items-center justify-center shadow-xl transition-all duration-300 ring-2 ring-[#32c789] ring-offset-2 ring-offset-white dark:ring-offset-slate-900 active:scale-95 z-10 ${
             isOpen
               ? "rotate-90 bg-slate-800 hover:bg-slate-900 ring-slate-800"
               : "smooth-fab-blink"
