@@ -1,13 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+import HeroBanner from "@/components/HeroBanner";
 import Image from "next/image";
 import { DismissibleAlert } from "@/components/dismissible-alert";
 import {
@@ -24,7 +18,7 @@ import {
   YoutubeIcon,
   LucideFacebook,
 } from "lucide-react";
-import Autoplay from "embla-carousel-autoplay";
+
 import Link from "next/link";
 import {
   Tooltip,
@@ -34,6 +28,13 @@ import {
 } from "@/components/ui/tooltip";
 import Footer from "@/components/ui/Footer";
 import SpeedDial from "@/components/SpeedDial";
+import { IoMdAddCircle } from "react-icons/io";
+import { MdAccountCircle } from "react-icons/md";
+import { TiClipboard } from "react-icons/ti";
+import { SiHomeassistantcommunitystore } from "react-icons/si";
+import { TbHomeFilled } from "react-icons/tb";
+import { FaOpencart } from "react-icons/fa";
+import { BsCartCheckFill } from "react-icons/bs";
 const specialOffers = [
   {
     id: "so-1",
@@ -173,49 +174,16 @@ export default function Home() {
               </h1>
             </div>
             <Link href="/login">
-              <Button variant="outline">
-                <User className="mr-2 h-4 w-4" />
-                Login
-              </Button>
+              <Button>Login</Button>
             </Link>
           </div>
         </div>
       </header>
       <main className="flex-grow container mx-auto p-4 sm:p-6 lg:p-8 space-y-4">
         <DismissibleAlert />
-        <Carousel
-          className="w-full max-w-4xl mx-auto"
-          opts={{ loop: true }}
-          plugins={[
-            Autoplay({
-              delay: 2000,
-              stopOnInteraction: false,
-            }),
-          ]}
-        >
-          <CarouselContent>
-            {Array.from({ length: 3 }).map((_, index) => (
-              <CarouselItem key={index}>
-                <div className="p-1">
-                  <Card className="border-0">
-                    <CardContent className="flex aspect-[2/1] items-center justify-center p-0 overflow-hidden rounded-lg">
-                      <Image
-                        src="/banner.avif"
-                        alt={`Slider image ${index + 1}`}
-                        width={800}
-                        height={400}
-                        className="w-full h-full object-cover"
-                        data-ai-hint="abstract background"
-                      />
-                    </CardContent>
-                  </Card>
-                </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-          <CarouselPrevious className="left-2" />
-          <CarouselNext className="right-2" />
-        </Carousel>
+        <div className="w-full max-w-4xl mx-auto">
+          <HeroBanner />
+        </div>
 
         {/* SPECIAL OFFER SECTION */}
         <div>
@@ -331,41 +299,71 @@ export default function Home() {
       <Footer />
       <div className="fixed bottom-0 left-0 right-0 bg-background/90 backdrop-blur-sm border-t border-border z-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-around items-center h-16">
-            <Link href="/" className="flex flex-col items-center text-primary">
-              <HomeIcon className="w-6 h-6" />
-              <span className="text-xs">Home</span>
-            </Link>
-            <a
-              href="https://youtu.be/OSE4qFSRqgs"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col items-center text-muted-foreground hover:text-primary"
+          {/* iOS Frosted Glass Floating Bottom Navbar (Fixed Transparency) */}
+          <div className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-lg">
+            {/* ব্যাকগ্রাউন্ড এখন ৮০% সাদা (bg-white/80), যা পেছনের জিনিসপত্র ঢেকে দেবে কিন্তু কাচের ফিল দেবে */}
+            <div
+              className="relative flex justify-around items-center h-[68px] px-2 rounded-[2rem] 
+                  bg-white/80 backdrop-blur-2xl 
+                  border border-white/50 
+                  shadow-[0_8px_30px_rgba(0,0,0,0.15)] overflow-hidden"
             >
-              <PlayCircle className="w-6 h-6" />
-              <span className="text-xs">Tutorial</span>
-            </a>
-            <Link
-              href="/topup"
-              className="flex flex-col items-center text-muted-foreground hover:text-primary"
-            >
-              <Compass className="w-6 h-6" />
-              <span className="text-xs">TopUp</span>
-            </Link>
-            <Link
-              href="/orders"
-              className="flex flex-col items-center text-muted-foreground hover:text-primary"
-            >
-              <ShoppingCart className="w-6 h-6" />
-              <span className="text-xs">My Orders</span>
-            </Link>
-            <Link
-              href="/contact"
-              className="flex flex-col items-center text-muted-foreground hover:text-primary"
-            >
-              <Blocks className="w-6 h-6" />
-              <span className="text-xs">Contact Us</span>
-            </Link>
+              {/* Home Tab (Active) - একটিভ ট্যাবে নীল রঙ (iOS স্টাইল) */}
+              <Link
+                href="/"
+                className="relative z-10 flex flex-col items-center justify-center gap-1 w-full h-full 
+                 transition-all duration-300 active:scale-90 text-blue-600"
+              >
+                <TbHomeFilled className="w-[22px] h-[22px]" />
+                <span className="text-[10px] font-semibold tracking-tight">
+                  Home
+                </span>
+              </Link>
+              {/* My Orders Tab */}
+              <Link
+                href="/orders"
+                className="relative z-10 flex flex-col items-center justify-center gap-1 w-full h-full 
+                 transition-all duration-300 active:scale-90 text-gray-500 hover:text-gray-900"
+              >
+                <BsCartCheckFill className="w-[22px] h-[22px]" />
+                <span className="text-[10px] font-medium tracking-tight">
+                  My Orders
+                </span>
+              </Link>
+              {/* Add Money Tab */}
+              <Link
+                href="/add-money"
+                className="relative z-10 flex flex-col items-center justify-center gap-1 w-full h-full 
+                 transition-all duration-300 active:scale-90 text-gray-500 hover:text-gray-900"
+              >
+                <IoMdAddCircle className="w-[22px] h-[22px]" />
+                <span className="text-[10px] font-medium tracking-tight">
+                  Add Money
+                </span>
+              </Link>{" "}
+              {/* My Code Tab */}
+              <Link
+                href="/my-code"
+                className="relative z-10 flex flex-col items-center justify-center gap-1 w-full h-full 
+                 transition-all duration-300 active:scale-90 text-gray-500 hover:text-gray-900"
+              >
+                <TiClipboard className="w-[22px] h-[22px]" />
+                <span className="text-[10px] font-medium tracking-tight">
+                  My Code
+                </span>
+              </Link>
+              {/* My Account Tab */}
+              <Link
+                href="/my-account"
+                className="relative z-10 flex flex-col items-center justify-center gap-1 w-full h-full 
+                 transition-all duration-300 active:scale-90 text-gray-500 hover:text-gray-900"
+              >
+                <MdAccountCircle className="w-[22px] h-[22px]" />
+                <span className="text-[10px] font-medium tracking-tight">
+                  Account
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

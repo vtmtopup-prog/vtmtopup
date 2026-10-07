@@ -25,7 +25,7 @@ export default function Footer() {
         <div className="bg-emerald-50/40 border border-emerald-100 rounded-2xl p-5 text-center shadow-sm">
           {/* Header with Light Green Dot Inline */}
           <div className="flex items-center justify-center gap-2 mb-2">
-            <span className="w-2.5 h-2.5 bg-emerald-500 rounded-full shadow-[0_0_8px_#10b981]"></span>
+            <span className="w-2.5 h-2.5 bg-emerald-500 rounded-full shadow-[0_0_8px_#10b981] animate-pulse"></span>{" "}
             <h3 className="text-base font-bold tracking-wider text-emerald-950 uppercase">
               STAY CONNECTED
             </h3>
@@ -78,7 +78,7 @@ export default function Footer() {
         <div className="bg-emerald-50/40 border border-emerald-100 rounded-2xl p-5 text-center shadow-sm">
           {/* Header with Light Green Dot Inline */}
           <div className="flex items-center justify-center gap-2 mb-4">
-            <span className="w-2.5 h-2.5 bg-emerald-500 rounded-full shadow-[0_0_8px_#10b981]"></span>
+            <span className="w-2.5 h-2.5 bg-emerald-500 rounded-full shadow-[0_0_8px_#10b981] animate-pulse"></span>
             <h3 className="text-base font-bold tracking-wider text-emerald-950 uppercase">
               DIRECT SUPPORT
             </h3>

@@ -278,20 +278,18 @@ export default function TopUpPage({ params }) {
                   <Label
                     key={option.id}
                     htmlFor={option.id}
-                    className={`relative flex items-center justify-between py-2.5 px-2.5 sm:px-3.5 rounded-xl border cursor-pointer transition-all duration-150 ${
-                      isSelected
-                        ? "border-[#7132c7] ring-1 ring-[#7132c7] bg-purple-50/30 dark:bg-purple-950/20 shadow-sm"
-                        : "border-slate-200/90 dark:border-slate-800 bg-white dark:bg-card hover:border-slate-300"
-                    }`}
+                    className={`relative flex items-center justify-between py-2.5 px-2.5 sm:px-3.5 rounded-xl border cursor-pointer transition-all duration-150 ${isSelected
+                      ? "border-[#7132c7] ring-1 ring-[#7132c7] bg-purple-50/30 dark:bg-purple-950/20 shadow-sm"
+                      : "border-slate-200/90 dark:border-slate-800 bg-white dark:bg-card hover:border-slate-300"
+                      }`}
                   >
                     <div className="flex items-center gap-2 min-w-0 flex-1">
                       {/* Left circular radio indicator */}
                       <span
-                        className={`w-2 h-2 rounded-full shrink-0 transition-colors ${
-                          isSelected
-                            ? "bg-[#7132c7] ring-2 ring-purple-200 dark:ring-purple-900"
-                            : "bg-slate-300 dark:bg-slate-700"
-                        }`}
+                        className={`w-2 h-2 rounded-full shrink-0 transition-colors ${isSelected
+                          ? "bg-[#7132c7] ring-2 ring-purple-200 dark:ring-purple-900"
+                          : "bg-slate-300 dark:bg-slate-700"
+                          }`}
                       />
                       {/* Middle Option name */}
                       <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 leading-tight">
@@ -382,11 +380,10 @@ export default function TopUpPage({ params }) {
             >
               <Label
                 htmlFor="wallet"
-                className={`flex flex-col items-center justify-center rounded-xl border-2 p-3 sm:p-4 cursor-pointer relative transition-all ${
-                  selectedPayment === "wallet"
-                    ? "border-[#7132c7] bg-purple-50/20 dark:bg-purple-950/20"
-                    : "border-slate-200 dark:border-slate-800 hover:border-slate-300"
-                }`}
+                className={`flex flex-col items-center justify-center rounded-xl border-2 p-3 sm:p-4 cursor-pointer relative transition-all ${selectedPayment === "wallet"
+                  ? "border-[#7132c7] bg-purple-50/20 dark:bg-purple-950/20"
+                  : "border-slate-200 dark:border-slate-800 hover:border-slate-300"
+                  }`}
               >
                 <RadioGroupItem
                   value="wallet"
@@ -412,11 +409,10 @@ export default function TopUpPage({ params }) {
 
               <Label
                 htmlFor="instant"
-                className={`flex flex-col items-center justify-center rounded-xl border-2 p-3 sm:p-4 cursor-pointer relative transition-all ${
-                  selectedPayment === "instant"
-                    ? "border-[#7132c7] bg-purple-50/20 dark:bg-purple-950/20"
-                    : "border-slate-200 dark:border-slate-800 hover:border-slate-300"
-                }`}
+                className={`flex flex-col items-center justify-center rounded-xl border-2 p-3 sm:p-4 cursor-pointer relative transition-all ${selectedPayment === "instant"
+                  ? "border-[#7132c7] bg-purple-50/20 dark:bg-purple-950/20"
+                  : "border-slate-200 dark:border-slate-800 hover:border-slate-300"
+                  }`}
               >
                 <RadioGroupItem
                   value="instant"
@@ -488,45 +484,78 @@ export default function TopUpPage({ params }) {
       <Footer />
 
       <div className="fixed bottom-0 left-0 right-0 bg-background/90 backdrop-blur-sm border-t border-border z-50">
-        <div className="container mx-auto px-4 sm:px-4 lg:px-8">
-          <div className="flex justify-around items-center h-16">
-            <Link
-              href="/"
-              className="flex flex-col items-center text-muted-foreground hover:text-primary"
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {/* iOS Frosted Glass Floating Bottom Navbar (Fixed Transparency) */}
+          <div className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-lg">
+            {/* ব্যাকগ্রাউন্ড এখন ৮০% সাদা (bg-white/80), যা পেছনের জিনিসপত্র ঢেকে দেবে কিন্তু কাচের ফিল দেবে */}
+            <div
+              className="relative flex justify-around items-center h-[68px] px-2 rounded-[2rem] 
+                  bg-white/80 backdrop-blur-2xl 
+                  border border-white/50 
+                  shadow-[0_8px_30px_rgba(0,0,0,0.15)] overflow-hidden"
             >
-              <HomeIcon className="w-6 h-6" />
-              <span className="text-xs">Home</span>
-            </Link>
-            <a
-              href="https://youtu.be/OSE4qFSRqgs"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col items-center text-muted-foreground hover:text-primary"
-            >
-              <PlayCircle className="w-6 h-6" />
-              <span className="text-xs">Tutorial</span>
-            </a>
-            <Link
-              href="/topup"
-              className="flex flex-col items-center text-primary"
-            >
-              <Compass className="w-6 h-6" />
-              <span className="text-xs">TopUp</span>
-            </Link>
-            <Link
-              href="/orders"
-              className="flex flex-col items-center text-muted-foreground hover:text-primary"
-            >
-              <ShoppingCart className="w-6 h-6" />
-              <span className="text-xs">My Orders</span>
-            </Link>
-            <Link
-              href="/contact"
-              className="flex flex-col items-center text-muted-foreground hover:text-primary"
-            >
-              <Blocks className="w-6 h-6" />
-              <span className="text-xs">Contact Us</span>
-            </Link>
+              {/* Home Tab (Active) - একটিভ ট্যাবে নীল রঙ (iOS স্টাইল) */}
+              <Link
+                href="/"
+                className="relative z-10 flex flex-col items-center justify-center gap-1 w-full h-full 
+                 transition-all duration-300 active:scale-90 text-blue-600"
+              >
+                <HomeIcon className="w-[22px] h-[22px]" />
+                <span className="text-[10px] font-semibold tracking-tight">
+                  Home
+                </span>
+              </Link>
+
+              {/* Tutorial Tab */}
+              <a
+                href="https://youtu.be/OSE4qFSRqgs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="relative z-10 flex flex-col items-center justify-center gap-1 w-full h-full 
+                 transition-all duration-300 active:scale-90 text-gray-500 hover:text-gray-900"
+              >
+                <PlayCircle className="w-[22px] h-[22px]" />
+                <span className="text-[10px] font-medium tracking-tight">
+                  Tutorial
+                </span>
+              </a>
+
+              {/* TopUp Tab */}
+              <Link
+                href="/topup"
+                className="relative z-10 flex flex-col items-center justify-center gap-1 w-full h-full 
+                 transition-all duration-300 active:scale-90 text-gray-500 hover:text-gray-900"
+              >
+                <Compass className="w-[22px] h-[22px]" />
+                <span className="text-[10px] font-medium tracking-tight">
+                  TopUp
+                </span>
+              </Link>
+
+              {/* My Orders Tab */}
+              <Link
+                href="/orders"
+                className="relative z-10 flex flex-col items-center justify-center gap-1 w-full h-full 
+                 transition-all duration-300 active:scale-90 text-gray-500 hover:text-gray-900"
+              >
+                <ShoppingCart className="w-[22px] h-[22px]" />
+                <span className="text-[10px] font-medium tracking-tight">
+                  My Orders
+                </span>
+              </Link>
+
+              {/* Contact Us Tab */}
+              <Link
+                href="/contact"
+                className="relative z-10 flex flex-col items-center justify-center gap-1 w-full h-full 
+                 transition-all duration-300 active:scale-90 text-gray-500 hover:text-gray-900"
+              >
+                <Blocks className="w-[22px] h-[22px]" />
+                <span className="text-[10px] font-medium tracking-tight">
+                  Contact Us
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
