@@ -1,9 +1,13 @@
+import Navbar from "@/components/Navbar";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { AuthProvider } from "@/context/AuthContext";
+
 export const metadata = {
   title: "VTM TOPUP",
   description: "Top up your game credits and social media services.",
 };
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -20,8 +24,11 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="font-sans antialiased min-h-screen text-foreground">
-        {children}
-        <Toaster />
+        <AuthProvider>
+          <Navbar />
+          {children}
+          <Toaster />
+        </AuthProvider>
       </body>
     </html>
   );

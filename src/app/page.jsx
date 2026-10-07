@@ -158,27 +158,6 @@ const TelegramIcon = () => (
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen text-foreground">
-      <header className="bg-background/90 backdrop-blur-sm shadow-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-2">
-              <h1 className="text-2xl font-bold text-foreground">
-                {/* <span className="text-blue-600">VTM </span>
-                <span className="text-red-600">TopUp</span> */}
-                <Image
-                  src="/vtmtopup.png"
-                  alt="VTM TopUp Logo"
-                  width={150}
-                  height={40}
-                />
-              </h1>
-            </div>
-            <Link href="/login">
-              <Button>Login</Button>
-            </Link>
-          </div>
-        </div>
-      </header>
       <main className="flex-grow container mx-auto p-4 sm:p-6 lg:p-8 space-y-4">
         <DismissibleAlert />
         <div className="w-full max-w-4xl mx-auto">
