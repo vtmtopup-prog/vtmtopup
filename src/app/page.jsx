@@ -33,7 +33,7 @@ import { MdAccountCircle } from "react-icons/md";
 import { TiClipboard } from "react-icons/ti";
 import { SiHomeassistantcommunitystore } from "react-icons/si";
 import { TbHomeFilled } from "react-icons/tb";
-import { FaOpencart } from "react-icons/fa";
+import { FaOpencart, FaRegUser } from "react-icons/fa";
 import { BsCartCheckFill } from "react-icons/bs";
 const specialOffers = [
   {
@@ -358,7 +358,7 @@ export default function Home() {
                 className="relative z-10 flex flex-col items-center justify-center gap-1 w-full h-full 
                  transition-all duration-300 active:scale-90 text-gray-500 hover:text-gray-900"
               >
-                <MdAccountCircle className="w-[22px] h-[22px]" />
+                <FaRegUser className="w-[22px] h-[22px]" />
                 <span className="text-[10px] font-medium tracking-tight">
                   Account
                 </span>

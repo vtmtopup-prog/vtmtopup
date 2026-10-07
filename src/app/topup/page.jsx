@@ -95,7 +95,7 @@ export default function TopUpOnlyPage() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-2">
               <h1 className="text-2xl font-bold text-foreground">
-                <span className="text-blue-600">KUTTA</span>
+                <span className="text-blue-600">VTM</span>
                 <span className="text-red-600">TOPUP</span>
               </h1>
             </div>
