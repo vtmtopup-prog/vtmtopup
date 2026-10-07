@@ -221,58 +221,6 @@ export default function Home() {
             ))}
           </div>
         </div>
-
-        {/* MORE GAMES SECTION
-        <div>
-          <h2 className="text-xl sm:text-2xl font-black text-center mb-6 mt-8 tracking-wide text-[#1c2e56] uppercase">
-            MORE GAMES
-          </h2>
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 gap-3 sm:gap-4">
-            {moreGames.map((game) => (
-              <Link href={`/topup/${game.slug}`} key={game.id}>
-                <div className="group rounded-xl border-2 border-blue-500 hover:border-blue-600 bg-white shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col cursor-pointer h-full">
-                  <div className="aspect-square relative w-full overflow-hidden bg-slate-900 flex items-center justify-center">
-                    <Image
-                      src={game.image || `https://placehold.co/200x200.png`}
-                      alt={game.name}
-                      width={200}
-                      height={200}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="w-full bg-white border-t border-blue-500 py-2 px-1.5 text-center flex items-center justify-center min-h-[42px]">
-                    <p className="text-[11px] sm:text-xs font-extrabold uppercase text-slate-900 tracking-tight leading-tight line-clamp-2">
-                      {game.name}
-                    </p>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div> */}
-
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-          <a
-            href="#"
-            className="flex items-center gap-2 p-3 border border-border rounded-lg hover:bg-muted transition-colors"
-          >
-            <GooglePlayIcon />
-            <div>
-              <p className="font-bold">Download Our Mobile App</p>
-              <p className="text-sm text-primary">Click Here →</p>
-            </div>
-          </a>
-          <a
-            href="#"
-            className="flex items-center gap-2 p-3 border border-border rounded-lg hover:bg-muted transition-colors"
-          >
-            <TelegramIcon />
-            <div>
-              <p className="font-bold">Giveway & Offer Update</p>
-              <p className="text-sm text-primary">Join Telegram</p>
-            </div>
-          </a>
-        </div> */}
       </main>
       <SpeedDial />
       <Footer />
@@ -333,7 +281,7 @@ export default function Home() {
               </Link>
               {/* My Account Tab */}
               <Link
-                href="/my-account"
+                href="/profile"
                 className="relative z-10 flex flex-col items-center justify-center gap-1 w-full h-full 
                  transition-all duration-300 active:scale-90 text-gray-500 hover:text-gray-900"
               >
