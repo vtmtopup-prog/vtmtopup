@@ -60,11 +60,23 @@ export default function ProfileCard() {
             </radialGradient>
 
             {/* 3D Star Golden Facets */}
-            <linearGradient id="starFacetLight" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient
+              id="starFacetLight"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="100%"
+            >
               <stop offset="0%" stopColor="#FFF1AA" />
               <stop offset="100%" stopColor="#EAB308" />
             </linearGradient>
-            <linearGradient id="starFacetDark" x1="0%" y1="0%" x2="100%" y2="100%">
+            <linearGradient
+              id="starFacetDark"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="100%"
+            >
               <stop offset="0%" stopColor="#CA8A04" />
               <stop offset="100%" stopColor="#854D0E" />
             </linearGradient>
@@ -110,11 +122,31 @@ export default function ProfileCard() {
               strokeWidth="1"
             />
             {/* Shaded facets for 3D realism */}
-            <polygon points="0,-48 0,0 14,-15" fill="url(#starFacetDark)" opacity="0.65" />
-            <polygon points="48,-15 0,0 21,5" fill="url(#starFacetDark)" opacity="0.75" />
-            <polygon points="31,38 0,0 0,18" fill="url(#starFacetDark)" opacity="0.6" />
-            <polygon points="-31,38 0,0 -21,5" fill="url(#starFacetDark)" opacity="0.8" />
-            <polygon points="-48,-15 0,0 -14,-15" fill="url(#starFacetDark)" opacity="0.6" />
+            <polygon
+              points="0,-48 0,0 14,-15"
+              fill="url(#starFacetDark)"
+              opacity="0.65"
+            />
+            <polygon
+              points="48,-15 0,0 21,5"
+              fill="url(#starFacetDark)"
+              opacity="0.75"
+            />
+            <polygon
+              points="31,38 0,0 0,18"
+              fill="url(#starFacetDark)"
+              opacity="0.6"
+            />
+            <polygon
+              points="-31,38 0,0 -21,5"
+              fill="url(#starFacetDark)"
+              opacity="0.8"
+            />
+            <polygon
+              points="-48,-15 0,0 -14,-15"
+              fill="url(#starFacetDark)"
+              opacity="0.6"
+            />
           </g>
 
           {/* Small Mini-Badge at the bottom corner of the hexagon */}
@@ -125,10 +157,7 @@ export default function ProfileCard() {
               stroke="#78350F"
               strokeWidth="2"
             />
-            <polygon
-              points="20,5 35,13 35,32 20,40 5,32 5,13"
-              fill="#BE123C"
-            />
+            <polygon points="20,5 35,13 35,32 20,40 5,32 5,13" fill="#BE123C" />
             <polygon
               points="20,11 23,17 29,17 24,21 26,27 20,23 14,27 16,21 11,17 17,17"
               fill="#FDE047"
@@ -159,7 +188,10 @@ export default function ProfileCard() {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <User className="w-12 h-12 text-[#2d3748]" strokeWidth={2.2} />
+                  <User
+                    className="w-12 h-12 text-[#2d3748]"
+                    strokeWidth={2.2}
+                  />
                 )}
               </div>
             </div>
@@ -266,7 +298,7 @@ export default function ProfileCard() {
         {/* ========================================================= */}
         <div className="flex items-center justify-end gap-2.5 mt-5">
           <Link
-            href="/topup"
+            href="/add-money"
             className="px-5 py-2.5 rounded-xl bg-[#24c77c] hover:bg-[#20b26e] text-black text-xs font-bold tracking-wide transition-all shadow-[0_4px_14px_rgba(36,199,124,0.35)] active:scale-95"
           >
             Add Money

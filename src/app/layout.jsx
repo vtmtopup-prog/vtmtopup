@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/context/AuthContext";
+import { Providers } from "./providers";
 
 export const metadata = {
   title: "VTM TOPUP",
@@ -24,11 +25,13 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="font-sans antialiased min-h-screen text-foreground">
-        <AuthProvider>
-          <Navbar />
-          {children}
-          <Toaster />
-        </AuthProvider>
+        <Providers>
+          <AuthProvider>
+            <Navbar />
+            {children}
+            <Toaster />
+          </AuthProvider>
+        </Providers>
       </body>
     </html>
   );

@@ -270,7 +270,7 @@ export default function Home() {
               </Link>{" "}
               {/* My Code Tab */}
               <Link
-                href="/my-code"
+                href="/my-codes"
                 className="relative z-10 flex flex-col items-center justify-center gap-1 w-full h-full 
                  transition-all duration-300 active:scale-90 text-gray-500 hover:text-gray-900"
               >

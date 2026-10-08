@@ -1,6 +1,8 @@
 "use client";
 
 import ProfileCard from "@/components/ProfileCard";
+import RankProgress from "@/components/RankProgress";
+import RankList from "@/components/RankList";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
@@ -26,6 +28,12 @@ export default function ProfilePage() {
 
         {/* Member Profile Card Component */}
         <ProfileCard />
+
+        {/* Rank System Progress Component */}
+        <RankProgress />
+
+        {/* Mobile-First Rank Timeline List */}
+        <RankList />
       </div>
     </ProtectedRoute>
   );
