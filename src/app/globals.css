@@ -419,3 +419,12 @@ html.dark .login-input:focus {
 }
 .login-terms-link:hover { color: hsl(var(--foreground)); }
 
+/* Utility to hide scrollbars on mobile filter bar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+

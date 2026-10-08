@@ -14,6 +14,7 @@ module.exports = {
         headline: ['Inter', 'sans-serif'],
         code: ['monospace'],
         bangla: ['Hind Siliguri', 'sans-serif'],
+        orbitron: ['Orbitron', 'sans-serif'],
       },
       colors: {
         background: 'hsl(var(--background))',

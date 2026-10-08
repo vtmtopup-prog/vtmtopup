@@ -35,13 +35,13 @@ export default function Navbar() {
         {/* 1. Left Section (Brand Logo & Text)                       */}
         {/* ========================================================= */}
         <Link href="/" className="flex items-center gap-2 select-none group">
-          <div className="relative w-10 h-10 flex items-center justify-center">
+          <div className="relative flex items-center justify-center">
             {/* Logo image placeholder */}
             <Image
               src="/vtmtopup.png"
               alt="TOPUPBUZZ Logo"
-              width={40}
-              height={40}
+              width={140}
+              height={10}
               priority
               className="object-contain w-auto h-auto max-h-10"
               onError={(e) => {
@@ -49,10 +49,6 @@ export default function Navbar() {
               }}
             />
           </div>
-          <span className="font-extrabold text-2xl tracking-tight font-sans">
-            <span className="text-blue-600">TOPUP</span>
-            <span className="text-red-600">BUZZ</span>
-          </span>
         </Link>
 
         {/* ========================================================= */}
