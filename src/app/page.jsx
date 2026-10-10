@@ -159,7 +159,7 @@ const TelegramIcon = () => (
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen text-foreground">
-      <main className="flex-grow container mx-auto sm:p-6 lg:p-8 space-y-4">
+      <main className="flex-grow container mx-auto sm:p-6 lg:p-8 space-y-4 px-4">
         <DismissibleAlert />
         <div className="w-full max-w-4xl mx-auto">
           <HeroBanner />
@@ -167,7 +167,7 @@ export default function Home() {
 
         {/* SPECIAL OFFER SECTION */}
         <div>
-          <h2 className="text-xl sm:text-2xl font-black text-center mb-6 tracking-wide text-[#1c2e56] uppercase">
+          <h2 className="text-xl sm:text-2xl font-black text-center mb-6 tracking-wide bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent uppercase">
             | SPECIAL OFFER |
           </h2>
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 gap-3 sm:gap-4">
@@ -196,8 +196,8 @@ export default function Home() {
 
         {/* FREE FIRE SECTION */}
         <div>
-          <h2 className="text-xl sm:text-2xl font-black text-center mb-6 mt-8 tracking-wide text-[#1c2e56] uppercase">
-            FREE FIRE
+          <h2 className="text-xl sm:text-2xl font-black text-center mb-6 mt-8 tracking-wide bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent uppercase">
+            | FREE FIRE |
           </h2>
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 gap-3 sm:gap-4">
             {freeFireOptions.map((option) => (
