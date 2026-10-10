@@ -18,7 +18,7 @@ import { FaSignalMessenger, FaTelegram } from "react-icons/fa6";
 
 export default function Footer() {
   return (
-    <footer className="bg-emerald-50/50 text-slate-800 py-8 px-4 font-sans">
+    <footer className="bg-emerald-50/50 text-slate-800 py-8 px-4 font-sans mb-2 ">
       {/* Outer Container (Light Green Border & Background) */}
       <div className="max-w-md mx-auto bg-white border border-emerald-200/80 rounded-3xl p-4 space-y-4 shadow-xl shadow-emerald-500/5">
         {/* Card 1: Stay Connected */}

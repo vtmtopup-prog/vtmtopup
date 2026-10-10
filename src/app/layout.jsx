@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import BottomNav from "@/components/BottomNav";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/context/AuthContext";
@@ -24,11 +25,12 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body className="font-sans antialiased min-h-screen text-foreground">
+      <body className="font-sans antialiased min-h-screen text-foreground pb-20">
         <Providers>
           <AuthProvider>
             <Navbar />
             {children}
+            <BottomNav />
             <Toaster />
           </AuthProvider>
         </Providers>
