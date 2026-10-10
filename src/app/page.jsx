@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 
 import Link from "next/link";
+import TeamSection from "@/components/TeamSection";
 import {
   Tooltip,
   TooltipContent,
@@ -221,6 +222,9 @@ export default function Home() {
             ))}
           </div>
         </div>
+
+        {/* Meet Our Team Section */}
+        <TeamSection />
       </main>
       <SpeedDial />
       <Footer />
