@@ -84,8 +84,8 @@
     @apply border-border;
   }
   body {
-    @apply text-foreground min-h-screen;
-    font-family: "Inter", "Hind Siliguri", sans-serif;
+    @apply text-foreground min-h-screen font-sans;
+    font-family: "Open Sans", "Inter", "Hind Siliguri", sans-serif;
     background-color: #f8f9fc;
     background-image:
       linear-gradient(350deg, rgb(244, 249, 255), rgba(237, 244, 255, 0.79)),

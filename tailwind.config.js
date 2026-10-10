@@ -12,9 +12,11 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        body: ['Inter', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
+        sans: ['"Open Sans"', 'Inter', 'sans-serif'],
+        body: ['"Open Sans"', 'Inter', 'sans-serif'],
+        headline: ['"Exo 2"', 'Orbitron', 'sans-serif'],
+        exo: ['"Exo 2"', 'sans-serif'],
+        'open-sans': ['"Open Sans"', 'sans-serif'],
         code: ['monospace'],
         bangla: ['Hind Siliguri', 'sans-serif'],
         orbitron: ['Orbitron', 'sans-serif'],

@@ -168,7 +168,7 @@ export default function Home() {
         {/* SPECIAL OFFER SECTION */}
         <div>
           <h2 className="text-xl sm:text-2xl font-black text-center mb-6 tracking-wide text-[#1c2e56] uppercase">
-            SPECIAL OFFER
+            | SPECIAL OFFER |
           </h2>
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 gap-3 sm:gap-4">
             {specialOffers.map((option) => (
