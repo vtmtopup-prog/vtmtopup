@@ -80,74 +80,64 @@ export default function TeamSection() {
   };
 
   return (
-    <section className="w-full mt-14 mb-8 px-2">
+    <section className="w-full mt-10 mb-8 px-2 max-w-5xl mx-auto">
       {/* 1. Section Header */}
-      <div className="text-center">
-        <p className="text-emerald-400 font-bold tracking-widest text-sm text-center uppercase">
-          VTM
-        </p>
-        <h2 className="text-3xl font-extrabold text-center font-orbitron mt-1 text-white">
+      <div className="text-center mb-8">
+        <span className="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-black tracking-widest uppercase rounded-full border border-emerald-300 shadow-sm mb-1.5">
+          VTM TEAM
+        </span>
+        <h2 className="text-2xl sm:text-3xl font-extrabold text-center font-orbitron tracking-tight text-slate-900">
           MEET{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-600">
+          <span className="text-emerald-600 bg-clip-text">
             OUR TEAM
           </span>
         </h2>
-        <p className="text-sm text-gray-400 text-center mt-2">
+        <p className="text-xs sm:text-sm text-slate-500 font-medium text-center mt-1">
           The pros behind VTM TopUp
         </p>
       </div>
 
-      {/* 2. Responsive Grid with HeroUI Avatars as Buttons */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-10 max-w-3xl mx-auto justify-items-center">
+      {/* 2. Responsive Grid with Team Member Cards */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-5">
         {teamMembers.map((member) => (
           <div
             key={member.id}
-            className="flex flex-col items-center group cursor-pointer"
             onClick={() => handleOpenModal(member)}
+            className="group relative bg-white/95 backdrop-blur-md border-2 border-emerald-200/90 hover:border-emerald-500 rounded-2xl p-4 sm:p-5 flex flex-col items-center text-center shadow-sm hover:shadow-lg hover:shadow-emerald-500/10 transition-all duration-300 cursor-pointer transform hover:-translate-y-1 active:scale-[0.98]"
           >
-            {/* Avatar Button Container */}
-            <div className="relative p-1 transition-all duration-300 transform group-hover:scale-105 active:scale-95">
-              {member.isFounder ? (
-                <Badge
-                  content={<Crown className="w-3 h-3 text-amber-300" />}
-                  color="warning"
-                  placement="top-right"
-                  size="sm"
-                  className="border border-amber-400 shadow-[0_0_10px_rgba(245,158,11,0.5)]"
-                >
-                  <Avatar
-                    src={member.image}
-                    name={member.name}
-                    isBordered
-                    color="success"
-                    className="w-20 h-20 text-large ring-2 ring-emerald-500/80 shadow-[0_0_20px_rgba(16,185,129,0.35)] cursor-pointer"
-                  />
-                </Badge>
-              ) : (
+            {/* Top Founder Badge or Dot indicator */}
+            {member.isFounder && (
+              <div className="absolute top-2.5 right-2.5 bg-amber-100 text-amber-700 border border-amber-300 p-1 rounded-full shadow-xs">
+                <Crown className="w-3.5 h-3.5 fill-amber-400 text-amber-600" />
+              </div>
+            )}
+
+            {/* Avatar Container */}
+            <div className="relative mb-3 mt-1">
+              <div className="relative p-1 rounded-full ring-2 ring-emerald-500/80 shadow-[0_0_15px_rgba(16,185,129,0.25)] group-hover:ring-emerald-500 group-hover:scale-105 transition-all duration-300">
                 <Avatar
                   src={member.image}
                   name={member.name}
-                  isBordered
-                  color="success"
-                  className="w-20 h-20 text-large ring-2 ring-emerald-500/80 shadow-[0_0_20px_rgba(16,185,129,0.35)] cursor-pointer"
+                  className="w-16 h-16 sm:w-20 sm:h-20 text-large border-2 border-white object-cover"
                 />
-              )}
+              </div>
             </div>
 
             {/* Member Name */}
-            <h3 className="text-sm font-semibold text-white mt-3 text-center group-hover:text-emerald-400 transition-colors">
+            <h3 className="text-sm sm:text-base font-bold text-slate-900 group-hover:text-emerald-600 transition-colors line-clamp-1">
               {member.name}
             </h3>
 
-            {/* Member Role / Badge */}
-            <span className="text-[11px] text-gray-400 font-medium text-center">
+            {/* Member Role */}
+            <span className="text-[11px] sm:text-xs text-slate-500 font-semibold tracking-wide uppercase mt-0.5 line-clamp-1">
               {member.role}
             </span>
 
-            {/* Click to view indicator */}
-            <span className="text-[10px] text-emerald-500/80 mt-1 opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-              <Sparkles className="w-2.5 h-2.5" /> View Details
-            </span>
+            {/* View Details Button Tag */}
+            <div className="mt-3 w-full pt-2 border-t border-slate-100 flex items-center justify-center gap-1 text-[11px] font-bold text-emerald-600 group-hover:text-emerald-700">
+              <Sparkles className="w-3 h-3 text-emerald-500" />
+              <span>View Details</span>
+            </div>
           </div>
         ))}
       </div>
@@ -159,10 +149,10 @@ export default function TeamSection() {
         placement="center"
         backdrop="blur"
         classNames={{
-          backdrop: "bg-black/70 backdrop-blur-md z-50",
-          base: "bg-[#0a1a13] border border-emerald-500/40 text-white rounded-2xl shadow-[0_0_40px_rgba(16,185,129,0.25)] mx-4 max-w-sm z-50",
+          backdrop: "bg-black/60 backdrop-blur-sm z-50",
+          base: "bg-white border border-emerald-200 text-slate-900 rounded-3xl shadow-2xl mx-4 max-w-sm z-50",
           closeButton:
-            "hover:bg-white/10 active:bg-white/20 text-gray-400 hover:text-white top-3 right-3",
+            "hover:bg-slate-100 active:bg-slate-200 text-slate-400 hover:text-slate-800 top-3 right-3",
         }}
       >
         <ModalContent>
@@ -173,40 +163,40 @@ export default function TeamSection() {
                   <ModalHeader className="flex flex-col items-center pt-6 pb-2">
                     {/* Crown badge if founder */}
                     {selectedMember.isFounder && (
-                      <div className="mb-2 bg-emerald-950/80 border border-emerald-500 text-emerald-400 text-[11px] font-bold px-3 py-0.5 rounded-full flex items-center gap-1 shadow-sm">
-                        <Crown className="w-3.5 h-3.5 text-amber-400" />
+                      <div className="mb-2 bg-amber-50 border border-amber-300 text-amber-800 text-[11px] font-bold px-3 py-0.5 rounded-full flex items-center gap-1 shadow-xs">
+                        <Crown className="w-3.5 h-3.5 fill-amber-400 text-amber-600" />
                         <span>Founder & CEO</span>
                       </div>
                     )}
 
                     {/* Modal Avatar */}
-                    <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-emerald-500 p-1 bg-black shadow-[0_0_25px_rgba(16,185,129,0.5)] my-2">
+                    <div className="relative w-24 h-24 rounded-full overflow-hidden border-3 border-emerald-500 p-0.5 bg-white shadow-[0_0_20px_rgba(16,185,129,0.3)] my-2">
                       <Image
                         src={selectedMember.image}
                         alt={selectedMember.name}
                         fill
                         sizes="96px"
-                        className="rounded-full object-cover p-0.5"
+                        className="rounded-full object-cover"
                       />
                     </div>
 
-                    <h3 className="text-xl font-bold font-orbitron text-white mt-1 text-center">
+                    <h3 className="text-xl font-bold font-orbitron text-slate-900 mt-1 text-center">
                       {selectedMember.name}
                     </h3>
-                    <p className="text-xs font-semibold text-emerald-400 uppercase tracking-wider mt-0.5">
+                    <p className="text-xs font-bold text-emerald-600 uppercase tracking-wider mt-0.5">
                       {selectedMember.role}
                     </p>
                   </ModalHeader>
 
                   <ModalBody className="py-3 px-6">
-                    <div className="flex flex-col gap-2.5 bg-black/40 border border-white/10 rounded-xl p-3.5">
+                    <div className="flex flex-col gap-2.5 bg-slate-50 border border-slate-200/80 rounded-2xl p-4">
                       {/* Row 1: Position */}
                       <div className="flex items-center gap-2.5">
-                        <User className="w-4 h-4 text-emerald-400 shrink-0" />
-                        <span className="text-emerald-400 text-xs font-semibold shrink-0">
+                        <User className="w-4 h-4 text-emerald-600 shrink-0" />
+                        <span className="text-slate-500 text-xs font-semibold shrink-0">
                           Position:
                         </span>
-                        <span className="text-gray-200 text-xs font-medium truncate">
+                        <span className="text-slate-800 text-xs font-bold truncate">
                           {selectedMember.role}
                         </span>
                       </div>
@@ -214,11 +204,11 @@ export default function TeamSection() {
                       {/* Row 2: Study / Work */}
                       {selectedMember.study && (
                         <div className="flex items-center gap-2.5">
-                          <GraduationCap className="w-4 h-4 text-emerald-400 shrink-0" />
-                          <span className="text-emerald-400 text-xs font-semibold shrink-0">
+                          <GraduationCap className="w-4 h-4 text-emerald-600 shrink-0" />
+                          <span className="text-slate-500 text-xs font-semibold shrink-0">
                             Study:
                           </span>
-                          <span className="text-gray-200 text-xs font-medium truncate">
+                          <span className="text-slate-800 text-xs font-bold truncate">
                             {selectedMember.study}
                           </span>
                         </div>
@@ -226,15 +216,15 @@ export default function TeamSection() {
                     </div>
 
                     {/* Social Connect */}
-                    <div className="flex items-center justify-center gap-4 mt-4">
+                    <div className="flex items-center justify-center gap-3 mt-4">
                       {selectedMember.facebook && (
                         <a
                           href={selectedMember.facebook}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-600/20 border border-blue-500/30 text-blue-400 hover:bg-blue-600/30 hover:border-blue-500 transition-all text-xs font-semibold active:scale-95"
+                          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 hover:bg-blue-100 hover:border-blue-300 transition-all text-xs font-bold active:scale-95 shadow-sm"
                         >
-                          <Facebook className="w-4 h-4" />
+                          <Facebook className="w-4 h-4 text-blue-600" />
                           <span>Facebook</span>
                         </a>
                       )}
@@ -243,9 +233,9 @@ export default function TeamSection() {
                           href={selectedMember.whatsapp}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600/20 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-600/30 hover:border-emerald-500 transition-all text-xs font-semibold active:scale-95"
+                          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-700 hover:bg-emerald-100 hover:border-emerald-300 transition-all text-xs font-bold active:scale-95 shadow-sm"
                         >
-                          <MessageCircle className="w-4 h-4" />
+                          <MessageCircle className="w-4 h-4 text-emerald-600" />
                           <span>WhatsApp</span>
                         </a>
                       )}
@@ -254,11 +244,11 @@ export default function TeamSection() {
 
                   <ModalFooter className="justify-center pb-5 pt-2">
                     <Button
-                      color="danger"
-                      variant="light"
+                      color="default"
+                      variant="flat"
                       size="sm"
                       onPress={onClose}
-                      className="font-medium text-xs text-gray-400 hover:text-white"
+                      className="font-semibold text-xs text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 rounded-xl px-5"
                     >
                       Close
                     </Button>

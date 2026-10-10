@@ -12,9 +12,11 @@ import {
   FaWhatsappSquare,
   FaYoutubeSquare,
   FaFacebook,
+  FaFacebookMessenger,
 } from "react-icons/fa";
 import { MdMailOutline } from "react-icons/md";
 import { FaSignalMessenger, FaTelegram } from "react-icons/fa6";
+import { IoIosMail, IoLogoYoutube } from "react-icons/io";
 
 export default function Footer() {
   return (
@@ -44,7 +46,7 @@ export default function Footer() {
               rel="noreferrer"
               className="w-11 h-11 bg-white hover:bg-emerald-100/60 border border-emerald-200 rounded-xl flex items-center justify-center text-slate-700 hover:text-emerald-600 shadow-sm transition-all"
             >
-              <FaFacebook size={18} />
+              <FaFacebook size={24} />
             </a>
 
             <a
@@ -53,7 +55,7 @@ export default function Footer() {
               rel="noreferrer"
               className="w-11 h-11 bg-white hover:bg-emerald-100/60 border border-emerald-200 rounded-xl flex items-center justify-center text-slate-700 hover:text-emerald-600 shadow-sm transition-all"
             >
-              <FaSignalMessenger size={18} />
+              <FaFacebookMessenger size={24} />
             </a>
 
             <a
@@ -62,14 +64,14 @@ export default function Footer() {
               rel="noreferrer"
               className="w-11 h-11 bg-white hover:bg-emerald-100/60 border border-emerald-200 rounded-xl flex items-center justify-center text-slate-700 hover:text-emerald-600 shadow-sm transition-all"
             >
-              <FaYoutubeSquare size={18} />
+              <IoLogoYoutube size={24} />
             </a>
 
             <a
               href="mailto:support@vtmtopup.com"
               className="w-11 h-11 bg-white hover:bg-emerald-100/60 border border-emerald-200 rounded-xl flex items-center justify-center text-slate-700 hover:text-emerald-600 shadow-sm transition-all"
             >
-              <MdMailOutline size={20} />
+              <IoIosMail size={24} />
             </a>
           </div>
         </div>

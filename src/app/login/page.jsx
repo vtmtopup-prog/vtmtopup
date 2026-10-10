@@ -380,58 +380,11 @@ function LoginFormContent() {
 export default function LoginPage() {
   return (
     <div className="login-page-root">
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full bg-slate-950/80 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-4 h-16 sm:h-18 flex items-center justify-between relative">
-          {/* Left: Modern Glassmorphic Back Button */}
-          <Link
-            href="/"
-            aria-label="Go back"
-            className="group relative flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.04] hover:bg-white/[0.08] active:scale-95 border border-white/10 hover:border-cyan-500/40 shadow-sm hover:shadow-[0_0_15px_rgba(6,182,212,0.25)] transition-all duration-200"
-          >
-            <ChevronLeft className="w-5 h-5 text-slate-300 group-hover:text-white group-hover:-translate-x-0.5 transition-transform duration-200" />
-            <span className="absolute inset-0 rounded-full bg-gradient-to-b from-white/10 to-transparent pointer-events-none opacity-50" />
-          </Link>
-
-          {/* Center: Stylized Gaming Logo */}
-          <div className="flex items-center select-none tracking-wider">
-            <Link
-              href="/"
-              className="group flex items-center font-black text-xl sm:text-2xl uppercase tracking-widest font-sans"
-            >
-              <span className="bg-gradient-to-r mr-1 from-blue-500 via-cyan-400 to-sky-400 bg-clip-text text-transparent drop-shadow-[0_0_18px_rgba(34,211,238,0.55)] group-hover:brightness-110 transition-all duration-200">
-                VTM
-              </span>
-              <span className="bg-gradient-to-r from-red-500 via-rose-500 to-amber-500 bg-clip-text text-transparent drop-shadow-[0_0_18px_rgba(244,63,94,0.6)] group-hover:brightness-110 transition-all duration-200">
-                TopUp
-              </span>
-            </Link>
-          </div>
-
-          {/* Right: Help link */}
-          <div className="flex items-center">
-            <Link
-              href="/contact"
-              aria-label="Need Help?"
-              className="group flex items-center justify-center w-10 h-10 rounded-full bg-white/[0.04] hover:bg-white/[0.08] active:scale-95 border border-white/10 hover:border-red-500/40 shadow-sm hover:shadow-[0_0_15px_rgba(239,68,68,0.25)] transition-all duration-200"
-            >
-              <HelpCircle className="w-4 h-4 text-slate-400 group-hover:text-white transition-colors duration-200" />
-            </Link>
-          </div>
-        </div>
-
-        {/* Bottom Glowing Divider */}
-        <div className="relative w-full h-[1.5px] bg-gradient-to-r from-transparent via-cyan-500/60 via-50% to-transparent overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500 via-red-500 to-transparent opacity-80" />
-          <div className="absolute inset-0 blur-[2px] bg-gradient-to-r from-blue-400 via-red-400 to-transparent opacity-70" />
-        </div>
-      </header>
-
       {/* Main */}
       <main className="login-main">
         <Suspense
           fallback={
-            <div className="login-card flex items-center justify-center py-20">
+            <div className="login-card flex items-center justify-center py-10">
               <Loader2 className="w-8 h-8 animate-spin text-emerald-600" />
             </div>
           }
