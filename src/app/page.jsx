@@ -231,7 +231,7 @@ export default function Home() {
             {/* ব্যাকগ্রাউন্ড এখন ৮০% সাদা (bg-white/80), যা পেছনের জিনিসপত্র ঢেকে দেবে কিন্তু কাচের ফিল দেবে */}
             <div
               className="relative flex justify-around items-center h-[68px] px-2 rounded-[2rem] 
-                  bg-white/80 backdrop-blur-2xl 
+                  bg-white/90 backdrop-blur-2xl 
                   border border-white/50 
                   shadow-[0_8px_30px_rgba(0,0,0,0.15)] overflow-hidden"
             >

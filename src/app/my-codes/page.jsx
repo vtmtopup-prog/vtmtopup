@@ -2,13 +2,12 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import {
-  Code,
-  Gift,
-  Copy,
-  Check,
-  RotateCcw,
-} from "lucide-react";
+import { Code, Gift, Copy, Check, RotateCcw } from "lucide-react";
+import { FaRegUser } from "react-icons/fa";
+import { TiClipboard } from "react-icons/ti";
+import { IoMdAddCircle } from "react-icons/io";
+import { BsCartCheckFill } from "react-icons/bs";
+import { TbHomeFilled } from "react-icons/tb";
 
 export default function MyCodesPage() {
   const [codes, setCodes] = useState([]);
@@ -93,7 +92,9 @@ export default function MyCodesPage() {
             className="text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-white hover:bg-white/10 transition"
           >
             <RotateCcw className="w-3.5 h-3.5 text-emerald-400" />
-            {codes.length === 0 ? "Load Dummy Codes" : "Clear Codes (Show Empty)"}
+            {codes.length === 0
+              ? "Load Dummy Codes"
+              : "Clear Codes (Show Empty)"}
           </button>
         </div>
 
@@ -136,10 +137,11 @@ export default function MyCodesPage() {
                     {item.title}
                   </h3>
                   <span
-                    className={`text-xs px-2.5 py-1 rounded-full font-medium ${item.status === "Completed"
-                      ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
-                      : "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
-                      }`}
+                    className={`text-xs px-2.5 py-1 rounded-full font-medium ${
+                      item.status === "Completed"
+                        ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+                        : "bg-yellow-500/20 text-yellow-400 border border-yellow-500/30"
+                    }`}
                   >
                     {item.status}
                   </span>
@@ -158,15 +160,18 @@ export default function MyCodesPage() {
                     type="button"
                     onClick={() => handleCopy(item.id, item.codeString)}
                     disabled={item.status === "Pending"}
-                    className={`text-xs px-4 py-2 rounded-lg transition flex items-center gap-2 w-fit ${item.status === "Pending"
-                      ? "bg-white/5 text-gray-500 cursor-not-allowed border border-white/5"
-                      : "bg-white/10 text-white hover:bg-white/20 active:scale-95 cursor-pointer"
-                      }`}
+                    className={`text-xs px-4 py-2 rounded-lg transition flex items-center gap-2 w-fit ${
+                      item.status === "Pending"
+                        ? "bg-white/5 text-gray-500 cursor-not-allowed border border-white/5"
+                        : "bg-white/10 text-white hover:bg-white/20 active:scale-95 cursor-pointer"
+                    }`}
                   >
                     {copiedId === item.id ? (
                       <>
                         <Check className="w-3.5 h-3.5 text-emerald-400" />
-                        <span className="text-emerald-400 font-medium">Copied!</span>
+                        <span className="text-emerald-400 font-medium">
+                          Copied!
+                        </span>
                       </>
                     ) : (
                       <>
@@ -186,6 +191,76 @@ export default function MyCodesPage() {
             ))}
           </div>
         )}
+      </div>
+      <div className="fixed bottom-0 left-0 right-0 bg-background/90 backdrop-blur-sm border-t border-border z-50">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          {/* iOS Frosted Glass Floating Bottom Navbar (Fixed Transparency) */}
+          <div className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-lg">
+            {/* ব্যাকগ্রাউন্ড এখন ৮০% সাদা (bg-white/80), যা পেছনের জিনিসপত্র ঢেকে দেবে কিন্তু কাচের ফিল দেবে */}
+            <div
+              className="relative flex justify-around items-center h-[68px] px-2 rounded-[2rem] 
+                  bg-white/90 backdrop-blur-2xl 
+                  border border-white/50 
+                  shadow-[0_8px_30px_rgba(0,0,0,0.15)] overflow-hidden"
+            >
+              {/* Home Tab (Active) - একটিভ ট্যাবে নীল রঙ (iOS স্টাইল) */}
+              <Link
+                href="/"
+                className="relative z-10 flex flex-col items-center justify-center gap-1 w-full h-full 
+                 transition-all duration-300 active:scale-90 text-blue-600"
+              >
+                <TbHomeFilled className="w-[22px] h-[22px]" />
+                <span className="text-[10px] font-semibold tracking-tight">
+                  Home
+                </span>
+              </Link>
+              {/* My Orders Tab */}
+              <Link
+                href="/orders"
+                className="relative z-10 flex flex-col items-center justify-center gap-1 w-full h-full 
+                 transition-all duration-300 active:scale-90 text-gray-500 hover:text-gray-900"
+              >
+                <BsCartCheckFill className="w-[22px] h-[22px]" />
+                <span className="text-[10px] font-medium tracking-tight">
+                  My Orders
+                </span>
+              </Link>
+              {/* Add Money Tab */}
+              <Link
+                href="/add-money"
+                className="relative z-10 flex flex-col items-center justify-center gap-1 w-full h-full 
+                 transition-all duration-300 active:scale-90 text-gray-500 hover:text-gray-900"
+              >
+                <IoMdAddCircle className="w-[22px] h-[22px]" />
+                <span className="text-[10px] font-medium tracking-tight">
+                  Add Money
+                </span>
+              </Link>{" "}
+              {/* My Code Tab */}
+              <Link
+                href="/my-codes"
+                className="relative z-10 flex flex-col items-center justify-center gap-1 w-full h-full 
+                 transition-all duration-300 active:scale-90 text-gray-500 hover:text-gray-900"
+              >
+                <TiClipboard className="w-[22px] h-[22px]" />
+                <span className="text-[10px] font-medium tracking-tight">
+                  My Code
+                </span>
+              </Link>
+              {/* My Account Tab */}
+              <Link
+                href="/profile"
+                className="relative z-10 flex flex-col items-center justify-center gap-1 w-full h-full 
+                 transition-all duration-300 active:scale-90 text-gray-500 hover:text-gray-900"
+              >
+                <FaRegUser className="w-[22px] h-[22px]" />
+                <span className="text-[10px] font-medium tracking-tight">
+                  Account
+                </span>
+              </Link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

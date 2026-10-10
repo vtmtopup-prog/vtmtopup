@@ -4,6 +4,8 @@ import React from "react";
 import Image from "next/image";
 import { Facebook, MessageCircle } from "lucide-react";
 import Footer from "./ui/Footer";
+import { FaWhatsapp } from "react-icons/fa";
+import { LuFacebook } from "react-icons/lu";
 
 export default function TeamSection() {
   const teamMembers = [
@@ -87,7 +89,7 @@ export default function TeamSection() {
                 aria-label={`${member.name}'s Facebook`}
                 className="w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 hover:text-emerald-400 text-gray-300 border border-white/5 hover:border-emerald-500/30 flex items-center justify-center transition-all duration-200 active:scale-95"
               >
-                <Facebook className="w-3.5 h-3.5" />
+                <LuFacebook className="w-3.5 h-3.5" />
               </a>
               <a
                 href={member.whatsapp}
@@ -96,7 +98,7 @@ export default function TeamSection() {
                 aria-label={`${member.name}'s WhatsApp`}
                 className="w-8 h-8 rounded-full bg-white/10 hover:bg-emerald-500/20 hover:text-emerald-400 text-gray-300 border border-white/5 hover:border-emerald-500/30 flex items-center justify-center transition-all duration-200 active:scale-95"
               >
-                <MessageCircle className="w-3.5 h-3.5" />
+                <FaWhatsapp className="w-3.5 h-3.5" />
               </a>
             </div>
           </div>

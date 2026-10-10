@@ -40,7 +40,7 @@ export default function Navbar() {
             <Image
               src="/vtmtopup.png"
               alt="TOPUPBUZZ Logo"
-              width={140}
+              width={240}
               height={10}
               priority
               className="object-contain w-auto h-auto max-h-10"
