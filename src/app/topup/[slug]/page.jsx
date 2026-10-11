@@ -462,11 +462,8 @@ export default function TopUpPage({ params }) {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 text-md sm:text-md text-slate-600 dark:text-slate-300 px-4 sm:px-5 pb-5">
-            <p>⦿ শুধুমাত্র Bangladesh সার্ভারে ID Code দিয়ে টপ আপ হবে</p>
-            <p>
-              ⦿ Player ID ভুল দিয়ে Diamond না পেলে VTM TopUp কর্তৃপক্ষ দায়ী
-              নয়
-            </p>
+            <p>💎 VTM TOP UP — Diamond Top-Up Rules</p>
+            <p>📋 Rules & Conditions</p>
             <p>
               ⦿ Order কমপ্লিট হওয়ার পরেও আইডিতে ডাইমন্ড না গেলে চেক করার জন্য ID
               Pass দিতে হবে
