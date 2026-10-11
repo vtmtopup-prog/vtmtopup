@@ -168,7 +168,7 @@ export default function Home() {
         {/* SPECIAL OFFER SECTION */}
         <div>
           <h2 className="text-xl sm:text-2xl font-black text-center mb-6 tracking-wide bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent uppercase">
-            | SPECIAL OFFER |
+            | Friday SPECIAL OFFER |
           </h2>
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 gap-3 sm:gap-4">
             {specialOffers.map((option) => (
@@ -197,7 +197,7 @@ export default function Home() {
         {/* FREE FIRE SECTION */}
         <div>
           <h2 className="text-xl sm:text-2xl font-black text-center mb-6 mt-8 tracking-wide bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent uppercase">
-            | FREE FIRE |
+            | Garena FREE FIRE |
           </h2>
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 gap-3 sm:gap-4">
             {freeFireOptions.map((option) => (

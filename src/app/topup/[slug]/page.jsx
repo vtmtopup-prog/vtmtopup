@@ -278,18 +278,20 @@ export default function TopUpPage({ params }) {
                   <Label
                     key={option.id}
                     htmlFor={option.id}
-                    className={`relative flex items-center justify-between py-2.5 px-2.5 sm:px-3.5 rounded-xl border cursor-pointer transition-all duration-150 ${isSelected
-                      ? "border-[#7132c7] ring-1 ring-[#7132c7] bg-purple-50/30 dark:bg-purple-950/20 shadow-sm"
-                      : "border-slate-200/90 dark:border-slate-800 bg-white dark:bg-card hover:border-slate-300"
-                      }`}
+                    className={`relative flex items-center justify-between py-2.5 px-2.5 sm:px-3.5 rounded-xl border cursor-pointer transition-all duration-150 ${
+                      isSelected
+                        ? "border-[#7132c7] ring-1 ring-[#7132c7] bg-purple-50/30 dark:bg-purple-950/20 shadow-sm"
+                        : "border-slate-200/90 dark:border-slate-800 bg-white dark:bg-card hover:border-slate-300"
+                    }`}
                   >
                     <div className="flex items-center gap-2 min-w-0 flex-1">
                       {/* Left circular radio indicator */}
                       <span
-                        className={`w-2 h-2 rounded-full shrink-0 transition-colors ${isSelected
-                          ? "bg-[#7132c7] ring-2 ring-purple-200 dark:ring-purple-900"
-                          : "bg-slate-300 dark:bg-slate-700"
-                          }`}
+                        className={`w-2 h-2 rounded-full shrink-0 transition-colors ${
+                          isSelected
+                            ? "bg-[#7132c7] ring-2 ring-purple-200 dark:ring-purple-900"
+                            : "bg-slate-300 dark:bg-slate-700"
+                        }`}
                       />
                       {/* Middle Option name */}
                       <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-slate-200 leading-tight">
@@ -380,10 +382,11 @@ export default function TopUpPage({ params }) {
             >
               <Label
                 htmlFor="wallet"
-                className={`flex flex-col items-center justify-center rounded-xl border-2 p-3 sm:p-4 cursor-pointer relative transition-all ${selectedPayment === "wallet"
-                  ? "border-[#7132c7] bg-purple-50/20 dark:bg-purple-950/20"
-                  : "border-slate-200 dark:border-slate-800 hover:border-slate-300"
-                  }`}
+                className={`flex flex-col items-center justify-center rounded-xl border-2 p-3 sm:p-4 cursor-pointer relative transition-all ${
+                  selectedPayment === "wallet"
+                    ? "border-[#7132c7] bg-purple-50/20 dark:bg-purple-950/20"
+                    : "border-slate-200 dark:border-slate-800 hover:border-slate-300"
+                }`}
               >
                 <RadioGroupItem
                   value="wallet"
@@ -396,23 +399,21 @@ export default function TopUpPage({ params }) {
                   </div>
                 )}
                 <Image
-                  src="https://admin.topupbuzz.com/notices/1751691539_walletlogo.png"
-                  width={120}
-                  height={40}
+                  src="/walllet.jpeg"
+                  width={420}
+                  height={100}
                   alt="Wallet"
                   data-ai-hint="topupbuzz wallet logo"
                 />
-                <span className="block w-full p-1.5 text-center bg-slate-100 dark:bg-slate-800 mt-2 rounded-lg text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200">
-                  Wallet Pay
-                </span>
               </Label>
 
               <Label
                 htmlFor="instant"
-                className={`flex flex-col items-center justify-center rounded-xl border-2 p-3 sm:p-4 cursor-pointer relative transition-all ${selectedPayment === "instant"
-                  ? "border-[#7132c7] bg-purple-50/20 dark:bg-purple-950/20"
-                  : "border-slate-200 dark:border-slate-800 hover:border-slate-300"
-                  }`}
+                className={`flex flex-col items-center justify-center rounded-xl border-2 p-3 sm:p-4 cursor-pointer relative transition-all ${
+                  selectedPayment === "instant"
+                    ? "border-[#7132c7] bg-purple-50/20 dark:bg-purple-950/20"
+                    : "border-slate-200 dark:border-slate-800 hover:border-slate-300"
+                }`}
               >
                 <RadioGroupItem
                   value="instant"

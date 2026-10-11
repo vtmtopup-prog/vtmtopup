@@ -170,8 +170,8 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0a1a13] text-white flex items-center justify-center p-4 pt-24 pb-20">
-      <div className="w-full max-w-md bg-white/5 border border-white/10 rounded-3xl p-6 backdrop-blur-md shadow-2xl">
+    <div className="min-h-[calc(100vh-80px)] bg-[#0a1a13] text-white flex items-center justify-center p-3 sm:p-4">
+      <div className="w-full max-w-md bg-white/5 border border-white/10 rounded-3xl p-5 sm:p-6 backdrop-blur-md shadow-2xl my-2">
         {/* Top Header */}
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold font-orbitron tracking-wide text-white">

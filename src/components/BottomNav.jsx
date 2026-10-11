@@ -45,9 +45,13 @@ const navItems = [
 export default function BottomNav() {
   const pathname = usePathname();
 
+  if (pathname === "/login" || pathname === "/register") {
+    return null;
+  }
+
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-background/90 backdrop-blur-sm border-t border-border z-50">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pointer-events-auto">
         {/* iOS Frosted Glass Floating Bottom Navbar (Fixed Transparency) */}
         <div className="fixed bottom-4 left-4 right-4 z-50 mx-auto max-w-lg">
           <div

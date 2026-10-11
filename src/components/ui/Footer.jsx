@@ -17,6 +17,7 @@ import {
 import { MdMailOutline } from "react-icons/md";
 import { FaSignalMessenger, FaTelegram } from "react-icons/fa6";
 import { IoIosMail, IoLogoYoutube } from "react-icons/io";
+import { PiTelegramLogoFill } from "react-icons/pi";
 
 export default function Footer() {
   return (
@@ -96,7 +97,7 @@ export default function Footer() {
             >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-[#25d366] rounded-xl flex items-center justify-center text-white shadow-md">
-                  <FaWhatsappSquare size={22} />
+                  <FaWhatsapp size={24} />
                 </div>
                 <div className="text-left">
                   <span className="block text-[9px] text-emerald-700/80 font-bold tracking-wider uppercase">
@@ -107,7 +108,7 @@ export default function Footer() {
                   </span>
                 </div>
               </div>
-              <ChevronRightCircleIcon size={18} className="text-slate-400" />
+              <ChevronRightCircleIcon size={24} className="text-slate-400" />
             </a>
 
             {/* Telegram Item */}
@@ -119,7 +120,7 @@ export default function Footer() {
             >
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 bg-[#0088cc] rounded-xl flex items-center justify-center text-white shadow-md">
-                  <FaTelegram size={22} />
+                  <PiTelegramLogoFill size={22} />
                 </div>
                 <div className="text-left">
                   <span className="block text-[9px] text-emerald-700/80 font-bold tracking-wider uppercase">
