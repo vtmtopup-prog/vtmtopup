@@ -73,7 +73,7 @@ const freeFireOptions = [
   {
     id: "ff-3",
     name: "WEEKLY/MONTHLY",
-    image: "/monthly.webp",
+    image: "/file_00000000020c8230b8b354eff49e8cfa.png",
     slug: "weekly-monthly-offer",
   },
   {
