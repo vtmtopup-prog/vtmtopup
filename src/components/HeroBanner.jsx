@@ -48,12 +48,12 @@ const slides = [
     title: "ডাইমন্ড পেতে",
     highlight: "টেলিগ্রাম গ্রুপে",
     sub: "চলে আসুন",
-    hrefLeft: "https://wa.me/8801940863413",
-    hrefRight: "https://t.me/amrakinbosupport",
+    hrefLeft: "https://wa.me/IlvB6G8PYrm0ciZhLqkpv6",
+    hrefRight: "https://t.me/vtmtopup",
   },
   {
     id: 2,
-    bg: "/gaming-banner.jpg",
+    bg: "/gaming-banner1.jpg",
     title: "সেরা দামে পান",
     highlight: "ফ্রি ফায়ার ডাইমন্ড",
     sub: "ইনস্ট্যান্ট ডেলিভারি",
@@ -62,12 +62,12 @@ const slides = [
   },
   {
     id: 3,
-    bg: "/gaming-banner.jpg",
+    bg: "/gaming-banner2.jpg",
     title: "সাশ্রয়ী মূল্যে",
     highlight: "50% বোনাস ডাইমন্ড",
     sub: "সীমিত সময়ের অফার",
-    hrefLeft: "https://wa.me/8801940863413",
-    hrefRight: "https://t.me/amrakinbosupport",
+    hrefLeft: "https://wa.me/IlvB6G8PYrm0ciZhLqkpv6",
+    hrefRight: "https://t.me/vtmtopup",
   },
 ];
 

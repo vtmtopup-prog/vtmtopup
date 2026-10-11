@@ -42,7 +42,7 @@ export default function Footer() {
           {/* Social Icons Row */}
           <div className="flex items-center justify-center gap-3">
             <a
-              href="https://facebook.com"
+              href="https://facebook.com/vtmtopup"
               target="_blank"
               rel="noreferrer"
               className="w-11 h-11 bg-white hover:bg-emerald-100/60 border border-emerald-200 rounded-xl flex items-center justify-center text-slate-700 hover:text-emerald-600 shadow-sm transition-all"
@@ -51,7 +51,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="https://m.me/yourusername"
+              href="https://m.me/vtmtopup"
               target="_blank"
               rel="noreferrer"
               className="w-11 h-11 bg-white hover:bg-emerald-100/60 border border-emerald-200 rounded-xl flex items-center justify-center text-slate-700 hover:text-emerald-600 shadow-sm transition-all"
@@ -60,7 +60,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="https://youtube.com"
+              href="https://www.youtube.com/@vtmtopup"
               target="_blank"
               rel="noreferrer"
               className="w-11 h-11 bg-white hover:bg-emerald-100/60 border border-emerald-200 rounded-xl flex items-center justify-center text-slate-700 hover:text-emerald-600 shadow-sm transition-all"
@@ -69,7 +69,7 @@ export default function Footer() {
             </a>
 
             <a
-              href="mailto:support@vtmtopup.com"
+              href="mailto:vtmtopup@gmail.com"
               className="w-11 h-11 bg-white hover:bg-emerald-100/60 border border-emerald-200 rounded-xl flex items-center justify-center text-slate-700 hover:text-emerald-600 shadow-sm transition-all"
             >
               <IoIosMail size={24} />
