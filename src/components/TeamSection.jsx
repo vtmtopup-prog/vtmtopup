@@ -39,16 +39,6 @@ export default function TeamSection() {
     },
     {
       id: 2,
-      name: "Sayed Hasan Dipto",
-      role: "LEAD DEVELOPER",
-      study: "Frontend AI Web Development",
-      isFounder: false,
-      image: "/sayed hasan dipto.png",
-      facebook: "https://www.facebook.com/SayedHasanDipto25",
-      whatsapp: "https://whatsapp.com",
-    },
-    {
-      id: 3,
       name: "Fahim Faysal",
       role: "CEO & OPERATIONS HEAD",
       study: "Electrical Engineering",
@@ -58,13 +48,23 @@ export default function TeamSection() {
       whatsapp: "https://whatsapp.com",
     },
     {
-      id: 4,
+      id: 3,
       name: "Sagor Ahmed",
       role: "Admin & Support",
       study: "Outsourcing",
       isFounder: false,
       image: "/sagor.png",
       facebook: "https://facebook.com",
+      whatsapp: "https://whatsapp.com",
+    },
+    {
+      id: 4,
+      name: "Sayed Hasan Dipto",
+      role: "LEAD DEVELOPER",
+      study: "Frontend AI Web Development",
+      isFounder: false,
+      image: "/sayed hasan dipto.png",
+      facebook: "https://www.facebook.com/SayedHasanDipto25",
       whatsapp: "https://whatsapp.com",
     },
   ];
@@ -83,14 +83,8 @@ export default function TeamSection() {
     <section className="w-full mt-10 mb-8 px-2 max-w-5xl mx-auto">
       {/* 1. Section Header */}
       <div className="text-center mb-8">
-        <span className="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 text-xs font-black tracking-widest uppercase rounded-full border border-emerald-300 shadow-sm mb-1.5">
-          VTM TEAM
-        </span>
         <h2 className="text-2xl sm:text-3xl font-extrabold text-center font-orbitron tracking-tight text-slate-900">
-          MEET{" "}
-          <span className="text-emerald-600 bg-clip-text">
-            OUR TEAM
-          </span>
+          MEET <span className="text-emerald-600 bg-clip-text">OUR TEAM</span>
         </h2>
         <p className="text-xs sm:text-sm text-slate-500 font-medium text-center mt-1">
           The pros behind VTM TopUp
