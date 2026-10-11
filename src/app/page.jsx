@@ -173,7 +173,7 @@ export default function Home() {
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 gap-3 sm:gap-4">
             {specialOffers.map((option) => (
               <Link href={`/topup/${option.slug}`} key={option.id}>
-                <div className="group rounded-xl border-2 border-blue-500 hover:border-blue-600 bg-white shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col cursor-pointer h-full">
+                <div className="group rounded-xl border-2 border-emerald-400 hover:border-emerald-600 bg-white shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col cursor-pointer h-full">
                   <div className="aspect-square relative w-full overflow-hidden bg-slate-900 flex items-center justify-center">
                     <Image
                       src={option.image}
@@ -183,7 +183,7 @@ export default function Home() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
-                  <div className="w-full bg-white border-t border-blue-500 py-2 px-1.5 text-center flex items-center justify-center min-h-[42px]">
+                  <div className="w-full bg-white border-t border-emerald-400 py-2 px-1.5 text-center flex items-center justify-center min-h-[42px]">
                     <p className="text-[11px] sm:text-xs font-extrabold uppercase text-slate-900 tracking-tight leading-tight line-clamp-2">
                       {option.name}
                     </p>
@@ -202,7 +202,7 @@ export default function Home() {
           <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-5 gap-3 sm:gap-4">
             {freeFireOptions.map((option) => (
               <Link href={`/topup/${option.slug}`} key={option.id}>
-                <div className="group rounded-xl border-2 border-blue-500 hover:border-blue-600 bg-white shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col cursor-pointer h-full">
+                <div className="group rounded-xl border-2 border-emerald-400 hover:border-emerald-600 bg-white shadow-sm hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col cursor-pointer h-full">
                   <div className="aspect-square relative w-full overflow-hidden bg-slate-900 flex items-center justify-center">
                     <Image
                       src={option.image}
@@ -212,7 +212,7 @@ export default function Home() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
-                  <div className="w-full bg-white border-t border-blue-500 py-2 px-1.5 text-center flex items-center justify-center min-h-[42px]">
+                  <div className="w-full bg-white border-t border-emerald-400 py-2 px-1.5 text-center flex items-center justify-center min-h-[42px]">
                     <p className="text-[11px] sm:text-xs font-extrabold uppercase text-slate-900 tracking-tight leading-tight line-clamp-2">
                       {option.name}
                     </p>
