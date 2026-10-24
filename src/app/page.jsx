@@ -21,6 +21,8 @@ import {
 
 import Link from "next/link";
 import TeamSection from "@/components/TeamSection";
+import TopPerformers from "@/components/TopPerformers";
+import LatestOrders from "@/components/LatestOrders";
 import {
   Tooltip,
   TooltipContent,
@@ -165,6 +167,9 @@ export default function Home() {
           <HeroBanner />
         </div>
 
+        {/* Top Performers Leaderboard */}
+        <TopPerformers />
+
         {/* SPECIAL OFFER SECTION */}
         <div>
           <h2 className="text-xl sm:text-2xl font-black text-center mb-6 tracking-wide bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent uppercase">
@@ -222,6 +227,9 @@ export default function Home() {
             ))}
           </div>
         </div>
+
+        {/* Latest Orders */}
+        <LatestOrders />
 
         {/* Meet Our Team Section */}
         <TeamSection />
