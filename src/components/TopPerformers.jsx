@@ -166,21 +166,21 @@ export default function TopPerformers() {
       name: "Ashraful Hossain",
       score: "2,143",
       level: "LEVEL 1",
-      image: "/avatars/rank2.png",
+      image: "https://i.ibb.co.com/jpSSsfZ/IMG-4937.jpg",
     },
     {
       rank: 1,
       name: "Md. Rafiq Islam",
       score: "3,958",
       level: "LEVEL 1",
-      image: "/avatars/rank1.png",
+      image: "https://i.ibb.co.com/ymYj65ML/passport-size.png",
     },
     {
       rank: 3,
       name: "Shamima Begum",
       score: "1,876",
       level: "LEVEL 1",
-      image: "/avatars/rank3.png",
+      image: "https://i.ibb.co.com/bDB67GX/image.png",
     },
   ];
 
