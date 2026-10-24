@@ -20,49 +20,25 @@ import { IoMdAddCircle } from "react-icons/io";
 import { TiClipboard } from "react-icons/ti";
 import { FaRegUser } from "react-icons/fa";
 
+import { useApp } from "@/context/AppContext";
+
 export default function OrdersPage() {
   const [activeTab, setActiveTab] = useState("All");
   const [copiedUid, setCopiedUid] = useState(null);
+  const { orders: liveOrders, currentUser } = useApp();
 
-  // Mock orders data
-  const orders = [
-    {
-      id: "#ORD-8938",
-      date: "10 Oct 2026, 2:45 PM",
-      itemName: "Weekly Membership",
-      playerUid: "123456789",
-      amount: "240 Tk",
-      status: "Completed",
-      type: "membership",
-    },
-    {
-      id: "#ORD-8939",
-      date: "09 Oct 2026, 6:15 PM",
-      itemName: "1080 Diamonds",
-      playerUid: "987654321",
-      amount: "800 Tk",
-      status: "Pending",
-      type: "diamonds",
-    },
-    {
-      id: "#ORD-8940",
-      date: "08 Oct 2026, 11:30 AM",
-      itemName: "Monthly Membership",
-      playerUid: "456789123",
-      amount: "950 Tk",
-      status: "Completed",
-      type: "membership",
-    },
-    {
-      id: "#ORD-8941",
-      date: "07 Oct 2026, 04:20 PM",
-      itemName: "520 Diamonds",
-      playerUid: "321654987",
-      amount: "410 Tk",
-      status: "Failed",
-      type: "diamonds",
-    },
-  ];
+  // Map live orders from shared dynamic database
+  const orders = liveOrders.map((o) => ({
+    id: o.id.startsWith("#") ? o.id : `#${o.id}`,
+    date: o.time || "সম্প্রতি",
+    itemName: o.item,
+    playerUid: o.uid,
+    amount: `${o.amount} Tk`,
+    status: o.status === "Cancelled" ? "Failed" : o.status,
+    method: o.method,
+    trxId: o.trxId,
+    type: o.item?.includes("Weekly") || o.item?.includes("Monthly") ? "membership" : "diamonds",
+  }));
 
   const tabs = [
     { name: "All", count: orders.length },

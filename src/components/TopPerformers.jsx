@@ -158,29 +158,55 @@ function PodiumCard({ rank, name, score, level, image, className = "" }) {
   );
 }
 
+import { useApp } from "@/context/AppContext";
+
 export default function TopPerformers() {
-  // Top 3 performers data
+  const { leaderboard } = useApp();
+
+  // Extract top 3 leaders in podium order: Rank 2 (left), Rank 1 (center), Rank 3 (right)
+  const rank1 = leaderboard.find((p) => p.rank === 1) || {
+    rank: 1,
+    name: "অপেক্ষমান",
+    score: "0",
+    level: "LEVEL 1",
+    avatar: "https://i.ibb.co.com/ymYj65ML/passport-size.png",
+  };
+  const rank2 = leaderboard.find((p) => p.rank === 2) || {
+    rank: 2,
+    name: "অপেক্ষমান",
+    score: "0",
+    level: "LEVEL 1",
+    avatar: "https://i.ibb.co.com/jpSSsfZ/IMG-4937.jpg",
+  };
+  const rank3 = leaderboard.find((p) => p.rank === 3) || {
+    rank: 3,
+    name: "অপেক্ষমান",
+    score: "0",
+    level: "LEVEL 1",
+    avatar: "https://i.ibb.co.com/bDB67GX/image.png",
+  };
+
   const performers = [
     {
       rank: 2,
-      name: "Ashraful Hossain",
-      score: "2,143",
-      level: "LEVEL 1",
-      image: "https://i.ibb.co.com/jpSSsfZ/IMG-4937.jpg",
+      name: rank2.name,
+      score: (rank2.diamonds || 0).toLocaleString(),
+      level: rank2.level || "LEVEL 2",
+      image: rank2.avatar && rank2.avatar.startsWith("http") ? rank2.avatar : "https://i.ibb.co.com/jpSSsfZ/IMG-4937.jpg",
     },
     {
       rank: 1,
-      name: "Md. Rafiq Islam",
-      score: "3,958",
-      level: "LEVEL 1",
-      image: "https://i.ibb.co.com/ymYj65ML/passport-size.png",
+      name: rank1.name,
+      score: (rank1.diamonds || 0).toLocaleString(),
+      level: rank1.level || "PREMIUM",
+      image: rank1.avatar && rank1.avatar.startsWith("http") ? rank1.avatar : "https://i.ibb.co.com/ymYj65ML/passport-size.png",
     },
     {
       rank: 3,
-      name: "Shamima Begum",
-      score: "1,876",
-      level: "LEVEL 1",
-      image: "https://i.ibb.co.com/bDB67GX/image.png",
+      name: rank3.name,
+      score: (rank3.diamonds || 0).toLocaleString(),
+      level: rank3.level || "LEVEL 1",
+      image: rank3.avatar && rank3.avatar.startsWith("http") ? rank3.avatar : "https://i.ibb.co.com/bDB67GX/image.png",
     },
   ];
 
@@ -200,6 +226,7 @@ export default function TopPerformers() {
           Top Performers
         </h2>
         <div className="mt-1.5 mx-auto w-16 h-0.5 rounded-full bg-gradient-to-r from-transparent via-emerald-400 to-transparent" />
+        <p className="text-[11px] text-emerald-700/80 mt-1 font-medium">লাইভ ডায়মন্ড লিডারবোর্ড থেকে সংগৃহীত</p>
       </div>
 
       {/* Podium Container */}

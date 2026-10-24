@@ -1,22 +1,26 @@
 "use client";
 
 import { useAuth } from "@/context/AuthContext";
-import { LogOut, User } from "lucide-react";
+import { useApp } from "@/context/AppContext";
+import { LogOut, User, Gem } from "lucide-react";
 import Link from "next/link";
 
 export default function ProfileCard() {
   const { user, logout } = useAuth();
+  const { currentUser } = useApp();
 
-  // Dynamic values with exact fallback matching image
-  const name = user?.name || user?.displayName || "ABIDUJJAMAN HARIS";
-  const email = user?.email || "abidujjamanharis@gmail.com";
-  const avatarUrl = user?.avatar || user?.photoURL || null;
-  const joinDate = user?.joinDate || "Member since 31 July, 2026";
-  const userId = user?.userId || (user?.uid ? user.uid.slice(0, 4) : "8938");
-  const lifetimeSpend = user?.lifetimeSpend ?? "240 Tk";
-  const balance = user?.balance ?? "0 Tk";
-  const earnBalance = user?.earnBalance ?? "0 Tk";
-  const coins = user?.coins ?? "40";
+  // Dynamic values connected to live AppContext
+  const activeUser = currentUser || user;
+  const name = activeUser?.name || activeUser?.displayName || "Abidujjaman Haris";
+  const email = activeUser?.email || "abidujjamanharis@gmail.com";
+  const avatarUrl = activeUser?.avatar || activeUser?.photoURL || null;
+  const joinDate = activeUser?.joinDate || "Member since 31 July, 2026";
+  const userId = activeUser?.id || activeUser?.userId || (activeUser?.uid ? activeUser.uid.slice(0, 4) : "8938");
+  const lifetimeSpend = typeof activeUser?.lifetimeSpend === "number" ? `৳${activeUser.lifetimeSpend.toLocaleString()}` : (activeUser?.lifetimeSpend ?? "৳12,500");
+  const balance = typeof activeUser?.balance === "number" ? `৳${activeUser.balance.toLocaleString()}` : (activeUser?.balance ?? "৳850");
+  const diamonds = typeof activeUser?.diamonds === "number" ? `${activeUser.diamonds.toLocaleString()}` : (activeUser?.diamonds ?? "4,200");
+  const rankTier = activeUser?.rankTier || "Master";
+  const level = activeUser?.level || "LEVEL 3";
 
   return (
     <div className="relative w-full max-w-[390px] mx-auto rounded-[2.2rem] bg-[#070b09] border border-emerald-950/60 p-6 pt-7 shadow-[0_20px_50px_rgba(0,0,0,0.85)] overflow-hidden select-none font-sans text-white">
@@ -212,9 +216,9 @@ export default function ProfileCard() {
             </span>
           </div>
 
-          {/* LEVEL 1 Pill Badge */}
+          {/* Dynamic LEVEL & Rank Tier Pill Badge */}
           <div className="px-3.5 py-1 rounded-lg bg-[#27c980] text-black text-[11px] font-extrabold tracking-wider uppercase shadow-[0_0_12px_rgba(39,201,128,0.35)]">
-            LEVEL 1
+            {level} • {rankTier}
           </div>
         </div>
 
@@ -257,24 +261,23 @@ export default function ProfileCard() {
             </div>
           </div>
 
-          {/* Row 2: Earn Balance | Coins */}
+          {/* Row 2: Diamonds Vault | User ID */}
           <div className="grid grid-cols-2 divide-x divide-white/5">
             <div className="p-3.5 sm:p-4">
               <span className="text-[10px] font-semibold text-gray-500 tracking-wider uppercase block">
-                EARN BALANCE
+                DIAMOND VAULT
               </span>
-              <span className="text-lg font-extrabold text-white mt-1 block tracking-tight">
-                {earnBalance}
+              <span className="text-lg font-extrabold text-cyan-400 mt-1 flex items-center gap-1.5 tracking-tight">
+                <span>{diamonds}</span>
+                <span className="text-sm">💎</span>
               </span>
             </div>
             <div className="p-3.5 sm:p-4">
               <span className="text-[10px] font-semibold text-gray-500 tracking-wider uppercase block">
-                COINS
+                USER ID
               </span>
-              <span className="text-lg font-extrabold text-white mt-1 flex items-center gap-1.5 tracking-tight">
-                <span>{coins}</span>
-                {/* 3D Golden Coins Pile emoji / graphic */}
-                <span className="text-base leading-none">🪙</span>
+              <span className="text-lg font-extrabold text-white mt-1 block tracking-tight font-mono">
+                {userId}
               </span>
             </div>
           </div>

@@ -1,8 +1,8 @@
-import Navbar from "@/components/Navbar";
-import BottomNav from "@/components/BottomNav";
+import AppShell from "@/components/AppShell";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { AuthProvider } from "@/context/AuthContext";
+import { AppProvider } from "@/context/AppContext";
 import { Providers } from "./providers";
 
 export const metadata = {
@@ -28,13 +28,16 @@ export default function RootLayout({ children }) {
       <body className="font-sans antialiased min-h-screen text-foreground pb-20">
         <Providers>
           <AuthProvider>
-            <Navbar />
-            {children}
-            <BottomNav />
-            <Toaster />
+            <AppProvider>
+              <AppShell>
+                {children}
+              </AppShell>
+              <Toaster />
+            </AppProvider>
           </AuthProvider>
         </Providers>
       </body>
     </html>
   );
 }
+
