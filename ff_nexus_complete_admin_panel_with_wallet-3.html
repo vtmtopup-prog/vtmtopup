@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FF Nexus • Admin Control Center</title>
+<style>
+:root{--bg:#0a0b12;--panel:#121421;--panel2:#171a2b;--line:#282b40;--text:#f3f4ff;--muted:#969bb8;--pink:#ff3d9a;--violet:#8b5cf6;--cyan:#46d9e8;--green:#45d6a0;--amber:#ffc46b;--red:#ff6c83}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#221439 0,transparent 36%),var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:1px solid var(--line);border-radius:10px;padding:9px 13px;color:var(--text);background:#202338;transition:border-color .15s,transform .15s}button:hover{border-color:var(--pink);transform:translateY(-1px)}input,select,textarea{background:#0d0f1a;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:10px;min-width:0;width:100%}
+.app{display:grid;grid-template-columns:255px minmax(0,1fr);min-height:100vh}.sidebar{background:rgba(13,14,25,.96);border-right:1px solid var(--line);padding:20px 13px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{display:flex;align-items:center;gap:11px;padding:5px 8px 22px}.logo{width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,var(--pink),var(--violet));display:grid;place-items:center;font-weight:900;font-size:18px;box-shadow:0 8px 30px #ff3d9a33}.brand strong{display:block;letter-spacing:.5px}.brand small{color:var(--muted)}.nav-label{color:#6f7492;font-size:10px;font-weight:800;letter-spacing:1.7px;padding:12px 10px 7px}.nav{display:grid;gap:4px}.nav button{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:transparent;border-color:transparent;padding:10px;color:#b7bbd2}.nav button .ico{width:24px;text-align:center;color:#9ca2c4}.nav button.active{background:linear-gradient(90deg,#ff3d9a25,#8b5cf61c);border-color:#ff3d9a40;color:white}.nav button.active .ico{color:var(--pink)}.sidefoot{border-top:1px solid var(--line);margin-top:18px;padding:15px 8px;color:var(--muted);font-size:12px}
+main{min-width:0;padding:24px clamp(15px,3vw,38px) 40px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:25px}.crumb{color:var(--muted);font-size:12px}.topbar h1{font-size:24px;margin:3px 0 0;letter-spacing:-.5px}.actions{display:flex;align-items:center;gap:9px}.avatar{width:37px;height:37px;border-radius:12px;display:grid;place-items:center;background:#29213c;color:#ff8cc4;font-weight:800;border:1px solid #51345f}.primary{background:linear-gradient(135deg,var(--pink),#a855f7);border:0;font-weight:750}.subtle{background:#161827}.hero{border:1px solid #3b2851;background:linear-gradient(110deg,#281532,#17172b 60%,#111a2b);padding:22px;border-radius:18px;display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:20px;overflow:hidden}.hero h2{font-size:21px;margin:5px 0}.hero p{margin:0;color:#b9b5d0;max-width:600px}.eyebrow{font-size:10px;letter-spacing:1.8px;font-weight:900;color:#ff87c3}.hero-mark{font-size:50px;filter:drop-shadow(0 0 20px #ff3d9a55)}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:15px 0 20px}.stat,.panel{border:1px solid var(--line);border-radius:15px;background:linear-gradient(160deg,#151727,#10121e);padding:17px;min-width:0}.stathead{display:flex;justify-content:space-between;gap:10px;color:var(--muted);font-size:12px}.staticon{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:#282039;color:#ff8ac2}.stat strong.big{display:block;font-size:25px;letter-spacing:-.8px;margin:12px 0 4px}.trend{color:var(--green);font-size:11px}.panel{margin-bottom:16px}.panelhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:15px}.panelhead h3{font-size:15px;margin:0}.muted{color:var(--muted)}.pill{font-size:11px;border-radius:99px;padding:4px 8px;background:#202338;color:#c7cae0;white-space:nowrap}.pill.ok{background:#15382f;color:#62e4b1}.pill.warn{background:#3d2d1a;color:#ffcc7e}.pill.bad{background:#3d202c;color:#ff8ca2}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;white-space:nowrap}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid #25283a;font-size:12px}th{color:#858ba9;font-size:10px;letter-spacing:1px;text-transform:uppercase}td{color:#d9dbee}tr:last-child td{border-bottom:0}.toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.toolbar input{max-width:260px}.toolbar select{width:auto;min-width:130px}.two{display:grid;grid-template-columns:1.25fr 1fr;gap:16px}.quickgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.quick{background:#191b2b;border:1px solid var(--line);padding:14px;border-radius:12px;text-align:left}.quick span{display:block;font-size:20px;margin-bottom:9px}.quick b{display:block;font-size:12px}.quick small{color:var(--muted)}.bars{display:grid;gap:14px}.barrow{display:grid;grid-template-columns:100px 1fr 45px;align-items:center;gap:10px;font-size:12px;color:#b7bbd2}.bar{height:7px;background:#272a3c;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--pink),var(--violet))}.fieldgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.field label{display:block;font-size:12px;color:#aeb3cd;margin-bottom:6px}.field.full{grid-column:1/-1}.notice{padding:12px 14px;background:#171b2a;border:1px solid #30334a;border-radius:11px;color:#afb5d0;font-size:12px;margin-bottom:14px}.empty{padding:28px;text-align:center;color:var(--muted)}.toast{position:fixed;right:20px;bottom:20px;background:#1c2630;border:1px solid #32614f;color:#a4f2d2;padding:12px 16px;border-radius:12px;display:none;z-index:10;box-shadow:0 12px 40px #0008}.footer{color:#707692;font-size:11px;text-align:center;padding:15px}.mobilemenu{display:none}
+@media(max-width:1050px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}.app{grid-template-columns:220px minmax(0,1fr)}}
+@media(max-width:700px){.app{display:block}.sidebar{position:fixed;z-index:20;left:-275px;width:255px;transition:left .2s;box-shadow:20px 0 60px #0008}.sidebar.open{left:0}.mobilemenu{display:inline-block}.topbar{align-items:flex-start}.topbar h1{font-size:20px}.actions .hide-sm{display:none}.hero-mark{display:none}.grid{gap:9px}.stat{padding:13px}.stat strong.big{font-size:21px}.quickgrid{grid-template-columns:repeat(2,minmax(0,1fr))}.fieldgrid{grid-template-columns:1fr}.field.full{grid-column:auto}main{padding:17px 13px 30px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="logo">FF</div><div><strong>FF NEXUS</strong><small>Admin Control Center</small></div></div>
+  <div class="nav-label">MAIN WORKSPACE</div>
+  <nav class="nav" id="nav"></nav>
+  <div class="sidefoot">● Demo mode <span style="float:right;color:#ff86bf">v1.0</span><br><br>Frontend preview · No live payments</div>
+</aside>
+<main>
+  <div class="topbar">
+    <div style="display:flex;gap:10px;align-items:center"><button class="mobilemenu" onclick="toggleSidebar()">☰</button><div><div class="crumb">FF NEXUS / <span id="crumb">Dashboard</span></div><h1 id="pageTitle">Dashboard</h1></div></div>
+    <div class="actions"><button class="subtle hide-sm" onclick="showToast('Notifications are demo-only.')">♧ Notifications</button><div class="avatar">AD</div></div>
+  </div>
+  <section id="content"></section>
+  <div class="footer">FF NEXUS ADMIN · Premium dark gaming interface · Demo data only</div>
+</main>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const menus = [
+  { id: 'dashboard', label: 'Dashboard', subtitle: 'Overview' },
+  { id: 'statements', label: 'Statements', subtitle: 'Financial statements' },
+  { id: 'orders', label: 'Orders', subtitle: 'Top-up orders' },
+  { id: 'users', label: 'Users / Customers', subtitle: 'Customer accounts' },
+  { id: 'categories', label: 'Categories', subtitle: 'Product categories' },
+  { id: 'products', label: 'Products', subtitle: 'Product catalog' },
+  { id: 'diamond-packages', label: 'Diamond Packages', subtitle: 'Diamond package pricing' },
+  { id: 'unipin-storage', label: 'UniPin Code Storage', subtitle: 'UniPin code inventory' },
+  { id: 'transactions', label: 'Transactions', subtitle: 'Payment transactions' },
+  { id: 'reports', label: 'Reports & Analytics', subtitle: 'Business analytics' },
+  { id: 'admins', label: 'Admin Management', subtitle: 'Staff and roles' }
+];
+
+const icons = {
+  dashboard: "⌂",
+  statements: "▤",
+  orders: "◈",
+  users: "♙",
+  categories: "▦",
+  products: "◇",
+  "diamond-packages": "✦",
+  "unipin-storage": "▤",
+  transactions: "⇄",
+  reports: "▥",
+  admins: "♟"
+};
+
+let current = "dashboard";
+
+let orders = [
+  { id: "FF-10842", customer: "Rafi Gaming", item: "520 Diamonds", amount: 390, status: "Completed", date: "2026-10-25" },
+  { id: "FF-10841", customer: "Nabil X", item: "Weekly Membership", amount: 155, status: "Pending", date: "2026-10-25" },
+  { id: "FF-10840", customer: "Shadow BD", item: "2180 Diamonds", amount: 1490, status: "Processing", date: "2026-10-24" },
+  { id: "FF-10839", customer: "Toxic FF", item: "100 Diamonds", amount: 80, status: "Failed", date: "2026-10-24" },
+  { id: "FF-10838", customer: "Sabbir Pro", item: "Level Up Pass", amount: 210, status: "Completed", date: "2026-10-23" }
+];
+
+let packages = [
+  { name: "100 Diamonds", price: 80, stock: "Unlimited", status: "Active" },
+  { name: "520 Diamonds", price: 390, stock: "Unlimited", status: "Active" },
+  { name: "1060 Diamonds", price: 775, stock: "Unlimited", status: "Active" },
+  { name: "2180 Diamonds", price: 1490, stock: "Unlimited", status: "Active" },
+  { name: "Weekly Membership", price: 155, stock: "Unlimited", status: "Active" },
+  { name: "Monthly Membership", price: 745, stock: "Unlimited", status: "Active" }
+];
+
+let products = [
+  { id: "PRD-101", name: "Free Fire Diamonds (UID Top-Up)", category: "Diamonds", price: "৳80 - ৳1,490", status: "Active" },
+  { id: "PRD-102", name: "Weekly Membership", category: "Memberships", price: "৳155", status: "Active" },
+  { id: "PRD-103", name: "Monthly Membership", category: "Memberships", price: "৳745", status: "Active" },
+  { id: "PRD-104", name: "Level Up Pass", category: "Special Passes", price: "৳210", status: "Active" },
+  { id: "PRD-105", name: "UniPin Voucher Code", category: "Vouchers", price: "৳85 - ৳850", status: "Active" }
+];
+
+let categories = [
+  { name: "Diamonds", slug: "diamonds", count: 4, status: "Active" },
+  { name: "Memberships", slug: "memberships", count: 2, status: "Active" },
+  { name: "Special Passes", slug: "special-passes", count: 1, status: "Active" },
+  { name: "Vouchers", slug: "vouchers", count: 3, status: "Active" }
+];
+
+let vouchers = [
+  { code: "UPBD-8821-4920-1102", pin: "78219401", status: "Available" },
+  { code: "UPBD-8821-4920-1103", pin: "45091238", status: "Available" },
+  { code: "UPBD-8821-4920-1104", pin: "93120485", status: "Available" }
+];
+
+let users = [
+  { name: "Rafi Gaming", email: "rafi@example.com", orders: 18, spent: 4270, status: "Active" },
+  { name: "Nabil X", email: "nabil@example.com", orders: 9, spent: 1850, status: "Active" },
+  { name: "Shadow BD", email: "shadow@example.com", orders: 24, spent: 7950, status: "VIP" },
+  { name: "Toxic FF", email: "toxic@example.com", orders: 5, spent: 620, status: "Active" },
+  { name: "Sabbir Pro", email: "sabbir@example.com", orders: 12, spent: 3150, status: "Active" }
+];
+
+let transactions = [
+  { id: "TX-8101", customer: "Rafi Gaming", amount: 390, type: "Top-Up Payment", status: "Success" },
+  { id: "TX-8100", customer: "Nabil X", amount: 155, type: "Membership Purchase", status: "Success" },
+  { id: "TX-8099", customer: "Toxic FF", amount: 80, type: "Refund", status: "Pending" },
+  { id: "TX-8098", customer: "Shadow BD", amount: 1490, type: "Top-Up Payment", status: "Success" },
+  { id: "TX-8097", customer: "Sabbir Pro", amount: 210, type: "Level Up Pass", status: "Success" }
+];
+
+let admins = [
+  { name: "Super Admin", email: "admin@ffnexus.test", role: "Super Admin", status: "Active" },
+  { name: "Support Manager", email: "support@ffnexus.test", role: "Support Staff", status: "Active" },
+  { name: "Finance Auditor", email: "finance@ffnexus.test", role: "Finance Manager", status: "Active" }
+];
+
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function money(n){return "৳"+Number(n||0).toLocaleString("en-US");}
+function showToast(msg){let t=document.getElementById("toast");t.textContent=msg;t.style.display="block";clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.style.display="none",2500);}
+function toggleSidebar(){document.getElementById("sidebar").classList.toggle("open");}
+
+function renderNav(){
+  document.getElementById("nav").innerHTML=menus.map(m=>`<button class="${m.id===current?'active':''}" onclick="go('${m.id}')"><span class="ico">${icons[m.id]||'•'}</span><span>${m.label}</span></button>`).join("");
+}
+
+function go(id){
+  current=id;
+  renderNav();
+  let m=menus.find(x=>x.id===id)||menus[0];
+  document.getElementById("pageTitle").textContent=m.label;
+  document.getElementById("crumb").textContent=m.label;
+  document.getElementById("sidebar").classList.remove("open");
+  renderPage();
+}
+
+function stat(label,value,icon,trend){
+  return `<div class="stat"><div class="stathead"><span>${label}</span><span class="staticon">${icon}</span></div><strong class="big">${value}</strong><div class="trend">${trend||"● Updated in demo"}</div></div>`;
+}
+
+function panel(title,body,action=""){
+  return `<div class="panel"><div class="panelhead"><h3>${title}</h3>${action}</div>${body}</div>`;
+}
+
+function table(headers,rows){
+  return `<div class="tablewrap"><table><thead><tr>${headers.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.length?rows.map(r=>`<tr>${r.map(c=>`<td>${c}</td>`).join("")}</tr>`).join(""):`<tr><td colspan="${headers.length}" class="empty">No records yet</td></tr>`}</tbody></table></div>`;
+}
+
+function pill(status){
+  let cls=/completed|approved|success|active|resolved|vip/i.test(status)?"ok":/pending|progress|demo/i.test(status)?"warn":/failed|disabled|blocked/i.test(status)?"bad":"";
+  return `<span class="pill ${cls}">${esc(status)}</span>`;
+}
+
+function simpleForm(fields,button,fn){
+  return `<div class="fieldgrid">${fields.map(f=>`<div class="field ${f.full?'full':''}"><label>${f.label}</label>${f.type==="textarea"?`<textarea id="${f.id}" placeholder="${f.placeholder||''}" rows="3"></textarea>`:`<input id="${f.id}" type="${f.type||'text'}" placeholder="${f.placeholder||''}" ${f.min!==undefined?`min="${f.min}"`:''}>`}</div>`).join("")}</div><div style="margin-top:14px"><button class="primary" onclick="${fn}">${button}</button></div>`;
+}
+
+function genericTablePage(title,headers,rows,desc,actions=""){
+  return `<div class="notice">${desc}</div>${panel(title,table(headers,rows),actions)}`;
+}
+
+function dashboard(){
+  let pendingCount = orders.filter(o=>o.status==="Pending").length;
+  return `
+  <div class="hero">
+    <div>
+      <div class="eyebrow">WELCOME BACK, ADMIN</div>
+      <h2>Your gaming store at a glance</h2>
+      <p>Manage top-ups, diamond packages, customers, transactions and reports from one premium control center.</p>
+    </div>
+    <div class="hero-mark">✦</div>
+  </div>
+  <div class="grid">
+    ${stat("Total Revenue","৳84,250","৳","+12.8% vs last period")}
+    ${stat("Total Orders",orders.length.toString(),"◈","All-time demo orders")}
+    ${stat("Active Customers",users.length.toString(),"♙","Active registered users")}
+    ${stat("Pending Orders",pendingCount.toString(),"◷",pendingCount > 0 ? "Needs attention" : "All clear")}
+  </div>
+  <div class="two">
+    ${panel("Recent Orders",table(["ORDER","CUSTOMER","ITEM","AMOUNT","STATUS"],orders.slice(0,4).map(o=>[esc(o.id),esc(o.customer),esc(o.item),money(o.amount),pill(o.status)])),`<button onclick="go('orders')">View all →</button>`)}
+    ${panel("Quick Actions",`<div class="quickgrid">
+      <button class="quick" onclick="go('orders')"><span>◈</span><b>Manage Orders</b><small>Review top-ups</small></button>
+      <button class="quick" onclick="go('diamond-packages')"><span>✦</span><b>Diamond Packages</b><small>Update pricing</small></button>
+      <button class="quick" onclick="go('unipin-storage')"><span>▤</span><b>UniPin Storage</b><small>Manage codes</small></button>
+      <button class="quick" onclick="go('transactions')"><span>⇄</span><b>Transactions</b><small>Payment ledger</small></button>
+      <button class="quick" onclick="go('reports')"><span>▥</span><b>View Analytics</b><small>Store performance</small></button>
+      <button class="quick" onclick="go('admins')"><span>♟</span><b>Admin Staff</b><small>Manage team</small></button>
+    </div>`)}
+  </div>
+  ${panel("Weekly Sales Snapshot",`<div class="bars">${[["Mon",42],["Tue",68],["Wed",54],["Thu",82],["Fri",63],["Sat",95],["Sun",73]].map(x=>`<div class="barrow"><span>${x[0]}</span><div class="bar"><i style="width:${x[1]}%"></i></div><span>${x[1]}%</span></div>`).join("")}</div>`)}
+  <div class="notice">Demo preview: all figures and records are sample data. Connect a backend, database, payment provider and official top-up API before production use.</div>`;
+}
+
+function ordersPage(){
+  return `<div class="toolbar">
+    <input id="orderSearch" placeholder="Search order, customer or item…" oninput="renderOrdersTable()">
+    <select id="orderFilter" onchange="renderOrdersTable()">
+      <option value="">All statuses</option>
+      <option>Pending</option>
+      <option>Processing</option>
+      <option>Completed</option>
+      <option>Failed</option>
+    </select>
+    <button class="primary" onclick="addDemoOrder()">＋ Add demo order</button>
+  </div>
+  <div id="ordersTable">${ordersTable(orders)}</div>`;
+}
+
+function ordersTable(arr){
+  return table(["ORDER ID","CUSTOMER","PRODUCT","AMOUNT","DATE","STATUS","ACTION"],arr.map(o=>[
+    esc(o.id),
+    esc(o.customer),
+    esc(o.item),
+    money(o.amount),
+    esc(o.date),
+    pill(o.status),
+    `<select aria-label="Update status" onchange="changeOrder('${esc(o.id)}',this.value)">${["Pending","Processing","Completed","Failed"].map(s=>`<option ${s===o.status?'selected':''}>${s}</option>`).join("")}</select>`
+  ]));
+}
+
+function renderOrdersTable(){
+  let q=(document.getElementById("orderSearch")?.value||"").toLowerCase();
+  let s=document.getElementById("orderFilter")?.value||"";
+  let arr=orders.filter(o=>(!s||o.status===s)&&[o.id,o.customer,o.item].join(" ").toLowerCase().includes(q));
+  document.getElementById("ordersTable").innerHTML=ordersTable(arr);
+}
+
+function changeOrder(id,status){
+  let o=orders.find(x=>x.id===id);
+  if(o){
+    o.status=status;
+    showToast("Order status updated");
+    renderOrdersTable();
+  }
+}
+
+function addDemoOrder(){
+  orders.unshift({
+    id:"FF-"+Math.floor(11000+Math.random()*800),
+    customer:"New Demo Customer",
+    item:"100 Diamonds",
+    amount:80,
+    status:"Pending",
+    date:new Date().toISOString().slice(0,10)
+  });
+  showToast("Demo order added");
+  renderPage();
+}
+
+function packagePage(){
+  return `<div class="toolbar">
+    <input id="pkgName" placeholder="Package name (e.g. 310 Diamonds)">
+    <input id="pkgPrice" type="number" min="0" placeholder="Price (৳)" style="max-width:140px">
+    <button class="primary" onclick="addPackage()">＋ Add package</button>
+  </div>
+  ${panel("Diamond Packages",table(["PACKAGE","PRICE","STOCK","STATUS","ACTION"],packages.map((p,i)=>[
+    esc(p.name),
+    money(p.price),
+    esc(p.stock),
+    pill(p.status),
+    `<button onclick="deletePackage(${i})">Delete</button>`
+  ])))}`;
+}
+
+function addPackage(){
+  let n=document.getElementById("pkgName")?.value.trim();
+  let p=Number(document.getElementById("pkgPrice")?.value);
+  if(!n||!Number.isFinite(p)||p<0){
+    showToast("Enter a package name and valid price");
+    return;
+  }
+  packages.push({name:n,price:p,stock:"Unlimited",status:"Active"});
+  renderPage();
+  showToast("Diamond package added");
+}
+
+function deletePackage(i){
+  packages.splice(i,1);
+  renderPage();
+  showToast("Package deleted");
+}
+
+function productsPage(){
+  return `<div class="toolbar">
+    <input id="prodName" placeholder="Product title (e.g. Evo Gun Token Box)">
+    <input id="prodCat" placeholder="Category" style="max-width:180px">
+    <input id="prodPrice" placeholder="Price / Range (৳)" style="max-width:150px">
+    <button class="primary" onclick="addProduct()">＋ Add product</button>
+  </div>
+  ${panel("Product Catalog",table(["ID","PRODUCT NAME","CATEGORY","PRICE / RANGE","STATUS","ACTION"],products.map((p,i)=>[
+    esc(p.id),
+    esc(p.name),
+    esc(p.category),
+    esc(p.price),
+    pill(p.status),
+    `<button onclick="deleteProduct(${i})">Delete</button>`
+  ])))}`;
+}
+
+function addProduct(){
+  let name=document.getElementById("prodName")?.value.trim();
+  let cat=document.getElementById("prodCat")?.value.trim()||"General";
+  let price=document.getElementById("prodPrice")?.value.trim();
+  if(!name||!price){
+    showToast("Enter product name and price");
+    return;
+  }
+  products.push({
+    id:"PRD-"+(100+products.length+1),
+    name:name,
+    category:cat,
+    price:price.startsWith("৳")?price:"৳"+price,
+    status:"Active"
+  });
+  renderPage();
+  showToast("Product added to catalog");
+}
+
+function deleteProduct(i){
+  products.splice(i,1);
+  renderPage();
+  showToast("Product removed");
+}
+
+function categoriesPage(){
+  return `${panel("Add New Category",simpleForm([
+    {id:"catName",label:"Category name",placeholder:"e.g. Special Passes"},
+    {id:"catSlug",label:"URL slug",placeholder:"e.g. special-passes"}
+  ],"＋ Add category","addCategory()"))}
+  ${genericTablePage("Product Categories",["CATEGORY NAME","SLUG","PRODUCTS","STATUS","ACTION"],categories.map((c,i)=>[
+    esc(c.name),
+    esc(c.slug),
+    c.count??0,
+    pill(c.status),
+    `<button onclick="deleteCategory(${i})">Delete</button>`
+  ]),"Organize your game top-up products into storefront categories.")}`;
+}
+
+function addCategory(){
+  let name=document.getElementById("catName")?.value.trim();
+  let slug=document.getElementById("catSlug")?.value.trim();
+  if(!name||!slug){
+    showToast("Please enter category name and slug");
+    return;
+  }
+  categories.push({name,slug:slug.toLowerCase().replace(/\s+/g,'-'),count:0,status:"Active"});
+  renderPage();
+  showToast("Category added successfully");
+}
+
+function deleteCategory(i){
+  categories.splice(i,1);
+  renderPage();
+  showToast("Category deleted");
+}
+
+function unipinPage(){
+  return `${panel("Add UniPin Code",simpleForm([
+    {id:"vcode",label:"Voucher code",placeholder:"e.g. UPBD-8821-4920-1105"},
+    {id:"vpin",label:"Voucher PIN",placeholder:"e.g. 78219401"}
+  ],"＋ Store voucher","addVoucher()"))}
+  ${genericTablePage("Stored UniPin Codes",["CODE","PIN","STATUS","ACTION"],vouchers.map((v,i)=>[
+    esc(v.code),
+    "••••••••",
+    pill(v.status),
+    `<button onclick="deleteVoucher(${i})">Delete</button>`
+  ]),"UniPin codes stored in browser inventory memory. Connect server KMS/vault for production security.")}`;
+}
+
+function addVoucher(){
+  let code=document.getElementById("vcode")?.value.trim();
+  let pin=document.getElementById("vpin")?.value.trim();
+  if(!code||!pin){
+    showToast("Enter voucher code and PIN");
+    return;
+  }
+  vouchers.push({code,pin,status:"Available"});
+  renderPage();
+  showToast("UniPin code stored");
+}
+
+function deleteVoucher(i){
+  vouchers.splice(i,1);
+  renderPage();
+  showToast("Voucher removed from storage");
+}
+
+function adminsPage(){
+  return `${panel("Add Admin Staff",simpleForm([
+    {id:"adminName",label:"Full Name",placeholder:"Staff member name"},
+    {id:"adminEmail",label:"Email Address",placeholder:"staff@example.com"},
+    {id:"adminRole",label:"Role",placeholder:"Manager / Support / Finance"}
+  ],"＋ Add admin","addAdmin()"))}
+  ${genericTablePage("Admin Management",["STAFF NAME","EMAIL","ROLE","STATUS","ACTION"],admins.map((a,i)=>[
+    esc(a.name),
+    esc(a.email),
+    esc(a.role),
+    pill(a.status),
+    i===0?"—":`<button onclick="deleteAdmin(${i})">Remove</button>`
+  ]),"Manage staff accounts and permissions. Production systems require role-based access control (RBAC) and MFA.")}`;
+}
+
+function addAdmin(){
+  let name=document.getElementById("adminName")?.value.trim();
+  let email=document.getElementById("adminEmail")?.value.trim();
+  let role=document.getElementById("adminRole")?.value.trim()||"Staff";
+  if(!name||!email){
+    showToast("Please enter staff name and email");
+    return;
+  }
+  admins.push({name,email,role,status:"Active"});
+  renderPage();
+  showToast("Admin account added");
+}
+
+function deleteAdmin(i){
+  admins.splice(i,1);
+  renderPage();
+  showToast("Admin account removed");
+}
+
+function exportCSV(){
+  let rows=[["Order ID","Customer","Item","Amount","Status","Date"],...orders.map(o=>[o.id,o.customer,o.item,o.amount,o.status,o.date])];
+  let csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\r\n");
+  let blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});
+  let a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="ff-nexus-orders-report.csv";
+  a.click();
+  URL.revokeObjectURL(a.href);
+  showToast("Orders CSV exported");
+}
+
+function pageContent(id){
+  switch(id){
+    case "dashboard":
+      return dashboard();
+    case "statements":
+      return `<div class="grid">${stat("Gross Sales","৳84,250","৳","+14.2% vs last month")}${stat("Refunds","৳1,240","↶","-0.4% this month")}${stat("Net Revenue","৳83,010","↗","Healthy margin")}${stat("Processing Fees","৳2,480","％","2.9% effective rate")}</div>
+      ${genericTablePage("Financial Statement Breakdown",["PERIOD","GROSS SALES","REFUNDS","NET REVENUE"],[
+        ["Today","৳8,420","৳0","৳8,420"],
+        ["This Week","৳32,800","৳420","৳32,380"],
+        ["This Month","৳84,250","৳1,240","৳83,010"],
+        ["Previous Month","৳73,600","৳980","৳72,620"]
+      ],"Financial statements overview. Reconcile with verified bank and payment gateway statements before accounting close.")}`;
+    case "orders":
+      return ordersPage();
+    case "users":
+      return genericTablePage("Registered Customers",["CUSTOMER","EMAIL","ORDERS","TOTAL SPENT","STATUS"],users.map(u=>[
+        esc(u.name),
+        esc(u.email),
+        u.orders,
+        money(u.spent),
+        pill(u.status)
+      ]),"Customer profiles and order histories. In production, ensure data privacy and GDPR/local compliance.");
+    case "categories":
+      return categoriesPage();
+    case "products":
+      return productsPage();
+    case "diamond-packages":
+      return packagePage();
+    case "unipin-storage":
+      return unipinPage();
+    case "transactions":
+      return genericTablePage("Transaction Ledger",["TRANSACTION ID","CUSTOMER","AMOUNT","TYPE","STATUS"],transactions.map(t=>[
+        esc(t.id),
+        esc(t.customer),
+        money(t.amount),
+        esc(t.type),
+        pill(t.status)
+      ]),"Real-time payment transaction ledger. Connect verified payment gateway webhooks for production.");
+    case "reports":
+      return `<div class="grid">
+        ${stat("Total Revenue","৳84,250","৳","+12.8%")}
+        ${stat("Conversion Rate","4.8%","↗","+0.6%")}
+        ${stat("Avg. Order Value","৳312","◈","+3.2%")}
+        ${stat("Refund Rate","1.4%","↶","Below threshold")}
+      </div>
+      ${panel("Performance by Product Category",`<div class="bars">${[
+        ["Diamonds",88],
+        ["Memberships",62],
+        ["Special Passes",45],
+        ["Vouchers",38]
+      ].map(x=>`<div class="barrow"><span>${x[0]}</span><div class="bar"><i style="width:${x[1]}%"></i></div><span>${x[1]}%</span></div>`).join("")}</div>`)}
+      <div style="margin-top:14px">
+        <button class="primary" onclick="exportCSV()">↓ Export orders CSV</button>
+      </div>`;
+    case "admins":
+      return adminsPage();
+    default:
+      return dashboard();
+  }
+}
+
+function renderPage(){
+  document.getElementById("content").innerHTML=pageContent(current);
+}
+
+renderNav();
+renderPage();
+</script>
+</body>
+</html>
