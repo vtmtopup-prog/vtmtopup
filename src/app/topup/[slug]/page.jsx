@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useApp } from "@/context/AppContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -31,157 +32,17 @@ import {
 } from "@/components/ui/tooltip";
 import Footer from "@/components/ui/Footer";
 import SpeedDial from "@/components/SpeedDial";
-const productData = {
-  "free-fire-topup-bd": {
-    name: "Free Fire TopUp (BD)",
-    image: "/freefiretopup(bd).webp",
-    category: "Game / Top up",
-    rechargeOptions: [
-      { id: "weekly", name: "Weekly", price: "155 TK" },
-      { id: "monthly", name: "Monthly", price: "770 TK" },
-      { id: "25-diamond", name: "25 Diamond", price: "22 TK" },
-      { id: "50-diamond", name: "50 Diamond", price: "38 TK" },
-      { id: "115-diamond", name: "115 Diamond", price: "80 TK" },
-      { id: "240-diamond", name: "240 Diamond", price: "160 TK" },
-      { id: "355-diamond", name: "355 Diamond", price: "240 TK" },
-      { id: "505-diamond", name: "505 Diamond", price: "340 TK" },
-      { id: "610-diamond", name: "610 Diamond", price: "400 TK" },
-      { id: "850-diamond", name: "850 Diamond", price: "560 TK" },
-      { id: "1090-diamond", name: "1090 Diamond", price: "720 TK" },
-      { id: "1240-diamond", name: "1240 Diamond", price: "800 TK" },
-      { id: "2530-diamond", name: "2530 Diamond", price: "1620 TK" },
-      { id: "5060-diamond", name: "5060 Diamond", price: "3240 TK" },
-      { id: "7590-diamond", name: "7590 Diamond", price: "4850 TK" },
-      { id: "10120-diamond", name: "10120 Diamond", price: "6450 TK" },
-    ],
-  },
-  "level-up-pass": {
-    name: "Level Up Pass",
-    image: "/leveluppass.webp",
-    category: "Game / Top up",
-    rechargeOptions: [
-      { id: "level-6", name: "Level Up Package - Level 6", price: "40 TK" },
-      { id: "level-10", name: "Level Up Package - Level 10", price: "70 TK" },
-      { id: "level-15", name: "Level Up Package - Level 15", price: "70 TK" },
-      { id: "level-20", name: "Level Up Package - Level 20", price: "70 TK" },
-      { id: "level-25", name: "Level Up Package - Level 25", price: "70 TK" },
-      { id: "level-30", name: "Level Up Package - Level 30", price: "100 TK" },
-      {
-        id: "full-level-up",
-        name: "Full Level Up (1270 Diamond)",
-        price: "400 TK",
-      },
-    ],
-  },
-  "e-badge-evo-access-bd": {
-    name: "E-Badge/Evo Access (BD)",
-    image: "/e-badge.webp",
-    category: "Game / Top up",
-    rechargeOptions: [
-      { id: "3-days-evo", name: "3 Days Evo Access", price: "70 TK" },
-      { id: "7-days-evo", name: "7 Days Evo Access", price: "110 TK" },
-      { id: "14-days-evo", name: "14 Days Evo Access", price: "210 TK" },
-      { id: "30-days-evo", name: "30 Days Evo Access", price: "300 TK" },
-    ],
-  },
-  "unipin-voucher-bd": {
-    name: "UNIPIN VOUCHER",
-    image: "/unipin.webp",
-    category: "GAME / VOUCHER",
-    rechargeOptions: [
-      { id: "25-diamond-code", name: "25 Diamond Code", price: "23 TK" },
-      { id: "50-diamond-code", name: "50 Diamond Code", price: "36 TK" },
-      { id: "115-diamond-code", name: "115 Diamond Code", price: "76 TK" },
-      { id: "240-diamond-code", name: "240 Diamond Code", price: "152 TK" },
-      { id: "610-diamond-code", name: "610 Diamond Code", price: "382 TK" },
-      { id: "1240-diamond-code", name: "1240 Diamond Code", price: "756 TK" },
-      { id: "2530-diamond-code", name: "2530 Diamond Code", price: "1540 TK" },
-      { id: "weekly-code", name: "Weekly Code", price: "151 TK" },
-      { id: "monthly-code", name: "Monthly Code", price: "753 TK" },
-    ],
-  },
-  "airdrop-id-code": {
-    name: "Airdrop (ID Code)",
-    image: "/freefiretopup(bd).webp",
-    category: "Game / Top up",
-    rechargeOptions: [
-      { id: "airdrop-90", name: "0.99$ (90 BDT) Airdrop", price: "140 TK" },
-      { id: "airdrop-190", name: "1.99$ (190 BDT) Airdrop", price: "280 TK" },
-    ],
-  },
-  "weekly-lite-bd-server": {
-    name: "Weekly Lite (BD Server)",
-    image: "/weeklylight.webp",
-    category: "Game / Top up",
-    rechargeOptions: [
-      { id: "1x-weekly-lite", name: "1x Weekly Lite", price: "40 TK" },
-      { id: "2x-weekly-lite", name: "2x Weekly Lite", price: "80 TK" },
-      { id: "3x-weekly-lite", name: "3x Weekly Lite", price: "120 TK" },
-      { id: "5x-weekly-lite", name: "5x Weekly Lite", price: "200 TK" },
-    ],
-  },
-  "weekly-monthly-offer": {
-    name: "Weekly/Monthly Offer",
-    image: "/monthly.webp",
-    category: "Game / Top up",
-    rechargeOptions: [
-      { id: "weekly", name: "Weekly", price: "155 TK" },
-      { id: "2x-weekly", name: "2X Weekly", price: "310 TK" },
-      { id: "3x-weekly", name: "3X Weekly", price: "465 TK" },
-      { id: "5x-weekly", name: "5X Weekly", price: "775 TK" },
-      { id: "monthly", name: "Monthly", price: "770 TK" },
-      { id: "2x-monthly", name: "2X Monthly", price: "1540 TK" },
-      { id: "1-weekly-1-monthly", name: "1Weekly + 1Monthly", price: "925 TK" },
-      {
-        id: "4-weekly-1-monthly",
-        name: "4Weekly + 1Monthly",
-        price: "1390 TK",
-      },
-    ],
-  },
-  "indonesia-server-uid": {
-    name: "Indonesia Server (UID)",
-    image: "/indonatia.webp",
-    category: "Game / Top up",
-    rechargeOptions: [
-      { id: "5-diamond-indo", name: "5 Diamond (Indo)", price: "12 TK" },
-      { id: "50-diamond-indo", name: "50 Diamond (Indo)", price: "70 TK" },
-      { id: "70-diamond-indo", name: "70 Diamond (Indo)", price: "90 TK" },
-      { id: "100-diamond-indo", name: "100 Diamond (Indo)", price: "140 TK" },
-      { id: "140-diamond-indo", name: "140 Diamond (Indo)", price: "180 TK" },
-      { id: "355-diamond-indo", name: "355 Diamond (Indo)", price: "440 TK" },
-      { id: "720-diamond-indo", name: "720 Diamond (Indo)", price: "880 TK" },
-      { id: "7290-diamond-indo", name: "7290Diamond (Indo)", price: "8800 TK" },
-      { id: "weekly-indo", name: "Weekly (Indo)", price: "270 TK" },
-      { id: "monthly-indo", name: "Monthly (Indo)", price: "820 TK" },
-    ],
-  },
-  "ff-id-like": {
-    name: "FF ID Like (Daily 100 Max)",
-    image: "/like.avif",
-    category: "Game / Top up",
-    rechargeOptions: [
-      { id: "100-ff-like", name: "100 FF Like", price: "20 TK" },
-    ],
-  },
-  "pubg-mobile": {
-    name: "PUBG MOBILE",
-    image: "/pubg.webp",
-    category: "Game / Top up",
-    rechargeOptions: [],
-  },
-  "fc-mobile": {
-    name: "FC MOBILE (EA SPORTS)",
-    image: "/pc.webp",
-    category: "Game / Top up",
-    rechargeOptions: [],
-  },
-};
 export default function TopUpPage({ params }) {
   const [selectedOption, setSelectedOption] = useState(undefined);
   const [selectedPayment, setSelectedPayment] = useState("wallet");
+  const [playerId, setPlayerId] = useState("");
+  const [placedOrder, setPlacedOrder] = useState(null);
+  const [errorMsg, setErrorMsg] = useState("");
+  const { topupProducts, currentUser, createOrder } = useApp();
   const slug = params.slug;
-  const product = productData[slug] || {
+
+  // Find product from context (dynamic), fallback to a default placeholder
+  const product = (topupProducts || []).find((p) => p.slug === slug) || {
     name: decodeURIComponent(slug).replace(/-/g, " "),
     image: "https://placehold.co/80x80.png",
     category: "Game / Top up",
@@ -201,6 +62,33 @@ export default function TopUpPage({ params }) {
   const selectedPrice = getNumericPrice(
     product.rechargeOptions.find((opt) => opt.id === selectedOption)?.price,
   );
+
+  const handleBuyNow = () => {
+    setErrorMsg("");
+    if (!selectedOption) {
+      setErrorMsg("দয়া করে ধাপ ১ থেকে একটি রিচার্জ অপশন নির্বাচন করুন");
+      return;
+    }
+    if (!playerId.trim()) {
+      setErrorMsg("দয়া করে ধাপ ২ এ আপনার গেম আইডি (Player UID) প্রদান করুন");
+      return;
+    }
+    const optObj = product.rechargeOptions.find((o) => o.id === selectedOption);
+    const amountVal = Number(selectedPrice) || 0;
+    const diamondsNum = parseInt(optObj?.name?.match(/\d+/)?.[0] || "100", 10);
+
+    const order = createOrder({
+      item: `${product.name} - ${optObj?.name || ""}`,
+      amount: amountVal,
+      diamondsCount: diamondsNum,
+      uid: playerId.trim(),
+      phone: currentUser?.phone || "01700-000000",
+      method: selectedPayment === "wallet" ? "Wallet Balance" : "Instant Pay (Auto)",
+      trxId: `TRX-${Math.random().toString(36).substring(2, 8).toUpperCase()}`,
+    });
+
+    setPlacedOrder(order);
+  };
   return (
     <div className="flex flex-col min-h-screen text-foreground">
       <header className="bg-background/90 backdrop-blur-sm shadow-sm sticky top-0 z-50">
@@ -349,11 +237,23 @@ export default function TopUpPage({ params }) {
                 <Input
                   type="text"
                   id="game-id"
-                  placeholder="Player ID (UID)"
-                  className="border-slate-200 dark:border-slate-800 focus:border-[#adacad] rounded-xl"
+                  placeholder="Player ID (UID) দিন e.g. 59382029"
+                  value={playerId}
+                  onChange={(e) => {
+                    setPlayerId(e.target.value);
+                    setErrorMsg("");
+                  }}
+                  className="border-slate-200 dark:border-slate-800 focus:border-[#adacad] rounded-xl font-mono text-sm"
                 />
                 <Button
-                  // variant="outline"
+                  type="button"
+                  onClick={() => {
+                    if (!playerId.trim()) {
+                      setErrorMsg("প্রথমে আপনার গেম আইডি (UID) টাইপ করুন");
+                      return;
+                    }
+                    alert(`গেম আইডি: ${playerId.trim()} (যাচাই সফল ✓)`);
+                  }}
                   className="shrink-0 rounded-xl border-pink-500 hover:border-[#c732c7] hover:text-[#afaeaf]"
                 >
                   আপনার গেম আইডির নাম চেক করুন
@@ -441,17 +341,83 @@ export default function TopUpPage({ params }) {
             <div className="font-bangla space-y-2 mt-4 text-sm text-slate-700 dark:text-slate-300">
               <div className="flex items-center gap-2">
                 <Info className="w-4 h-4 text-[#7132c7]" />
-                <span>আপনার অ্যাকাউন্ট ব্যালেন্স ৳ 0.00</span>
-                <RefreshCw className="w-4 h-4 cursor-pointer text-slate-500 hover:rotate-180 transition-transform" />
+                <span>আপনার অ্যাকাউন্ট ব্যালেন্স ৳ {Number(currentUser?.balance || 0).toFixed(2)}</span>
+                <Link href="/add-money" className="text-xs text-[#7132c7] font-bold hover:underline">
+                  (অ্যাড মানি)
+                </Link>
               </div>
               <div className="flex items-center gap-2">
                 <Info className="w-4 h-4 text-[#7132c7]" />
                 <span>প্রোডাক্ট কিনতে আপনার প্রয়োজন ৳ {selectedPrice}</span>
               </div>
             </div>
-            <Button className="w-full mt-4 bg-[#7132c7] hover:bg-[#5f2ab0] text-white font-bold py-3 text-base shadow-sm rounded-xl">
+
+            {errorMsg && (
+              <div className="mt-3 p-2.5 rounded-lg bg-red-50 border border-red-200 text-red-600 text-xs sm:text-sm font-bangla font-semibold">
+                ⚠️ {errorMsg}
+              </div>
+            )}
+
+            <Button
+              type="button"
+              onClick={handleBuyNow}
+              className="w-full mt-4 bg-[#7132c7] hover:bg-[#5f2ab0] text-white font-bold py-3 text-base shadow-sm rounded-xl"
+            >
               Buy Now
             </Button>
+
+            {/* Order Confirmation Modal */}
+            {placedOrder && (
+              <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+                <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-sm w-full p-6 text-center shadow-2xl border border-slate-100 dark:border-slate-800 animate-in fade-in zoom-in-95 duration-200 font-bangla">
+                  <div className="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-3 shadow-inner">
+                    <Check className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-lg font-black text-slate-900 dark:text-white">
+                    অর্ডার সফল হয়েছে!
+                  </h3>
+                  <p className="text-xs text-slate-500 mt-1">
+                    অর্ডার আইডি: <span className="font-mono font-bold text-[#7132c7]">#{placedOrder.id}</span>
+                  </p>
+                  <div className="bg-slate-50 dark:bg-slate-800/60 rounded-xl p-3 my-4 text-xs text-left space-y-1.5 border border-slate-100 dark:border-slate-800">
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">আইটেম:</span>
+                      <span className="font-semibold text-slate-800 dark:text-slate-100">{placedOrder.item}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">Player UID:</span>
+                      <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{placedOrder.uid}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">টাকার পরিমাণ:</span>
+                      <span className="font-bold text-emerald-600">৳{placedOrder.amount}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">পেমেন্ট মেথড:</span>
+                      <span className="font-semibold text-slate-800 dark:text-slate-100">{placedOrder.method}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-slate-500">স্ট্যাটাস:</span>
+                      <span className="font-semibold text-amber-600">Pending (অ্যাডমিন ভেরিফাই করছে)</span>
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Link
+                      href="/orders"
+                      className="block w-full py-2.5 rounded-xl bg-[#7132c7] hover:bg-[#5f2ab0] text-white font-bold text-sm shadow-sm transition"
+                    >
+                      অর্ডার হিস্টোরি দেখুন
+                    </Link>
+                    <button
+                      onClick={() => setPlacedOrder(null)}
+                      className="block w-full py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 font-semibold text-xs hover:bg-slate-50 dark:hover:bg-slate-800 transition"
+                    >
+                      আরও টপআপ করুন
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
 

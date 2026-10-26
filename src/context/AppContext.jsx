@@ -178,6 +178,185 @@ const DEFAULT_ORDERS = [
   },
 ];
 
+// ─── Default Home Products (Homepage Sections) ───────────────────────────
+const DEFAULT_SPECIAL_OFFERS = [
+  { id: "so-1", name: "WEEKLY OFFER", image: "/weeklylight.webp", slug: "weekly-monthly-offer", category: "special-offers", active: true },
+  { id: "so-2", name: "MONTHLY OFFER", image: "/monthly.webp", slug: "weekly-monthly-offer", category: "special-offers", active: true },
+  { id: "so-3", name: "FRIDAY OFFER", image: "/e-badge.webp", slug: "airdrop-id-code", category: "special-offers", active: true },
+];
+
+const DEFAULT_FREE_FIRE_PRODUCTS = [
+  { id: "ff-1", name: "UID TOP-UP [BD]", image: "/freefiretopup(bd).webp", slug: "free-fire-topup-bd", category: "free-fire", active: true },
+  { id: "ff-2", name: "UNIPIN VOUCHER", image: "/unipin.webp", slug: "unipin-voucher-bd", category: "free-fire", active: true },
+  { id: "ff-3", name: "WEEKLY/MONTHLY", image: "/file_00000000020c8230b8b354eff49e8cfa.png", slug: "weekly-monthly-offer", category: "free-fire", active: true },
+  { id: "ff-4", name: "WEEKLY LITE", image: "/weeklylight.webp", slug: "weekly-lite-bd-server", category: "free-fire", active: true },
+  { id: "ff-5", name: "LEVEL UP PASS BD", image: "/leveluppass.webp", slug: "level-up-pass", category: "free-fire", active: true },
+  { id: "ff-6", name: "[INDONESIA] SERVER TOP-UP", image: "/indonatia.webp", slug: "indonesia-server-uid", category: "free-fire", active: true },
+  { id: "ff-7", name: "FREE FIRE LIKE", image: "/like.avif", slug: "ff-id-like", category: "free-fire", active: true },
+];
+
+// ─── Default Topup Products (Slug-based with recharge options) ────────────
+const DEFAULT_TOPUP_PRODUCTS = [
+  {
+    slug: "free-fire-topup-bd",
+    name: "Free Fire TopUp (BD)",
+    image: "/freefiretopup(bd).webp",
+    category: "Game / Top up",
+    active: true,
+    rechargeOptions: [
+      { id: "weekly", name: "Weekly", price: "155 TK" },
+      { id: "monthly", name: "Monthly", price: "770 TK" },
+      { id: "25-diamond", name: "25 Diamond", price: "22 TK" },
+      { id: "50-diamond", name: "50 Diamond", price: "38 TK" },
+      { id: "115-diamond", name: "115 Diamond", price: "80 TK" },
+      { id: "240-diamond", name: "240 Diamond", price: "160 TK" },
+      { id: "355-diamond", name: "355 Diamond", price: "240 TK" },
+      { id: "505-diamond", name: "505 Diamond", price: "340 TK" },
+      { id: "610-diamond", name: "610 Diamond", price: "400 TK" },
+      { id: "850-diamond", name: "850 Diamond", price: "560 TK" },
+      { id: "1090-diamond", name: "1090 Diamond", price: "720 TK" },
+      { id: "1240-diamond", name: "1240 Diamond", price: "800 TK" },
+      { id: "2530-diamond", name: "2530 Diamond", price: "1620 TK" },
+      { id: "5060-diamond", name: "5060 Diamond", price: "3240 TK" },
+      { id: "7590-diamond", name: "7590 Diamond", price: "4850 TK" },
+      { id: "10120-diamond", name: "10120 Diamond", price: "6450 TK" },
+    ],
+  },
+  {
+    slug: "level-up-pass",
+    name: "Level Up Pass",
+    image: "/leveluppass.webp",
+    category: "Game / Top up",
+    active: true,
+    rechargeOptions: [
+      { id: "level-6", name: "Level Up Package - Level 6", price: "40 TK" },
+      { id: "level-10", name: "Level Up Package - Level 10", price: "70 TK" },
+      { id: "level-15", name: "Level Up Package - Level 15", price: "70 TK" },
+      { id: "level-20", name: "Level Up Package - Level 20", price: "70 TK" },
+      { id: "level-25", name: "Level Up Package - Level 25", price: "70 TK" },
+      { id: "level-30", name: "Level Up Package - Level 30", price: "100 TK" },
+      { id: "full-level-up", name: "Full Level Up (1270 Diamond)", price: "400 TK" },
+    ],
+  },
+  {
+    slug: "e-badge-evo-access-bd",
+    name: "E-Badge/Evo Access (BD)",
+    image: "/e-badge.webp",
+    category: "Game / Top up",
+    active: true,
+    rechargeOptions: [
+      { id: "3-days-evo", name: "3 Days Evo Access", price: "70 TK" },
+      { id: "7-days-evo", name: "7 Days Evo Access", price: "110 TK" },
+      { id: "14-days-evo", name: "14 Days Evo Access", price: "210 TK" },
+      { id: "30-days-evo", name: "30 Days Evo Access", price: "300 TK" },
+    ],
+  },
+  {
+    slug: "unipin-voucher-bd",
+    name: "UNIPIN VOUCHER",
+    image: "/unipin.webp",
+    category: "GAME / VOUCHER",
+    active: true,
+    rechargeOptions: [
+      { id: "25-diamond-code", name: "25 Diamond Code", price: "23 TK" },
+      { id: "50-diamond-code", name: "50 Diamond Code", price: "36 TK" },
+      { id: "115-diamond-code", name: "115 Diamond Code", price: "76 TK" },
+      { id: "240-diamond-code", name: "240 Diamond Code", price: "152 TK" },
+      { id: "610-diamond-code", name: "610 Diamond Code", price: "382 TK" },
+      { id: "1240-diamond-code", name: "1240 Diamond Code", price: "756 TK" },
+      { id: "2530-diamond-code", name: "2530 Diamond Code", price: "1540 TK" },
+      { id: "weekly-code", name: "Weekly Code", price: "151 TK" },
+      { id: "monthly-code", name: "Monthly Code", price: "753 TK" },
+    ],
+  },
+  {
+    slug: "airdrop-id-code",
+    name: "Airdrop (ID Code)",
+    image: "/e-badge.webp",
+    category: "Game / Top up",
+    active: true,
+    rechargeOptions: [
+      { id: "airdrop-90", name: "0.99$ (90 BDT) Airdrop", price: "140 TK" },
+      { id: "airdrop-190", name: "1.99$ (190 BDT) Airdrop", price: "280 TK" },
+    ],
+  },
+  {
+    slug: "weekly-lite-bd-server",
+    name: "Weekly Lite (BD Server)",
+    image: "/weeklylight.webp",
+    category: "Game / Top up",
+    active: true,
+    rechargeOptions: [
+      { id: "1x-weekly-lite", name: "1x Weekly Lite", price: "40 TK" },
+      { id: "2x-weekly-lite", name: "2x Weekly Lite", price: "80 TK" },
+      { id: "3x-weekly-lite", name: "3x Weekly Lite", price: "120 TK" },
+      { id: "5x-weekly-lite", name: "5x Weekly Lite", price: "200 TK" },
+    ],
+  },
+  {
+    slug: "weekly-monthly-offer",
+    name: "Weekly/Monthly Offer",
+    image: "/monthly.webp",
+    category: "Game / Top up",
+    active: true,
+    rechargeOptions: [
+      { id: "weekly", name: "Weekly", price: "155 TK" },
+      { id: "2x-weekly", name: "2X Weekly", price: "310 TK" },
+      { id: "3x-weekly", name: "3X Weekly", price: "465 TK" },
+      { id: "5x-weekly", name: "5X Weekly", price: "775 TK" },
+      { id: "monthly", name: "Monthly", price: "770 TK" },
+      { id: "2x-monthly", name: "2X Monthly", price: "1540 TK" },
+      { id: "1-weekly-1-monthly", name: "1Weekly + 1Monthly", price: "925 TK" },
+      { id: "4-weekly-1-monthly", name: "4Weekly + 1Monthly", price: "1390 TK" },
+    ],
+  },
+  {
+    slug: "indonesia-server-uid",
+    name: "Indonesia Server (UID)",
+    image: "/indonatia.webp",
+    category: "Game / Top up",
+    active: true,
+    rechargeOptions: [
+      { id: "5-diamond-indo", name: "5 Diamond (Indo)", price: "12 TK" },
+      { id: "50-diamond-indo", name: "50 Diamond (Indo)", price: "70 TK" },
+      { id: "70-diamond-indo", name: "70 Diamond (Indo)", price: "90 TK" },
+      { id: "100-diamond-indo", name: "100 Diamond (Indo)", price: "140 TK" },
+      { id: "140-diamond-indo", name: "140 Diamond (Indo)", price: "180 TK" },
+      { id: "355-diamond-indo", name: "355 Diamond (Indo)", price: "440 TK" },
+      { id: "720-diamond-indo", name: "720 Diamond (Indo)", price: "880 TK" },
+      { id: "7290-diamond-indo", name: "7290Diamond (Indo)", price: "8800 TK" },
+      { id: "weekly-indo", name: "Weekly (Indo)", price: "270 TK" },
+      { id: "monthly-indo", name: "Monthly (Indo)", price: "820 TK" },
+    ],
+  },
+  {
+    slug: "ff-id-like",
+    name: "FF ID Like (Daily 100 Max)",
+    image: "/like.avif",
+    category: "Game / Top up",
+    active: true,
+    rechargeOptions: [
+      { id: "100-ff-like", name: "100 FF Like", price: "20 TK" },
+    ],
+  },
+  {
+    slug: "pubg-mobile",
+    name: "PUBG MOBILE",
+    image: "/pubg.webp",
+    category: "Game / Top up",
+    active: true,
+    rechargeOptions: [],
+  },
+  {
+    slug: "fc-mobile",
+    name: "FC MOBILE (EA SPORTS)",
+    image: "/pc.webp",
+    category: "Game / Top up",
+    active: true,
+    rechargeOptions: [],
+  },
+];
+
 const DEFAULT_ADD_MONEY = [
   {
     id: "AM-501",
@@ -248,6 +427,9 @@ const STORAGE_KEYS = {
   SITE: "vtm_site_settings",
   LEADERBOARD: "vtm_leaderboard_custom",
   AUTO_CALC: "vtm_leaderboard_auto_calc",
+  SPECIAL_OFFERS: "vtm_special_offers",
+  FF_PRODUCTS: "vtm_ff_products",
+  TOPUP_PRODUCTS: "vtm_topup_products",
 };
 
 // ─── App Context Definition ──────────────────────────────────────────
@@ -266,6 +448,10 @@ export function AppProvider({ children }) {
   const [autoCalculateLeaderboard, setAutoCalculateLeaderboard] = useState(true);
   const [activities, setActivities] = useState([]);
   const [isInitialized, setIsInitialized] = useState(false);
+  // Product catalogs
+  const [specialOffers, setSpecialOffers] = useState(DEFAULT_SPECIAL_OFFERS);
+  const [freeFireProducts, setFreeFireProducts] = useState(DEFAULT_FREE_FIRE_PRODUCTS);
+  const [topupProducts, setTopupProducts] = useState(DEFAULT_TOPUP_PRODUCTS);
 
   // Load from LocalStorage on mount (client-side persistence & cross-tab sync)
   useEffect(() => {
@@ -279,6 +465,9 @@ export function AppProvider({ children }) {
       const storedSite = localStorage.getItem(STORAGE_KEYS.SITE);
       const storedLeaderboard = localStorage.getItem(STORAGE_KEYS.LEADERBOARD);
       const storedAutoCalc = localStorage.getItem(STORAGE_KEYS.AUTO_CALC);
+      const storedSpecialOffers = localStorage.getItem(STORAGE_KEYS.SPECIAL_OFFERS);
+      const storedFFProducts = localStorage.getItem(STORAGE_KEYS.FF_PRODUCTS);
+      const storedTopupProducts = localStorage.getItem(STORAGE_KEYS.TOPUP_PRODUCTS);
 
       if (storedUsers) setUsers(JSON.parse(storedUsers));
       if (storedOrders) setOrders(JSON.parse(storedOrders));
@@ -287,6 +476,9 @@ export function AppProvider({ children }) {
       if (storedSite) setSiteSettings(JSON.parse(storedSite));
       if (storedLeaderboard) setCustomLeaderboard(JSON.parse(storedLeaderboard));
       if (storedAutoCalc !== null) setAutoCalculateLeaderboard(storedAutoCalc === "true");
+      if (storedSpecialOffers) setSpecialOffers(JSON.parse(storedSpecialOffers));
+      if (storedFFProducts) setFreeFireProducts(JSON.parse(storedFFProducts));
+      if (storedTopupProducts) setTopupProducts(JSON.parse(storedTopupProducts));
     } catch (e) {
       console.warn("Error loading stored VTM state:", e);
     } finally {
@@ -303,6 +495,9 @@ export function AppProvider({ children }) {
         if (e.key === STORAGE_KEYS.SITE && e.newValue) setSiteSettings(JSON.parse(e.newValue));
         if (e.key === STORAGE_KEYS.LEADERBOARD && e.newValue) setCustomLeaderboard(JSON.parse(e.newValue));
         if (e.key === STORAGE_KEYS.AUTO_CALC && e.newValue !== null) setAutoCalculateLeaderboard(e.newValue === "true");
+        if (e.key === STORAGE_KEYS.SPECIAL_OFFERS && e.newValue) setSpecialOffers(JSON.parse(e.newValue));
+        if (e.key === STORAGE_KEYS.FF_PRODUCTS && e.newValue) setFreeFireProducts(JSON.parse(e.newValue));
+        if (e.key === STORAGE_KEYS.TOPUP_PRODUCTS && e.newValue) setTopupProducts(JSON.parse(e.newValue));
       } catch (err) {
         console.error("Storage sync error:", err);
       }
@@ -327,10 +522,13 @@ export function AppProvider({ children }) {
         localStorage.removeItem(STORAGE_KEYS.LEADERBOARD);
       }
       localStorage.setItem(STORAGE_KEYS.AUTO_CALC, String(autoCalculateLeaderboard));
+      localStorage.setItem(STORAGE_KEYS.SPECIAL_OFFERS, JSON.stringify(specialOffers));
+      localStorage.setItem(STORAGE_KEYS.FF_PRODUCTS, JSON.stringify(freeFireProducts));
+      localStorage.setItem(STORAGE_KEYS.TOPUP_PRODUCTS, JSON.stringify(topupProducts));
     } catch (e) {
       console.warn("Error saving VTM state to localStorage:", e);
     }
-  }, [users, orders, addMoneyRequests, gatewaySettings, siteSettings, customLeaderboard, autoCalculateLeaderboard, isInitialized]);
+  }, [users, orders, addMoneyRequests, gatewaySettings, siteSettings, customLeaderboard, autoCalculateLeaderboard, isInitialized, specialOffers, freeFireProducts, topupProducts]);
 
   // Activity logger
   const logActivity = useCallback((title, desc, type = "info") => {
@@ -680,6 +878,90 @@ export function AppProvider({ children }) {
     logActivity("সিস্টেম সেটিংস", "ওয়েবসাইট সেটিংস ও জরুরি বার্তা আপডেট করা হয়েছে", "info");
   }, [logActivity]);
 
+  // ─── Product & Offer Management ────────────────────────────────────
+  const addSpecialOffer = useCallback((offer) => {
+    const newOffer = { ...offer, id: `so-${Date.now()}`, active: true };
+    setSpecialOffers((prev) => [...prev, newOffer]);
+    logActivity("স্পেশাল অফার যোগ", `নতুন অফার "${offer.name}" যোগ করা হয়েছে`, "success");
+  }, [logActivity]);
+
+  const updateSpecialOffer = useCallback((id, updates) => {
+    setSpecialOffers((prev) => prev.map((o) => (o.id === id ? { ...o, ...updates } : o)));
+    logActivity("স্পেশাল অফার আপডেট", `অফার আইডি ${id} আপডেট করা হয়েছে`, "info");
+  }, [logActivity]);
+
+  const deleteSpecialOffer = useCallback((id) => {
+    setSpecialOffers((prev) => prev.filter((o) => o.id !== id));
+    logActivity("স্পেশাল অফার ডিলিট", `অফার আইডি ${id} মুছে দেওয়া হয়েছে`, "error");
+  }, [logActivity]);
+
+  const addFFProduct = useCallback((product) => {
+    const newProd = { ...product, id: `ff-${Date.now()}`, active: true };
+    setFreeFireProducts((prev) => [...prev, newProd]);
+    logActivity("FF প্রোডাক্ট যোগ", `নতুন প্রোডাক্ট "${product.name}" যোগ করা হয়েছে`, "success");
+  }, [logActivity]);
+
+  const updateFFProduct = useCallback((id, updates) => {
+    setFreeFireProducts((prev) => prev.map((p) => (p.id === id ? { ...p, ...updates } : p)));
+    logActivity("FF প্রোডাক্ট আপডেট", `প্রোডাক্ট আইডি ${id} আপডেট করা হয়েছে`, "info");
+  }, [logActivity]);
+
+  const deleteFFProduct = useCallback((id) => {
+    setFreeFireProducts((prev) => prev.filter((p) => p.id !== id));
+    logActivity("FF প্রোডাক্ট ডিলিট", `প্রোডাক্ট আইডি ${id} মুছে দেওয়া হয়েছে`, "error");
+  }, [logActivity]);
+
+  const addTopupProduct = useCallback((product) => {
+    setTopupProducts((prev) => {
+      const exists = prev.find((p) => p.slug === product.slug);
+      if (exists) return prev.map((p) => (p.slug === product.slug ? { ...p, ...product } : p));
+      return [...prev, { active: true, rechargeOptions: [], ...product }];
+    });
+    logActivity("টপআপ প্রোডাক্ট যোগ", `প্রোডাক্ট "${product.name}" (${product.slug}) যোগ/আপডেট করা হয়েছে`, "success");
+  }, [logActivity]);
+
+  const updateTopupProduct = useCallback((slug, updates) => {
+    setTopupProducts((prev) => prev.map((p) => (p.slug === slug ? { ...p, ...updates } : p)));
+    logActivity("টপআপ প্রোডাক্ট আপডেট", `${slug} প্রোডাক্ট আপডেট করা হয়েছে`, "info");
+  }, [logActivity]);
+
+  const deleteTopupProduct = useCallback((slug) => {
+    setTopupProducts((prev) => prev.filter((p) => p.slug !== slug));
+    logActivity("টপআপ প্রোডাক্ট ডিলিট", `${slug} প্রোডাক্ট মুছে দেওয়া হয়েছে`, "error");
+  }, [logActivity]);
+
+  const addRechargeOption = useCallback((slug, option) => {
+    setTopupProducts((prev) =>
+      prev.map((p) =>
+        p.slug === slug
+          ? { ...p, rechargeOptions: [...(p.rechargeOptions || []), { id: `opt-${Date.now()}`, ...option }] }
+          : p
+      )
+    );
+    logActivity("রিচার্জ অপশন যোগ", `${slug}-এ নতুন অপশন "${option.name}" যোগ করা হয়েছে`, "success");
+  }, [logActivity]);
+
+  const deleteRechargeOption = useCallback((slug, optionId) => {
+    setTopupProducts((prev) =>
+      prev.map((p) =>
+        p.slug === slug
+          ? { ...p, rechargeOptions: (p.rechargeOptions || []).filter((o) => o.id !== optionId) }
+          : p
+      )
+    );
+    logActivity("রিচার্জ অপশন ডিলিট", `${slug} থেকে অপশন ${optionId} মুছে দেওয়া হয়েছে`, "error");
+  }, [logActivity]);
+
+  const updateRechargeOption = useCallback((slug, optionId, updates) => {
+    setTopupProducts((prev) =>
+      prev.map((p) =>
+        p.slug === slug
+          ? { ...p, rechargeOptions: (p.rechargeOptions || []).map((o) => (o.id === optionId ? { ...o, ...updates } : o)) }
+          : p
+      )
+    );
+  }, []);
+
   // Context value exposed to both Admin & Client components
   const value = {
     // Current User
@@ -693,6 +975,10 @@ export function AppProvider({ children }) {
     leaderboard,
     autoCalculateLeaderboard,
     activities,
+    // Product Catalogs
+    specialOffers,
+    freeFireProducts,
+    topupProducts,
     // Order Actions
     approveOrder,
     cancelOrder,
@@ -713,6 +999,19 @@ export function AppProvider({ children }) {
     // Settings Actions
     updateGatewaySettings,
     updateSiteSettings,
+    // Product & Offer Management
+    addSpecialOffer,
+    updateSpecialOffer,
+    deleteSpecialOffer,
+    addFFProduct,
+    updateFFProduct,
+    deleteFFProduct,
+    addTopupProduct,
+    updateTopupProduct,
+    deleteTopupProduct,
+    addRechargeOption,
+    deleteRechargeOption,
+    updateRechargeOption,
     logActivity,
   };
 

@@ -1,12 +1,154 @@
 "use client";
 
 import React, { useState, useMemo, useRef } from "react";
+import { useApp } from "@/context/AppContext";
+
+// ─── Topup Catalog Section Component ────────────────────────────────────────
+function TopupCatalogSection({ topupProducts, addTopupProduct, updateTopupProduct, deleteTopupProduct, addRechargeOption, deleteRechargeOption, updateRechargeOption, showToast, pill, money }) {
+  const [selectedSlug, setSelectedSlug] = useState(null);
+  const [newProdName, setNewProdName] = useState("");
+  const [newProdSlug, setNewProdSlug] = useState("");
+  const [newProdImage, setNewProdImage] = useState("");
+  const [newProdCat, setNewProdCat] = useState("Game / Top up");
+  const [newOptName, setNewOptName] = useState("");
+  const [newOptPrice, setNewOptPrice] = useState("");
+  const selectedProduct = topupProducts.find((p) => p.slug === selectedSlug);
+
+  return (
+    <div>
+      <div className="ff-notice">
+        💎 টপআপ প্রোডাক্ট ক্যাটালগ — প্রতিটি প্রোডাক্টের নাম, ছবি, category এবং রিচার্জ অপশন (মূল্য সহ) এখান থেকে ম্যানেজ করুন। পরিবর্তন সাথে সাথে প্রতিটি টপআপ পেজে দেখা যাবে।
+      </div>
+
+      {/* Add new topup product */}
+      <div className="ff-panel">
+        <div className="ff-panelhead"><h3>নতুন টপআপ প্রোডাক্ট যোগ করুন</h3></div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 14 }}>
+          <div><label style={{ display: "block", fontSize: 12, color: "#aeb3cd", marginBottom: 4 }}>প্রোডাক্টের নাম</label>
+            <input className="ff-input" placeholder="e.g. Weekly/Monthly Offer" value={newProdName} onChange={(e) => setNewProdName(e.target.value)} /></div>
+          <div><label style={{ display: "block", fontSize: 12, color: "#aeb3cd", marginBottom: 4 }}>URL Slug</label>
+            <input className="ff-input" placeholder="e.g. weekly-monthly-offer" value={newProdSlug} onChange={(e) => setNewProdSlug(e.target.value)} /></div>
+          <div><label style={{ display: "block", fontSize: 12, color: "#aeb3cd", marginBottom: 4 }}>Image Path</label>
+            <input className="ff-input" placeholder="e.g. /monthly.webp" value={newProdImage} onChange={(e) => setNewProdImage(e.target.value)} /></div>
+          <div><label style={{ display: "block", fontSize: 12, color: "#aeb3cd", marginBottom: 4 }}>Category</label>
+            <input className="ff-input" placeholder="e.g. Game / Top up" value={newProdCat} onChange={(e) => setNewProdCat(e.target.value)} /></div>
+        </div>
+        <button className="ff-btn primary" onClick={() => {
+          if (!newProdName.trim() || !newProdSlug.trim()) { showToast("নাম ও slug দিন"); return; }
+          addTopupProduct({ name: newProdName.trim(), slug: newProdSlug.trim(), image: newProdImage.trim() || "/freefiretopup(bd).webp", category: newProdCat.trim() || "Game / Top up", active: true, rechargeOptions: [] });
+          setNewProdName(""); setNewProdSlug(""); setNewProdImage(""); setNewProdCat("Game / Top up");
+          showToast("প্রোডাক্ট যোগ হয়েছে ✓");
+        }}>＋ প্রোডাক্ট যোগ করুন</button>
+      </div>
+
+      {/* Products list */}
+      <div className="ff-panel">
+        <div className="ff-panelhead"><h3>সকল টপআপ প্রোডাক্ট ({topupProducts.length})</h3></div>
+        <div className="ff-tablewrap">
+          <table className="ff-table">
+            <thead><tr><th>নাম</th><th>SLUG</th><th>CATEGORY</th><th>RECHARGE OPTIONS</th><th>STATUS</th><th>ACTION</th></tr></thead>
+            <tbody>
+              {topupProducts.map((p) => (
+                <tr key={p.slug} style={selectedSlug === p.slug ? { background: "rgba(255,61,154,0.08)" } : {}}>
+                  <td>{p.name}</td>
+                  <td style={{ fontFamily: "monospace", fontSize: 11 }}>{p.slug}</td>
+                  <td>{p.category}</td>
+                  <td style={{ color: "var(--cyan)" }}>{(p.rechargeOptions || []).length} টি</td>
+                  <td>{pill(p.active !== false ? "Active" : "Hidden")}</td>
+                  <td style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+                    <button className="ff-btn" style={{ fontSize: 11, padding: "4px 8px", borderColor: "var(--cyan)", color: "var(--cyan)" }}
+                      onClick={() => setSelectedSlug(selectedSlug === p.slug ? null : p.slug)}>
+                      {selectedSlug === p.slug ? "✕ বন্ধ" : "✏ Options"}
+                    </button>
+                    <button className="ff-btn" style={{ fontSize: 11, padding: "4px 8px" }}
+                      onClick={() => { updateTopupProduct(p.slug, { active: !(p.active !== false) }); showToast("ভিজিবিলিটি পরিবর্তন হয়েছে"); }}>
+                      {p.active !== false ? "Hide" : "Show"}
+                    </button>
+                    <button className="ff-btn" style={{ fontSize: 11, padding: "4px 8px", borderColor: "var(--red)", color: "var(--red)" }}
+                      onClick={() => { deleteTopupProduct(p.slug); if (selectedSlug === p.slug) setSelectedSlug(null); showToast("প্রোডাক্ট ডিলিট হয়েছে"); }}>
+                      Del
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* Recharge options editor for selected product */}
+      {selectedProduct && (
+        <div className="ff-panel" style={{ borderColor: "#ff3d9a40" }}>
+          <div className="ff-panelhead">
+            <h3>🔧 রিচার্জ অপশন: {selectedProduct.name}</h3>
+            <button className="ff-btn" onClick={() => setSelectedSlug(null)}>✕ বন্ধ করুন</button>
+          </div>
+
+          {/* Add recharge option */}
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16, padding: "14px", background: "#171b2a", borderRadius: 10, border: "1px solid #30334a" }}>
+            <div style={{ flex: 1, minWidth: 180 }}>
+              <label style={{ display: "block", fontSize: 12, color: "#aeb3cd", marginBottom: 4 }}>অপশনের নাম</label>
+              <input className="ff-input" placeholder="e.g. Weekly" value={newOptName} onChange={(e) => setNewOptName(e.target.value)} />
+            </div>
+            <div style={{ flex: 1, minWidth: 140 }}>
+              <label style={{ display: "block", fontSize: 12, color: "#aeb3cd", marginBottom: 4 }}>মূল্য</label>
+              <input className="ff-input" placeholder="e.g. 155 TK" value={newOptPrice} onChange={(e) => setNewOptPrice(e.target.value)} />
+            </div>
+            <div style={{ display: "flex", alignItems: "flex-end" }}>
+              <button className="ff-btn primary" onClick={() => {
+                if (!newOptName.trim() || !newOptPrice.trim()) { showToast("নাম ও মূল্য দিন"); return; }
+                addRechargeOption(selectedProduct.slug, { name: newOptName.trim(), price: newOptPrice.trim() });
+                setNewOptName(""); setNewOptPrice("");
+                showToast("রিচার্জ অপশন যোগ হয়েছে ✓");
+              }}>＋ অপশন যোগ করুন</button>
+            </div>
+          </div>
+
+          {/* List of recharge options */}
+          <div className="ff-tablewrap">
+            <table className="ff-table">
+              <thead><tr><th>অপশনের নাম</th><th>মূল্য</th><th>ID</th><th>ACTION</th></tr></thead>
+              <tbody>
+                {(selectedProduct.rechargeOptions || []).length === 0 ? (
+                  <tr><td colSpan={4} className="ff-empty">কোনো রিচার্জ অপশন নেই। উপরে যোগ করুন।</td></tr>
+                ) : (selectedProduct.rechargeOptions || []).map((opt) => (
+                  <tr key={opt.id}>
+                    <td>
+                      <input style={{ background: "transparent", border: "none", color: "#d9dbee", fontSize: 12, width: "100%" }}
+                        defaultValue={opt.name}
+                        onBlur={(e) => { if (e.target.value !== opt.name) { updateRechargeOption(selectedProduct.slug, opt.id, { name: e.target.value }); showToast("আপডেট হয়েছে"); } }} />
+                    </td>
+                    <td>
+                      <input style={{ background: "transparent", border: "none", color: "#ff87c3", fontSize: 12, width: 100, fontWeight: 700 }}
+                        defaultValue={opt.price}
+                        onBlur={(e) => { if (e.target.value !== opt.price) { updateRechargeOption(selectedProduct.slug, opt.id, { price: e.target.value }); showToast("মূল্য আপডেট হয়েছে"); } }} />
+                    </td>
+                    <td style={{ fontFamily: "monospace", fontSize: 10, color: "#6b7298" }}>{opt.id}</td>
+                    <td>
+                      <button className="ff-btn" style={{ fontSize: 11, padding: "4px 8px", borderColor: "var(--red)", color: "var(--red)" }}
+                        onClick={() => { deleteRechargeOption(selectedProduct.slug, opt.id); showToast("অপশন ডিলিট হয়েছে"); }}>
+                        ✕
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 const MENUS = [
   { id: "dashboard", label: "Dashboard", subtitle: "Overview" },
   { id: "statements", label: "Statements", subtitle: "Financial statements" },
   { id: "orders", label: "Orders", subtitle: "Top-up orders" },
   { id: "users", label: "Users / Customers", subtitle: "Customer accounts" },
+  { id: "leaderboard", label: "Top Performers & Leaderboard", subtitle: "Manage podium & ranks" },
+  { id: "home-offers", label: "Home Offers & Products", subtitle: "Site homepage sections" },
+  { id: "topup-catalog", label: "Topup Product Catalog", subtitle: "Manage topup pages & prices" },
   { id: "categories", label: "Categories", subtitle: "Product categories" },
   { id: "products", label: "Products", subtitle: "Product catalog" },
   { id: "diamond-packages", label: "Diamond Packages", subtitle: "Diamond package pricing" },
@@ -21,6 +163,9 @@ const ICONS = {
   statements: "▤",
   orders: "◈",
   users: "♙",
+  leaderboard: "🏆",
+  "home-offers": "🏠",
+  "topup-catalog": "💎",
   categories: "▦",
   products: "◇",
   "diamond-packages": "✦",
@@ -37,15 +182,36 @@ export default function AdminPage() {
   const [toastVisible, setToastVisible] = useState(false);
   const toastTimerRef = useRef(null);
 
-  // ─── State Data ────────────────────────────────────────────────────────
-  const [orders, setOrders] = useState([
-    { id: "FF-10842", customer: "Rafi Gaming", item: "520 Diamonds", amount: 390, status: "Completed", date: "2026-10-25" },
-    { id: "FF-10841", customer: "Nabil X", item: "Weekly Membership", amount: 155, status: "Pending", date: "2026-10-25" },
-    { id: "FF-10840", customer: "Shadow BD", item: "2180 Diamonds", amount: 1490, status: "Processing", date: "2026-10-24" },
-    { id: "FF-10839", customer: "Toxic FF", item: "100 Diamonds", amount: 80, status: "Failed", date: "2026-10-24" },
-    { id: "FF-10838", customer: "Sabbir Pro", item: "Level Up Pass", amount: 210, status: "Completed", date: "2026-10-23" },
-  ]);
+  // ─── Context: Shared live data ─────────────────────────────────────────
+  const {
+    orders: ctxOrders,
+    users: ctxUsers,
+    approveOrder,
+    cancelOrder,
+    specialOffers,
+    freeFireProducts,
+    topupProducts,
+    addSpecialOffer,
+    updateSpecialOffer,
+    deleteSpecialOffer,
+    addFFProduct,
+    updateFFProduct,
+    deleteFFProduct,
+    addTopupProduct,
+    updateTopupProduct,
+    deleteTopupProduct,
+    addRechargeOption,
+    deleteRechargeOption,
+    updateRechargeOption,
+    leaderboard,
+    autoCalculateLeaderboard,
+    updateLeaderboardItem,
+    resetLeaderboard,
+    toggleAutoCalculateLeaderboard,
+    adjustUserDiamonds,
+  } = useApp();
 
+  // ─── Local-only State Data (not shared) ────────────────────────────────
   const [packages, setPackages] = useState([
     { name: "100 Diamonds", price: 80, stock: "Unlimited", status: "Active" },
     { name: "520 Diamonds", price: 390, stock: "Unlimited", status: "Active" },
@@ -76,27 +242,44 @@ export default function AdminPage() {
     { code: "UPBD-8821-4920-1104", pin: "93120485", status: "Available" },
   ]);
 
-  const [users] = useState([
-    { name: "Rafi Gaming", email: "rafi@example.com", orders: 18, spent: 4270, status: "Active" },
-    { name: "Nabil X", email: "nabil@example.com", orders: 9, spent: 1850, status: "Active" },
-    { name: "Shadow BD", email: "shadow@example.com", orders: 24, spent: 7950, status: "VIP" },
-    { name: "Toxic FF", email: "toxic@example.com", orders: 5, spent: 620, status: "Active" },
-    { name: "Sabbir Pro", email: "sabbir@example.com", orders: 12, spent: 3150, status: "Active" },
-  ]);
-
-  const [transactions] = useState([
-    { id: "TX-8101", customer: "Rafi Gaming", amount: 390, type: "Top-Up Payment", status: "Success" },
-    { id: "TX-8100", customer: "Nabil X", amount: 155, type: "Membership Purchase", status: "Success" },
-    { id: "TX-8099", customer: "Toxic FF", amount: 80, type: "Refund", status: "Pending" },
-    { id: "TX-8098", customer: "Shadow BD", amount: 1490, type: "Top-Up Payment", status: "Success" },
-    { id: "TX-8097", customer: "Sabbir Pro", amount: 210, type: "Level Up Pass", status: "Success" },
-  ]);
-
   const [admins, setAdmins] = useState([
     { name: "Super Admin", email: "admin@ffnexus.test", role: "Super Admin", status: "Active" },
     { name: "Support Manager", email: "support@ffnexus.test", role: "Support Staff", status: "Active" },
     { name: "Finance Auditor", email: "finance@ffnexus.test", role: "Finance Manager", status: "Active" },
   ]);
+
+  // Build adapter: map context orders to admin-display format
+  const orders = useMemo(() => (ctxOrders || []).map((o) => ({
+    id: o.id,
+    customer: o.user || o.customer || "Unknown",
+    item: o.item || "—",
+    amount: o.amount || 0,
+    status: o.status || "Pending",
+    date: o.date || o.time || "—",
+    uid: o.uid,
+    phone: o.phone,
+    trxId: o.trxId,
+    method: o.method,
+    _raw: o,
+  })), [ctxOrders]);
+
+  const users = useMemo(() => (ctxUsers || []).map((u) => ({
+    name: u.name,
+    email: u.email,
+    orders: u.totalOrders || 0,
+    spent: u.lifetimeSpend || 0,
+    status: u.status || "Active",
+    diamonds: u.diamonds || 0,
+    balance: u.balance || 0,
+  })), [ctxUsers]);
+
+  const transactions = useMemo(() => (ctxOrders || []).slice(0, 10).map((o, i) => ({
+    id: `TX-${8100 - i}`,
+    customer: o.user || o.customer || "Unknown",
+    amount: o.amount || 0,
+    type: "Top-Up Payment",
+    status: o.status === "Completed" ? "Success" : o.status === "Pending" ? "Pending" : "Failed",
+  })), [ctxOrders]);
 
   // Order Filters
   const [orderSearch, setOrderSearch] = useState("");
@@ -142,25 +325,18 @@ export default function AdminPage() {
     return <span className={cls}>{status}</span>;
   };
 
-  // ─── Order Actions ─────────────────────────────────────────────────────
+  // ─── Order Actions (via AppContext) ────────────────────────────────────
   const changeOrder = (id, newStatus) => {
-    setOrders((prev) =>
-      prev.map((o) => (o.id === id ? { ...o, status: newStatus } : o))
-    );
-    showToast("Order status updated");
+    if (newStatus === "Completed") {
+      approveOrder(id);
+    } else if (newStatus === "Cancelled") {
+      cancelOrder(id, "অ্যাডমিন কর্তৃক বাতিল");
+    }
+    showToast("Order status updated → " + newStatus);
   };
 
   const addDemoOrder = () => {
-    const newOrd = {
-      id: "FF-" + Math.floor(11000 + Math.random() * 800),
-      customer: "New Demo Customer",
-      item: "100 Diamonds",
-      amount: 80,
-      status: "Pending",
-      date: new Date().toISOString().slice(0, 10),
-    };
-    setOrders((prev) => [newOrd, ...prev]);
-    showToast("Demo order added");
+    showToast("Demo orders are managed via AppContext. Use the TopUp page to create real orders.");
   };
 
   const filteredOrders = useMemo(() => {
@@ -1481,6 +1657,358 @@ export default function AdminPage() {
                           <td>{money(t.amount)}</td>
                           <td>{t.type}</td>
                           <td>{pill(t.status)}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {current === "home-offers" && (
+            <div>
+              <div className="ff-notice">
+                🏠 হোম পেজ সেকশন ম্যানেজমেন্ট — এখানে করা পরিবর্তন সাথে সাথে মেইন সাইটের হোম পেজে দেখা যাবে।
+              </div>
+
+              {/* ─── Special Offers Section ─── */}
+              <div className="ff-panel">
+                <div className="ff-panelhead">
+                  <h3>Friday Special Offers ({(specialOffers || []).length})</h3>
+                </div>
+                <div className="ff-notice" style={{ marginBottom: 12, fontSize: 11 }}>
+                  এই অফারগুলো হোম পেজের "Friday Special Offer" সেকশনে দেখা যায়।
+                </div>
+                {/* Add new offer form */}
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 14 }}>
+                  <input className="ff-input" id="so-name" placeholder="অফারের নাম (e.g. WEEKLY OFFER)" style={{ maxWidth: 220 }} />
+                  <input className="ff-input" id="so-slug" placeholder="Slug (e.g. weekly-monthly-offer)" style={{ maxWidth: 220 }} />
+                  <input className="ff-input" id="so-image" placeholder="Image path (e.g. /weeklylight.webp)" style={{ maxWidth: 220 }} />
+                  <button className="ff-btn primary" onClick={() => {
+                    const name = document.getElementById("so-name").value.trim();
+                    const slug = document.getElementById("so-slug").value.trim();
+                    const image = document.getElementById("so-image").value.trim();
+                    if (!name || !slug || !image) { showToast("সব ফিল্ড পূরণ করুন"); return; }
+                    addSpecialOffer({ name, slug, image, category: "special-offers" });
+                    document.getElementById("so-name").value = "";
+                    document.getElementById("so-slug").value = "";
+                    document.getElementById("so-image").value = "";
+                    showToast("স্পেশাল অফার যোগ হয়েছে ✓");
+                  }}>＋ অফার যোগ করুন</button>
+                </div>
+                <div className="ff-tablewrap">
+                  <table className="ff-table">
+                    <thead>
+                      <tr>
+                        <th>নাম</th>
+                        <th>SLUG</th>
+                        <th>IMAGE</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(specialOffers || []).map((o) => (
+                        <tr key={o.id}>
+                          <td>{o.name}</td>
+                          <td style={{ fontFamily: "monospace", fontSize: 11 }}>{o.slug}</td>
+                          <td style={{ fontFamily: "monospace", fontSize: 11, maxWidth: 150, overflow: "hidden", textOverflow: "ellipsis" }}>{o.image}</td>
+                          <td>{pill(o.active !== false ? "Active" : "Hidden")}</td>
+                          <td style={{ display: "flex", gap: 4 }}>
+                            <button className="ff-btn" style={{ fontSize: 11, padding: "4px 8px" }}
+                              onClick={() => { updateSpecialOffer(o.id, { active: !(o.active !== false) }); showToast("ভিজিবিলিটি পরিবর্তন হয়েছে"); }}>
+                              {o.active !== false ? "Hide" : "Show"}
+                            </button>
+                            <button className="ff-btn" style={{ fontSize: 11, padding: "4px 8px", borderColor: "var(--red)", color: "var(--red)" }}
+                              onClick={() => { deleteSpecialOffer(o.id); showToast("অফার ডিলিট হয়েছে"); }}>
+                              Del
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* ─── Free Fire Products Section ─── */}
+              <div className="ff-panel">
+                <div className="ff-panelhead">
+                  <h3>Garena Free Fire Products ({(freeFireProducts || []).length})</h3>
+                </div>
+                <div className="ff-notice" style={{ marginBottom: 12, fontSize: 11 }}>
+                  এই প্রোডাক্টগুলো হোম পেজের "Garena FREE FIRE" সেকশনে দেখা যায়।
+                </div>
+                {/* Add new FF product form */}
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 14 }}>
+                  <input className="ff-input" id="ff-name" placeholder="প্রোডাক্টের নাম" style={{ maxWidth: 200 }} />
+                  <input className="ff-input" id="ff-slug" placeholder="Slug (e.g. free-fire-topup-bd)" style={{ maxWidth: 200 }} />
+                  <input className="ff-input" id="ff-image" placeholder="Image (e.g. /freefiretopup(bd).webp)" style={{ maxWidth: 200 }} />
+                  <button className="ff-btn primary" onClick={() => {
+                    const name = document.getElementById("ff-name").value.trim();
+                    const slug = document.getElementById("ff-slug").value.trim();
+                    const image = document.getElementById("ff-image").value.trim();
+                    if (!name || !slug) { showToast("নাম ও slug দিন"); return; }
+                    addFFProduct({ name, slug, image: image || "/freefiretopup(bd).webp", category: "free-fire" });
+                    document.getElementById("ff-name").value = "";
+                    document.getElementById("ff-slug").value = "";
+                    document.getElementById("ff-image").value = "";
+                    showToast("FF প্রোডাক্ট যোগ হয়েছে ✓");
+                  }}>＋ প্রোডাক্ট যোগ করুন</button>
+                </div>
+                <div className="ff-tablewrap">
+                  <table className="ff-table">
+                    <thead>
+                      <tr>
+                        <th>নাম</th>
+                        <th>SLUG</th>
+                        <th>IMAGE</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(freeFireProducts || []).map((p) => (
+                        <tr key={p.id}>
+                          <td>{p.name}</td>
+                          <td style={{ fontFamily: "monospace", fontSize: 11 }}>{p.slug}</td>
+                          <td style={{ fontFamily: "monospace", fontSize: 11, maxWidth: 150, overflow: "hidden", textOverflow: "ellipsis" }}>{p.image}</td>
+                          <td>{pill(p.active !== false ? "Active" : "Hidden")}</td>
+                          <td style={{ display: "flex", gap: 4 }}>
+                            <button className="ff-btn" style={{ fontSize: 11, padding: "4px 8px" }}
+                              onClick={() => { updateFFProduct(p.id, { active: !(p.active !== false) }); showToast("ভিজিবিলিটি পরিবর্তন হয়েছে"); }}>
+                              {p.active !== false ? "Hide" : "Show"}
+                            </button>
+                            <button className="ff-btn" style={{ fontSize: 11, padding: "4px 8px", borderColor: "var(--red)", color: "var(--red)" }}
+                              onClick={() => { deleteFFProduct(p.id); showToast("প্রোডাক্ট ডিলিট হয়েছে"); }}>
+                              Del
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {current === "topup-catalog" && (
+            <TopupCatalogSection
+              topupProducts={topupProducts || []}
+              addTopupProduct={addTopupProduct}
+              updateTopupProduct={updateTopupProduct}
+              deleteTopupProduct={deleteTopupProduct}
+              addRechargeOption={addRechargeOption}
+              deleteRechargeOption={deleteRechargeOption}
+              updateRechargeOption={updateRechargeOption}
+              showToast={showToast}
+              pill={pill}
+              money={money}
+            />
+          )}
+
+          {current === "leaderboard" && (
+            <div>
+              <div className="ff-notice">
+                🏆 Top Performers & লিডারবোর্ড ম্যানেজমেন্ট — হোম পেজের Podium কার্ড (Rank 1, 2, 3) এবং পুরো লিডারবোর্ড এখান থেকে সরাসরি এডিট বা অটো-ক্যালকুলেশন অন/অফ করতে পারেন।
+              </div>
+
+              {/* Leaderboard Settings & Modes */}
+              <div className="ff-panel">
+                <div className="ff-panelhead" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 10 }}>
+                  <h3>লিডারবোর্ড মোড ও সেটিংস</h3>
+                  <div style={{ display: "flex", gap: 8 }}>
+                    <button
+                      className="ff-btn"
+                      style={{
+                        background: autoCalculateLeaderboard ? "rgba(43,212,123,0.15)" : "transparent",
+                        borderColor: autoCalculateLeaderboard ? "var(--green)" : "var(--border)",
+                        color: autoCalculateLeaderboard ? "var(--green)" : "#aeb3cd",
+                      }}
+                      onClick={() => {
+                        toggleAutoCalculateLeaderboard();
+                        showToast(`অটো ক্যালকুলেশন ${!autoCalculateLeaderboard ? "চালু" : "বন্ধ"} হয়েছে`);
+                      }}
+                    >
+                      {autoCalculateLeaderboard ? "✓ অটো ক্যালকুলেশন সক্রিয় (ইউজারদের অর্ডার অনুযায়ী)" : "✎ ম্যানুয়াল ওভাররাইড সক্রিয়"}
+                    </button>
+                    <button
+                      className="ff-btn bad"
+                      onClick={() => {
+                        resetLeaderboard();
+                        showToast("লিডারবোর্ড রিসেট হয়েছে");
+                      }}
+                    >
+                      ↺ রিসেট করুন
+                    </button>
+                  </div>
+                </div>
+                <p style={{ fontSize: 12, color: "#8b92b2", marginTop: 4 }}>
+                  {autoCalculateLeaderboard
+                    ? "ইউজাররা অর্ডার কমপ্লিট করলে তাদের মোট ডায়মন্ডের ভিত্তিতে লিডারবোর্ড স্বয়ংক্রিয়ভাবে সাজানো হচ্ছে।"
+                    : "ম্যানুয়াল মোডে আপনি নিজের ইচ্ছামতো Rank 1, Rank 2 ও Rank 3 সেট করতে পারবেন।"
+                  }
+                </p>
+              </div>
+
+              {/* Top 3 Performers Podium Editor */}
+              <div className="ff-panel">
+                <div className="ff-panelhead">
+                  <h3>হোম পেজ Podium — শীর্ষ ৩ জন পারফর্মার (Rank 1, 2, 3)</h3>
+                </div>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
+                  {[1, 2, 3].map((r) => {
+                    const item = (leaderboard || []).find((p) => p.rank === r) || { rank: r, name: "", diamonds: 0, level: "LEVEL 1", avatar: "" };
+                    const medal = r === 1 ? "🥇 ১ম স্থান (Gold)" : r === 2 ? "🥈 ২য় স্থান (Silver)" : "🥉 ৩য় স্থান (Bronze)";
+                    const borderCol = r === 1 ? "var(--gold)" : r === 2 ? "#94a3b8" : "#cd7f32";
+
+                    return (
+                      <div
+                        key={r}
+                        style={{
+                          background: "var(--card-bg-2)",
+                          border: `1px solid ${borderCol}`,
+                          borderRadius: 12,
+                          padding: 16,
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 10,
+                        }}
+                      >
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                          <span style={{ fontWeight: "bold", color: borderCol, fontSize: 14 }}>{medal}</span>
+                          <span style={{ fontFamily: "monospace", fontSize: 11, background: "rgba(255,255,255,0.06)", padding: "2px 6px", borderRadius: 4 }}>
+                            Rank #{r}
+                          </span>
+                        </div>
+
+                        <div>
+                          <label style={{ display: "block", fontSize: 11, color: "#8b92b2", marginBottom: 3 }}>প্লেয়ারের নাম</label>
+                          <input
+                            className="ff-input"
+                            defaultValue={item.name}
+                            id={`lp-name-${r}`}
+                            placeholder="Player name"
+                          />
+                        </div>
+
+                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+                          <div>
+                            <label style={{ display: "block", fontSize: 11, color: "#8b92b2", marginBottom: 3 }}>ডায়মন্ড স্কোর</label>
+                            <input
+                              className="ff-input"
+                              type="number"
+                              defaultValue={item.diamonds}
+                              id={`lp-diamonds-${r}`}
+                              placeholder="Diamonds"
+                            />
+                          </div>
+                          <div>
+                            <label style={{ display: "block", fontSize: 11, color: "#8b92b2", marginBottom: 3 }}>টায়ার / লেভেল</label>
+                            <input
+                              className="ff-input"
+                              defaultValue={item.level || (r === 1 ? "PREMIUM" : `LEVEL ${4 - r}`)}
+                              id={`lp-level-${r}`}
+                              placeholder="e.g. PREMIUM"
+                            />
+                          </div>
+                        </div>
+
+                        <div>
+                          <label style={{ display: "block", fontSize: 11, color: "#8b92b2", marginBottom: 3 }}>Avatar ছবি URL</label>
+                          <input
+                            className="ff-input"
+                            defaultValue={item.avatar}
+                            id={`lp-avatar-${r}`}
+                            placeholder="https://..."
+                          />
+                        </div>
+
+                        <button
+                          className="ff-btn primary"
+                          style={{ marginTop: 6 }}
+                          onClick={() => {
+                            const name = document.getElementById(`lp-name-${r}`).value.trim();
+                            const diamonds = Number(document.getElementById(`lp-diamonds-${r}`).value) || 0;
+                            const level = document.getElementById(`lp-level-${r}`).value.trim();
+                            const avatar = document.getElementById(`lp-avatar-${r}`).value.trim();
+
+                            updateLeaderboardItem(r, { name, diamonds, level, avatar });
+                            showToast(`Rank ${r} আপডেট সম্পন্ন ✓`);
+                          }}
+                        >
+                          সংরক্ষণ করুন ✓
+                        </button>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Complete Leaderboard Table */}
+              <div className="ff-panel">
+                <div className="ff-panelhead">
+                  <h3>সম্পূর্ণ লিডারবোর্ড র‍্যাঙ্কিং ({(leaderboard || []).length} জন)</h3>
+                </div>
+                <div className="ff-tablewrap">
+                  <table className="ff-table">
+                    <thead>
+                      <tr>
+                        <th>RANK</th>
+                        <th>প্লেয়ারের নাম</th>
+                        <th>ডায়মন্ড সংখ্যা</th>
+                        <th>লেভেল / ব্যাজ</th>
+                        <th>STATUS</th>
+                        <th>QUICK EDIT</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(leaderboard || []).map((p) => (
+                        <tr key={p.rank}>
+                          <td style={{ fontWeight: "bold", color: p.rank === 1 ? "var(--gold)" : p.rank <= 3 ? "var(--cyan)" : "#8b92b2" }}>
+                            #{p.rank}
+                          </td>
+                          <td style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                            {p.avatar && (
+                              <img
+                                src={p.avatar}
+                                alt={p.name}
+                                style={{ width: 24, height: 24, borderRadius: "50%", objectFit: "cover" }}
+                                onError={(e) => { e.currentTarget.style.display = "none"; }}
+                              />
+                            )}
+                            <span style={{ fontWeight: 600 }}>{p.name}</span>
+                          </td>
+                          <td style={{ color: "var(--cyan)", fontWeight: "bold" }}>
+                            💎 {(p.diamonds || 0).toLocaleString()}
+                          </td>
+                          <td>
+                            <span className="pill" style={{ background: "rgba(99,102,241,0.15)", color: "#a5b4fc" }}>
+                              {p.level || "LEVEL 1"}
+                            </span>
+                          </td>
+                          <td>{pill(p.rank <= 3 ? "Podium" : "Standard")}</td>
+                          <td>
+                            <button
+                              className="ff-btn"
+                              style={{ fontSize: 11, padding: "3px 8px" }}
+                              onClick={() => {
+                                const newName = prompt("প্লেয়ারের নতুন নাম দিন:", p.name);
+                                if (newName === null) return;
+                                const newDiamonds = prompt("ডায়মন্ড সংখ্যা দিন:", p.diamonds);
+                                if (newDiamonds === null) return;
+                                updateLeaderboardItem(p.rank, {
+                                  name: newName.trim() || p.name,
+                                  diamonds: Number(newDiamonds) || 0,
+                                });
+                                showToast(`Rank ${p.rank} আপডেট হয়েছে`);
+                              }}
+                            >
+                              ✎ Edit
+                            </button>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
