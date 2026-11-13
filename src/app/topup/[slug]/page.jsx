@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useParams } from "next/navigation";
 import { useApp } from "@/context/AppContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -32,18 +33,20 @@ import {
 } from "@/components/ui/tooltip";
 import Footer from "@/components/ui/Footer";
 import SpeedDial from "@/components/SpeedDial";
-export default function TopUpPage({ params }) {
+export default function TopUpPage() {
+  const routerParams = useParams();
+  const slug = routerParams?.slug || "";
+
   const [selectedOption, setSelectedOption] = useState(undefined);
   const [selectedPayment, setSelectedPayment] = useState("wallet");
   const [playerId, setPlayerId] = useState("");
   const [placedOrder, setPlacedOrder] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
   const { topupProducts, currentUser, createOrder } = useApp();
-  const slug = params.slug;
 
   // Find product from context (dynamic), fallback to a default placeholder
   const product = (topupProducts || []).find((p) => p.slug === slug) || {
-    name: decodeURIComponent(slug).replace(/-/g, " "),
+    name: slug ? decodeURIComponent(slug).replace(/-/g, " ") : "Top Up Product",
     image: "https://placehold.co/80x80.png",
     category: "Game / Top up",
     rechargeOptions: [],
@@ -60,7 +63,7 @@ export default function TopUpPage({ params }) {
   };
 
   const selectedPrice = getNumericPrice(
-    product.rechargeOptions.find((opt) => opt.id === selectedOption)?.price,
+    (product.rechargeOptions || []).find((opt) => opt.id === selectedOption)?.price,
   );
 
   const handleBuyNow = () => {
@@ -73,7 +76,7 @@ export default function TopUpPage({ params }) {
       setErrorMsg("দয়া করে ধাপ ২ এ আপনার গেম আইডি (Player UID) প্রদান করুন");
       return;
     }
-    const optObj = product.rechargeOptions.find((o) => o.id === selectedOption);
+    const optObj = (product.rechargeOptions || []).find((o) => o.id === selectedOption);
     const amountVal = Number(selectedPrice) || 0;
     const diamondsNum = parseInt(optObj?.name?.match(/\d+/)?.[0] || "100", 10);
 
@@ -160,7 +163,7 @@ export default function TopUpPage({ params }) {
               onValueChange={setSelectedOption}
               className="grid grid-cols-2 gap-2.5 sm:gap-3"
             >
-              {product.rechargeOptions.map((option) => {
+              {(product.rechargeOptions || []).map((option) => {
                 const isSelected = selectedOption === option.id;
                 return (
                   <Label

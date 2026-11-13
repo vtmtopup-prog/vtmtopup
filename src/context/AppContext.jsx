@@ -179,13 +179,13 @@ const DEFAULT_ORDERS = [
 ];
 
 // ─── Default Home Products (Homepage Sections) ───────────────────────────
-const DEFAULT_SPECIAL_OFFERS = [
+export const DEFAULT_SPECIAL_OFFERS = [
   { id: "so-1", name: "WEEKLY OFFER", image: "/weeklylight.webp", slug: "weekly-monthly-offer", category: "special-offers", active: true },
   { id: "so-2", name: "MONTHLY OFFER", image: "/monthly.webp", slug: "weekly-monthly-offer", category: "special-offers", active: true },
   { id: "so-3", name: "FRIDAY OFFER", image: "/e-badge.webp", slug: "airdrop-id-code", category: "special-offers", active: true },
 ];
 
-const DEFAULT_FREE_FIRE_PRODUCTS = [
+export const DEFAULT_FREE_FIRE_PRODUCTS = [
   { id: "ff-1", name: "UID TOP-UP [BD]", image: "/freefiretopup(bd).webp", slug: "free-fire-topup-bd", category: "free-fire", active: true },
   { id: "ff-2", name: "UNIPIN VOUCHER", image: "/unipin.webp", slug: "unipin-voucher-bd", category: "free-fire", active: true },
   { id: "ff-3", name: "WEEKLY/MONTHLY", image: "/file_00000000020c8230b8b354eff49e8cfa.png", slug: "weekly-monthly-offer", category: "free-fire", active: true },
@@ -196,7 +196,7 @@ const DEFAULT_FREE_FIRE_PRODUCTS = [
 ];
 
 // ─── Default Topup Products (Slug-based with recharge options) ────────────
-const DEFAULT_TOPUP_PRODUCTS = [
+export const DEFAULT_TOPUP_PRODUCTS = [
   {
     slug: "free-fire-topup-bd",
     name: "Free Fire TopUp (BD)",
@@ -476,9 +476,30 @@ export function AppProvider({ children }) {
       if (storedSite) setSiteSettings(JSON.parse(storedSite));
       if (storedLeaderboard) setCustomLeaderboard(JSON.parse(storedLeaderboard));
       if (storedAutoCalc !== null) setAutoCalculateLeaderboard(storedAutoCalc === "true");
-      if (storedSpecialOffers) setSpecialOffers(JSON.parse(storedSpecialOffers));
-      if (storedFFProducts) setFreeFireProducts(JSON.parse(storedFFProducts));
-      if (storedTopupProducts) setTopupProducts(JSON.parse(storedTopupProducts));
+      if (storedSpecialOffers) {
+        try {
+          const parsed = JSON.parse(storedSpecialOffers);
+          setSpecialOffers(Array.isArray(parsed) && parsed.length > 0 ? parsed : DEFAULT_SPECIAL_OFFERS);
+        } catch {
+          setSpecialOffers(DEFAULT_SPECIAL_OFFERS);
+        }
+      }
+      if (storedFFProducts) {
+        try {
+          const parsed = JSON.parse(storedFFProducts);
+          setFreeFireProducts(Array.isArray(parsed) && parsed.length > 0 ? parsed : DEFAULT_FREE_FIRE_PRODUCTS);
+        } catch {
+          setFreeFireProducts(DEFAULT_FREE_FIRE_PRODUCTS);
+        }
+      }
+      if (storedTopupProducts) {
+        try {
+          const parsed = JSON.parse(storedTopupProducts);
+          setTopupProducts(Array.isArray(parsed) && parsed.length > 0 ? parsed : DEFAULT_TOPUP_PRODUCTS);
+        } catch {
+          setTopupProducts(DEFAULT_TOPUP_PRODUCTS);
+        }
+      }
     } catch (e) {
       console.warn("Error loading stored VTM state:", e);
     } finally {

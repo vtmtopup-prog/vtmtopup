@@ -1,16 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import { useApp } from "@/context/AppContext";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";
 
 export function DismissibleAlert() {
+  const { siteSettings } = useApp();
   const [isOpen, setIsOpen] = useState(true);
 
   if (!isOpen) {
     return null;
   }
+
+  const noticeText = siteSettings?.siteNotice || "Notice : VTM TOP UP ০৫ সেকেন্ডে টপআপ কমপ্লিট করা হয় AI বট দিয়ে...!! আমাদের সাইট দিন রাত ২৪ ঘন্টা চালু থাকে..! টপ আপ করতে সমস্যা হলে Website এর নিচে WhatsApp নাম্বারে ম্যাসেজ করুন ! ⚠";
 
   return (
     <>
@@ -45,11 +49,7 @@ export function DismissibleAlert() {
           {/* Marquee Text Content */}
           <div className="flex-1 overflow-hidden whitespace-nowrap">
             <div className="animate-alert-marquee text-xs md:text-sm font-medium text-slate-800">
-              Notice : VTM TOP UP ০৫ সেকেন্ডে টপআপ কমপ্লিট করা হয় AI বট
-              দিয়ে...!! আমাদের সাইট দিন রাত ২৪ ঘন্টা চালু থাকে..! টপ আপ করতে
-              সমস্যা হলে Website এর নিচে WhatsApp নাম্বারে ম্যাসেজ করুন ! ⚠
-              সতর্কবার্তা - ১৮ বছরের নিচে কেউ বাবা মার পকেট মেরে টপ আপ করলে
-              কর্তৃপক্ষ দায়ী নয়।
+              {noticeText}
             </div>
           </div>
 

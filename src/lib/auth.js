@@ -2,7 +2,7 @@ import { betterAuth } from "better-auth";
 
 export const auth = betterAuth({
   baseURL: process.env.BETTER_AUTH_URL || "http://localhost:9002",
-  secret: process.env.BETTER_AUTH_SECRET,
+  secret: process.env.BETTER_AUTH_SECRET || "vtmtopup-fallback-secret-development-key-32-chars",
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID || "",

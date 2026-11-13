@@ -8,14 +8,17 @@ import TopPerformers from "@/components/TopPerformers";
 import LatestOrders from "@/components/LatestOrders";
 import Footer from "@/components/ui/Footer";
 import SpeedDial from "@/components/SpeedDial";
-import { useApp } from "@/context/AppContext";
+import { useApp, DEFAULT_SPECIAL_OFFERS, DEFAULT_FREE_FIRE_PRODUCTS } from "@/context/AppContext";
 
 export default function Home() {
   const { specialOffers, freeFireProducts } = useApp();
 
+  const offersRaw = (specialOffers && specialOffers.length > 0) ? specialOffers : DEFAULT_SPECIAL_OFFERS;
+  const ffRaw = (freeFireProducts && freeFireProducts.length > 0) ? freeFireProducts : DEFAULT_FREE_FIRE_PRODUCTS;
+
   // Only show active products
-  const activeOffers = (specialOffers || []).filter((o) => o.active !== false);
-  const activeFFProducts = (freeFireProducts || []).filter((p) => p.active !== false);
+  const activeOffers = offersRaw.filter((o) => o.active !== false);
+  const activeFFProducts = ffRaw.filter((p) => p.active !== false);
 
   return (
     <div className="flex flex-col min-h-screen text-foreground">

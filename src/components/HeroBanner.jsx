@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
+import { useApp } from "@/context/AppContext";
 import { FaWhatsapp, FaTelegramPlane } from "react-icons/fa"; // react-icons ব্যবহার করলে ভালো দেখাবে
 
 // যদি react-icons না থাকে, তবে নিচের SVG গুলো ব্যবহার করতে পারেন
@@ -72,10 +73,18 @@ const slides = [
 ];
 
 export default function HeroBanner() {
+  const { siteSettings } = useApp();
   const [current, setCurrent] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [progress, setProgress] = useState(0);
   const INTERVAL = 5000;
+
+  const dynamicWa = siteSettings?.whatsappNumber
+    ? (siteSettings.whatsappNumber.startsWith("http")
+        ? siteSettings.whatsappNumber
+        : `https://wa.me/${siteSettings.whatsappNumber.replace(/\D/g, "")}`)
+    : "https://wa.me/8801700000000";
+  const dynamicTg = siteSettings?.telegramChannel || "https://t.me/vtmtopup";
 
   const goTo = useCallback(
     (idx) => {
@@ -186,7 +195,7 @@ export default function HeroBanner() {
       {/* Floating Circular Buttons (Bottom Right, slightly overlapping) */}
       <div className="absolute bottom-3 right-3 sm:bottom-5 sm:right-5 flex items-center gap-2 sm:gap-3 z-30">
         <a
-          href={slide.hrefLeft}
+          href={dynamicWa}
           target="_blank"
           rel="noopener noreferrer"
           className="w-9 h-9 sm:w-12 sm:h-12 bg-[#25D366] rounded-full flex items-center justify-center text-white shadow-[0_4px_14px_rgba(37,211,102,0.5)] hover:scale-110 active:scale-95 transition-all duration-300"
@@ -195,7 +204,7 @@ export default function HeroBanner() {
           <WAIcon />
         </a>
         <a
-          href={slide.hrefRight}
+          href={dynamicTg}
           target="_blank"
           rel="noopener noreferrer"
           className="w-9 h-9 sm:w-12 sm:h-12 bg-[#0088cc] rounded-full flex items-center justify-center text-white shadow-[0_4px_14px_rgba(0,136,204,0.5)] hover:scale-110 active:scale-95 transition-all duration-300"

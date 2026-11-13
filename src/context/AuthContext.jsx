@@ -30,30 +30,40 @@ export const AuthProvider = ({ children }) => {
 
   // Sync with Firebase authentication
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(
-      auth,
-      (currentUser) => {
-        if (currentUser) {
-          setUser({
-            uid: currentUser.uid,
-            name: currentUser.displayName || currentUser.email?.split("@")[0] || "Player1",
-            email: currentUser.email,
-            avatar: currentUser.photoURL || "/default-avatar.png",
-          });
-        } else {
-          // Keep null if not logged into Firebase unless set by mock login
-          setUser(null);
-        }
-        setLoading(false);
-      },
-      (error) => {
-        console.error("Auth state change error:", error);
-        setUser(null);
-        setLoading(false);
-      }
-    );
+    if (!auth) {
+      setLoading(false);
+      return;
+    }
 
-    return () => unsubscribe();
+    try {
+      const unsubscribe = onAuthStateChanged(
+        auth,
+        (currentUser) => {
+          if (currentUser) {
+            setUser({
+              uid: currentUser.uid,
+              name: currentUser.displayName || currentUser.email?.split("@")[0] || "Player1",
+              email: currentUser.email,
+              avatar: currentUser.photoURL || "/default-avatar.png",
+            });
+          } else {
+            // Keep null if not logged into Firebase unless set by mock login
+            setUser(null);
+          }
+          setLoading(false);
+        },
+        (error) => {
+          console.warn("Auth state change notice:", error.message);
+          setUser(null);
+          setLoading(false);
+        }
+      );
+
+      return () => unsubscribe();
+    } catch (err) {
+      console.warn("Firebase onAuthStateChanged error:", err.message);
+      setLoading(false);
+    }
   }, []);
 
   /**
