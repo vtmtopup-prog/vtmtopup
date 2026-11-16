@@ -42,6 +42,9 @@ export default function TopUpPage() {
   const [playerId, setPlayerId] = useState("");
   const [placedOrder, setPlacedOrder] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [playerName, setPlayerName] = useState("");
+  const [apiError, setApiError] = useState("");
   const { topupProducts, currentUser, createOrder } = useApp();
 
   // Find product from context (dynamic), fallback to a default placeholder
@@ -65,6 +68,33 @@ export default function TopUpPage() {
   const selectedPrice = getNumericPrice(
     (product.rechargeOptions || []).find((opt) => opt.id === selectedOption)?.price,
   );
+
+  const handleCheckId = async () => {
+    if (!playerId.trim()) {
+      setApiError("প্রথমে আপনার গেম আইডি (UID) টাইপ করুন");
+      return;
+    }
+
+    setLoading(true);
+    setApiError("");
+    setPlayerName("");
+
+    try {
+      const res = await fetch(`/api/ff-info?uid=${encodeURIComponent(playerId.trim())}`);
+      const data = await res.json();
+
+      if (data.status === true && data.data?.username) {
+        setPlayerName(data.data.username);
+      } else {
+        setApiError(data.message || "প্লেয়ার আইডি পাওয়া যায়নি বা সার্ভারে সমস্যা হয়েছে।");
+      }
+    } catch (err) {
+      console.error("Player ID lookup error:", err);
+      setApiError("প্লেয়ার আইডি চেক করতে সমস্যা হয়েছে। ইন্টারনেট সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleBuyNow = () => {
     setErrorMsg("");
@@ -244,23 +274,35 @@ export default function TopUpPage() {
                   value={playerId}
                   onChange={(e) => {
                     setPlayerId(e.target.value);
-                    setErrorMsg("");
+                    setPlayerName("");
+                    setApiError("");
                   }}
-                  className="border-slate-200 dark:border-slate-800 focus:border-[#adacad] rounded-xl font-mono text-sm"
+                  className="border-slate-200 dark:border-slate-800 focus:border-[#7132c7] rounded-xl font-mono text-sm"
                 />
                 <Button
                   type="button"
-                  onClick={() => {
-                    if (!playerId.trim()) {
-                      setErrorMsg("প্রথমে আপনার গেম আইডি (UID) টাইপ করুন");
-                      return;
-                    }
-                    alert(`গেম আইডি: ${playerId.trim()} (যাচাই সফল ✓)`);
-                  }}
-                  className="shrink-0 rounded-xl border-pink-500 hover:border-[#c732c7] hover:text-[#afaeaf]"
+                  disabled={loading}
+                  onClick={handleCheckId}
+                  className="shrink-0 rounded-xl bg-[#7132c7] hover:bg-[#5f2ab0] text-white font-medium disabled:opacity-60 transition-all flex items-center justify-center gap-2"
                 >
-                  আপনার গেম আইডির নাম চেক করুন
+                  {loading && <RefreshCw className="w-4 h-4 animate-spin" />}
+                  {loading ? "চেক করা হচ্ছে..." : "আপনার গেম আইডির নাম চেক করুন"}
                 </Button>
+
+                {/* Verification Success UI State */}
+                {playerName && (
+                  <div className="mt-1.5 p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 text-emerald-700 dark:text-emerald-300 text-sm font-semibold flex items-center gap-2 animate-in fade-in">
+                    <span>✅ প্লেয়ার নাম:</span>
+                    <span className="font-bold underline decoration-emerald-400">{playerName}</span>
+                  </div>
+                )}
+
+                {/* Verification Error UI State */}
+                {apiError && (
+                  <div className="mt-1.5 p-2.5 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-800/60 text-red-600 dark:text-red-300 text-sm font-semibold flex items-center gap-2 animate-in fade-in">
+                    <span>⚠️ {apiError}</span>
+                  </div>
+                )}
               </div>
             </div>
           </CardContent>
@@ -391,6 +433,12 @@ export default function TopUpPage() {
                       <span className="text-slate-500">Player UID:</span>
                       <span className="font-mono font-bold text-slate-800 dark:text-slate-100">{placedOrder.uid}</span>
                     </div>
+                    {playerName && (
+                      <div className="flex justify-between">
+                        <span className="text-slate-500">প্লেয়ার নাম:</span>
+                        <span className="font-semibold text-emerald-600 dark:text-emerald-400">{playerName}</span>
+                      </div>
+                    )}
                     <div className="flex justify-between">
                       <span className="text-slate-500">টাকার পরিমাণ:</span>
                       <span className="font-bold text-emerald-600">৳{placedOrder.amount}</span>
